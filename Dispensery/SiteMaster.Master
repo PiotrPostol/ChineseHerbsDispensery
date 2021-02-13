@@ -1,0 +1,344 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteMaster.Master.cs" Inherits="Dispensery.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server"></asp:ContentPlaceHolder>
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="Scripts/jquery-3.5.1.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <script src="Scripts/umd/popper.min.js"></script>
+    <script src="Scripts/umd/popper-utils.min.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+  
+    <link href="Content/fontawesome-all.css" rel="stylesheet" />
+    <link href="Content/fontawesome.css" rel="stylesheet" />
+    <link href="Styless/customStyles.css" rel="stylesheet" />
+ 
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="page-wrapper chiller-theme toggled">
+            <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+                <i class="fas fa-bars"></i>
+            </a>
+            <nav id="sidebar" class="sidebar-wrapper">
+                <div class="sidebar-content">
+                    <div class="sidebar-brand">
+                        <a href="#">Dispensery Manager</a>
+                        <div id="close-sidebar">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+                    <asp:ContentPlaceHolder ID="UserInfo" runat="server">
+
+                    </asp:ContentPlaceHolder>
+                    <div class="sidebar-header">
+                        <div class="user-pic">
+                            <img class="img-responsive img-rounded" src="Img/Lara.jpg"
+                                alt="User picture">
+                        </div>
+                        <div class="user-info">
+                            <asp:Label ID="lblPractitionerName" runat="server" Text="Lara Serviolle"></asp:Label>
+                        <%--    <span id="lbPractitionerName" class="user-name">Lara
+           
+                                <strong>Serviolle</strong>
+                            </span>--%>
+                            <span class="user-role">Practitioner</span>
+                            <%--<span class="user-status">
+                                <i class="fa fa-circle"></i>
+                                <span>Online</span>
+                            </span>--%>
+                        </div>
+                    </div>
+                    <!-- sidebar-header  -->
+                    <div class="sidebar-search">
+                        <div>
+                            <div class="input-group">
+                                <input type="text" class="form-control search-menu" placeholder="Search...">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- sidebar-search  -->
+                    <div class="sidebar-menu">
+                        <ul>
+                            <li class="header-menu">
+                                <span>General</span>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="PrescriptionMain.aspx">
+                                    <i class="fa fa-tachometer-alt fa-lg"></i>
+                                    <span>Dashboard</span>
+                                    <%--<span class="badge badge-pill badge-warning">New</span>--%>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Dashboard 1
+                   
+                                                <%--                                                <span class="badge badge-pill badge-success">Pro</span>--%>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Dashboard 2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Dashboard 3</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-shopping-cart fa-lg"></i>
+                                    <span>Inventory</span>
+                                    <%--<span class="badge badge-pill badge-danger">3</span>--%>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">View Stock</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Update Stock</a>
+                                        </li>
+                                         <li>
+                                            <a href="#">Patent Formulas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Stock History</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fas fa-mortar-pestle fa-lg"></i>
+                                    <span>Prescriptions</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="AddNewPrescription.aspx">New Granules Order</a>
+                                        </li>
+                                         <%--<li>
+                                            <a href="#">New Raw Herb Order</a>
+                                        </li>--%>
+                                        <li>
+                                            <a href="#">Patent Formula</a>
+                                        </li>
+                                    <li>
+                                            <a href="PendingPrescriptions.aspx">Pending Prescriptions</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Order History</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                             <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fas fa-prescription-bottle fa-lg"></i>
+                                    <span>Patent Formula</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Manufacture</a>
+                                        </li>
+                                         <%--<li>
+                                            <a href="#">New Raw Herb Order</a>
+                                        </li>--%>
+                                        <li>
+                                            <a href="#">Dispense</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">View Stock</a>
+                                        </li>
+                                    
+                                        <li>
+                                            <a href="#">Sales History</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-chart-line fa-lg"></i>
+                                    <span>Charts</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Sales</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Low Stock</a>
+                                        </li>
+                                      
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-address-book fa-lg"></i>
+                                    <span>Patients</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Add New</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">View Patients</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Edit Patient</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="header-menu">
+                                <span>Extra</span>
+                            </li>
+                             <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-envelope fa-lg"></i>
+                                    <span>Mailing Center</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Add New Template</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">View Templates</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-calendar"></i>
+                                    <span>Calendar</span>
+                                </a>
+                            </li>
+                            <%--<li>
+                                <a href="#">
+                                    <i class="fa fa-folder"></i>
+                                    <span>Examples</span>
+                                </a>
+                            </li>--%>
+                        </ul>
+                    </div>
+                    <!-- sidebar-menu  -->
+                </div>
+                <!-- sidebar-content  -->
+                <div class="sidebar-footer">
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <%--<span class="badge badge-pill badge-warning notification">3</span>--%>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <%-- <span class="badge badge-pill badge-success notification">7</span>--%>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-cog"></i>
+                        <%--<span class="badge-sonar"></span>--%>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </div>
+            </nav>
+            <!-- sidebar-wrapper  -->
+           
+                    <asp:ContentPlaceHolder ID="contentBody" runat="server">
+                    </asp:ContentPlaceHolder>
+
+           
+            <!-- page-content" -->
+        </div>
+
+
+    </form>
+    <script>
+        jQuery(function ($) {
+
+            $(".sidebar-dropdown > a").click(function () {
+                $(".sidebar-submenu").slideUp(200);
+                if (
+                    $(this)
+                        .parent()
+                        .hasClass("active")
+                ) {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(this)
+                        .parent()
+                        .removeClass("active");
+                } else {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(this)
+                        .next(".sidebar-submenu")
+                        .slideDown(200);
+                    $(this)
+                        .parent()
+                        .addClass("active");
+                }
+            });
+
+            $("#close-sidebar").click(function () {
+                $(".page-wrapper").removeClass("toggled");
+            });
+            $("#show-sidebar").click(function () {
+                $(".page-wrapper").addClass("toggled");
+            });
+
+
+
+
+        });
+        //--------------tooltip----------------
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+ ////-----------------slide up---------------
+ //           $(window).scroll(function () {
+ //           $(".slideanim").each(function () {
+ //               var pos = $(this).offset().top;
+
+ //               var winTop = $(window).scrollTop();
+ //               if (pos < winTop + 600) {
+ //                   $(this).addClass("slide");
+ //               }
+ //           });
+ //       });
+
+
+
+        });
+
+       
+        
+
+
+    </script>
+</body>
+</html>
