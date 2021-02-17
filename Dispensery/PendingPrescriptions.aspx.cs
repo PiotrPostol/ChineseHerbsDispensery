@@ -207,7 +207,7 @@ namespace Dispensery
                         practitionerName = rdr["PracName"].ToString() + " "+ rdr["PracSurname"].ToString();
                         practitionerEmail = rdr["PracEmail"].ToString();
                         practitionerPhoneNo = rdr["PracTellphoneNum"].ToString();
-
+                         
                     }
                 }
                 catch (Exception ex)

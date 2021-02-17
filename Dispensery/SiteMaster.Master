@@ -202,10 +202,10 @@
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="#">Add New</a>
+                                            <a href="AddPatient.aspx">Add New</a>
                                         </li>
                                         <li>
-                                            <a href="#">View Patients</a>
+                                            <a href="AllPatients.aspx">View Patients</a>
                                         </li>
                                         <li>
                                             <a href="#">Edit Patient</a>

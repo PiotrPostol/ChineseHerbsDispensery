@@ -115,7 +115,7 @@
 
 
                                         <div class="col-md-2 text-right mb-4  align-self-end ">
-                                            <asp:Button ID="btnAddNewPatient" CssClass="btn col-md-12 btn-success" runat="server" Text="Add Patient" />
+                                            <asp:Button ID="btnAddNewPatient" CssClass="btn col-md-12 btn-success" runat="server" Text="Add Patient" OnClick="btnAddNewPatient_Click" />
                                         </div>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
 
 
                                 </div>
-
+                                <asp:HiddenField ID="hdFormulaRefNum" runat="server" Value="" />
                                 <%--          ----------------------------Alert - Low Stock------------%>
                                 <div id="stockAlert" class="form-row" runat="server" visible="false">
                                     <div class="alert alert-danger alert-dismissible col-md-12">

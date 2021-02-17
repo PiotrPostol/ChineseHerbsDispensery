@@ -97,7 +97,7 @@
 
                                     </ItemTemplate>
                                 </asp:Repeater>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT PrescriptionCost.PrescriptionID, PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Pending')">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT PrescriptionCost.PrescriptionID, PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Pending') ORDER BY PrescriptionCost.DateCreated DESC, PatientName, PrescriptionCost.FormulaRefNum">
                                 </asp:SqlDataSource>
                             </div>
 
@@ -203,6 +203,10 @@
                         <div id="Invoice" class="flex-row">
                             <%-- Patient Invoice --%>
                             <div id="patientInvoice" runat="server">
+                                <div class="table-responsive-lg">
+  <table class="table">
+   
+  
                                 <asp:GridView ID="GridView1" CssClass="table  table-hover table-striped table-bordered border-info rounded" runat="server" DataSourceID="SqlDataSource2" AutoGenerateColumns="False" Visible="false" ShowFooter="false">
                                     <%--GridLines="None" --%>
                                     <Columns>
@@ -218,6 +222,9 @@
                                         <asp:ControlParameter ControlID="modallblFormulaRefNum" PropertyName="Text" Name="formulaRefNum" DefaultValue="0"></asp:ControlParameter>
                                     </SelectParameters>
                                 </asp:SqlDataSource>
+                                </table>
+</div>
+
                                 <div class="form-row p-md-0 align-items-center">
                                     <div class="col-md-5">
                                     </div>
@@ -300,7 +307,7 @@
                                     <HeaderStyle CssClass="" Font-Size="Larger" />
                                     <FooterStyle CssClass=" alert-info font-weight-bold" BackColor="#dee2e6" Font-Italic="true" />
                                 </asp:GridView>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource4" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PrescriptionMain.HerbBatchNum, AllHerbs.HerbName, PrescriptionMain.GranulesQuantity / PrescriptionMain.DosageDays AS DailyDosage, PrescriptionMain.GranulesQuantity, HerbStock.SellPrice, PrescriptionMain.Subtotal FROM PrescriptionMain INNER JOIN AllHerbs ON PrescriptionMain.HerbRefNum = AllHerbs.RefNum INNER JOIN HerbStock ON AllHerbs.RefNum = HerbStock.HerbRefNum CROSS JOIN PrescriptionCost WHERE (PrescriptionMain.FormulaRefNum = @formulaRefNum)">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource4" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PrescriptionMain.HerbBatchNum, AllHerbs.HerbName, PrescriptionMain.GranulesQuantity / PrescriptionMain.DosageDays AS DailyDosage, PrescriptionMain.GranulesQuantity, HerbStock.SellPrice, PrescriptionMain.Subtotal FROM PrescriptionMain INNER JOIN AllHerbs ON PrescriptionMain.HerbRefNum = AllHerbs.RefNum INNER JOIN HerbStock ON AllHerbs.RefNum = HerbStock.HerbRefNum AND PrescriptionMain.HerbBatchNum = HerbStock.BatchNum WHERE (PrescriptionMain.FormulaRefNum = @formulaRefNum)">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="modallblFormulaRefNum" PropertyName="Text" Name="formulaRefNum" DefaultValue="0"></asp:ControlParameter>
                                     </SelectParameters>

@@ -43,7 +43,7 @@ namespace Dispensery
             
             // ---------ViewState to record values of patient, formula name and number of days ------
            
-            //ViewState["Patient"] = ddlPatient.Text;
+            ViewState["PatientID"] = ddlPatient.SelectedValue;
             ViewState["FormulaName"] = tbxFormulaName.Text;
             ViewState["NumOfDays"] = tbxNumDays.Text;
             ViewState["Patient"] = ddlPatient.SelectedItem.Text;
@@ -53,6 +53,7 @@ namespace Dispensery
                 if (!(String.IsNullOrEmpty(ddlPatient.Text.Trim())))
                 {
                     lblPatient.Text = ViewState["Patient"].ToString();
+                    patientID = Convert.ToInt16(ViewState["PatientID"].ToString());
                     ddlPatient.Visible = false;
                     btnAddNewPatient.Visible = false;
                     lblPatient.Visible = true;
@@ -290,24 +291,25 @@ namespace Dispensery
                 if(instock == 1)
                 {
                     string formulaName = tbxFormulaName.Text.ToString();
-                         FormulaRefNum();
+                    if (hdFormulaRefNum.Value == "")
+                    {
+                        FormulaRefNum();
+                        hdFormulaRefNum.Value = formulaRefNum.ToString();
+                    }
+//-------------------HardCodeed Practitioner ID!!!!!!!!!!!!--------------------
+                    practitionerID = 1;
+
+
+
+                    formulaRefNum = hdFormulaRefNum.Value.ToString();
                         InsertRecordTempPrescription(formulaRefNum, refNum, formulaName,herbQuantity, numOfDosageDays, patientID, practitionerID);
 
-                        //phenixPrice = GetHerbPrice(refNum, herbQuantity, "Phenix") * herbQuantity;
-                        //balancePrice = GetHerbPrice(refNum, herbQuantity, "Balance") * herbQuantity;
-                        //InsertRecordTempPrescription(refNum, herbName, herbQuantity, phenixPrice, balancePrice);
                         GetTotals();
 
                         grvShort.DataBind();
                     grvShort.UseAccessibleHeader = true;
                     grvShort.HeaderRow.TableSection = TableRowSection.TableHeader;
                 }
-                //else
-                //{
-                //        message = "No Herb or Quantity selected! Please Enter requiered Herb or Quantity.";
-                //        ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
-                //        message = "";
-                //}
             }
         }
 
@@ -321,7 +323,10 @@ namespace Dispensery
             string formulaName = lblFormulaName.Text.ToString();
             Label lblMasterStatus = (Label)Master.FindControl("lblPractitionerName");
             string pracName = lblMasterStatus.Text.ToString();
+//-------------------HardCodeed Practitioner ID!!!!!!!!!!!!--------------------
             practitionerID = 1;
+
+
             try
             {
                 patientID = Convert.ToInt16(ddlPatient.SelectedValue.ToString());
@@ -333,7 +338,7 @@ namespace Dispensery
                 message = "";
             }
 
-            formulaRefNum = ExtractInitialsFromName(pracName) + dayOfYear + year + DateTime.Now.ToString("HHmm") + ExtractInitialsFromName(formulaName);
+            formulaRefNum = ExtractInitialsFromName(pracName) + dayOfYear + year + DateTime.Now.ToString("HHmmss") + ExtractInitialsFromName(formulaName);
             if (tbxNumDays.Text.ToString() != "")
             {
 
@@ -711,6 +716,11 @@ namespace Dispensery
 
             }
 
+        }
+
+        protected void btnAddNewPatient_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddPatient.aspx");
         }
     }
 }
