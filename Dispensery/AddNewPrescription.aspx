@@ -159,7 +159,7 @@
                                     </div>
                                     <div class="form-group col-md-5">
                                         <label class=" font-weight-bold myFont" for="tbxHerb">Select Herb:</label>
-                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" Title="Enter First Letter Of The Herb & Select From The List"></asp:TextBox>
+                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" ></asp:TextBox>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label class=" font-weight-bold myFont" for="tbxQuantity">Quantity (g):</label>

@@ -112,7 +112,7 @@
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="#">View Stock</a>
+                                            <a href="ViewInventory.aspx">View Stock</a>
                                         </li>
                                         <li>
                                             <a href="#">Update Stock</a>

@@ -417,11 +417,11 @@ namespace Dispensery
             // Extract up to 2 initials from the remaining cleaned name.
             initials = Regex.Replace(initials, @"^(\p{L})[^\s]*(?:\s+(?:\p{L}+\s+(?=\p{L}))?(?:(\p{L})\p{L}*)?)?$", "$1$2").Trim();
 
-            //if (initials.Length > 2)
-            //{
-            //    // Worst case scenario, everything failed, just grab the first two letters of what we have left.
-            //    initials = initials.Substring(0, 2);
-            //}
+            if (initials.Length > 2)
+            {
+                // Worst case scenario, everything failed, just grab the first two letters of what we have left.
+                initials = initials.Substring(0, 2);
+            }
 
             return initials.ToUpperInvariant();
         }
