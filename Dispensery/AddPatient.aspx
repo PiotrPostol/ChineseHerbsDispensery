@@ -47,11 +47,11 @@
                                 </div>
                             </div>
                             <div class="form-row ">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-lg-6">
                                     <label for="tbxPatientName">Name:</label>
                                     <asp:TextBox ID="tbxPatientName" CssClass="form-control" runat="server" required="true"></asp:TextBox>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-lg-6">
                                     <label for="tbxPatientSurname">Surname:</label>
                                     <asp:TextBox ID="tbxPatientSurname" CssClass="form-control" runat="server" required="true"></asp:TextBox>
                                 </div>
@@ -61,11 +61,11 @@
                                 <asp:TextBox ID="tbxPatientAddress" CssClass="form-control" runat="server" required="true"></asp:TextBox>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-lg-6">
                                     <label for="tbxPatientCityTown">City/Town:</label>
                                     <asp:TextBox ID="tbxPatientCityTown" CssClass="form-control" runat="server" required="true"></asp:TextBox>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-lg-4">
                                     <label for="inputState">County:</label>
                                     <select id="inputState" class="form-control">
                                         <option selected>Choose...</option>
@@ -104,17 +104,17 @@
 
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2">
                                     <label for="tbxEirecode">Eirecode:</label>
                                     <asp:TextBox ID="tbxEirecode" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-lg-6">
                                     <label for="tbxPatientPhoneNumber">Phone Number:</label>
                                     <asp:TextBox ID="tbxPatientPhoneNumber" CssClass="form-control" runat="server" required="true"></asp:TextBox>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-lg-6">
                                     <label for="tbxPatientEmail">Email:</label>
                                     <asp:TextBox ID="tbxPatientEmail" CssClass="form-control" runat="server" TextMode="Email"></asp:TextBox>
                                 </div>

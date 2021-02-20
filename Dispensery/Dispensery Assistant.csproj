@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddHerbToStock.aspx" />
     <Content Include="AddNewPrescription.aspx" />
     <Content Include="AddPatient.aspx" />
     <Content Include="AllPatients.aspx" />
@@ -153,6 +154,7 @@
     <Content Include="Img\edit.png" />
     <Content Include="Img\Herbs Prices.jpg" />
     <Content Include="Img\herbs.jpg" />
+    <Content Include="Img\ICEF_icon-calendar.png" />
     <Content Include="Img\icon-specialty-granules.png" />
     <Content Include="Img\iconfinder_handrawn_Add_Plus_Doodle_436170.png" />
     <Content Include="Img\Invoice Header.png" />
@@ -314,6 +316,13 @@
     <Content Include="webfonts\fa-brands-400.eot" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddHerbToStock.aspx.cs">
+      <DependentUpon>AddHerbToStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddHerbToStock.aspx.designer.cs">
+      <DependentUpon>AddHerbToStock.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddNewPrescription.aspx.cs">
       <DependentUpon>AddNewPrescription.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

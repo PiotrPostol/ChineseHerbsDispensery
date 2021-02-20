@@ -34,6 +34,8 @@ namespace Dispensery
         decimal totalGranulesQuantity;
         decimal totalCost;
         decimal totalCostPlusPostage;
+        decimal discount;
+        decimal totalPrescriptionCost;
 
 
         //DataTable herbDT;
@@ -49,7 +51,7 @@ namespace Dispensery
             ViewState["Patient"] = ddlPatient.SelectedItem.Text;
             if (IsPostBack)
             {
-                
+               
                 if (!(String.IsNullOrEmpty(ddlPatient.Text.Trim())))
                 {
                     lblPatient.Text = ViewState["Patient"].ToString();
@@ -185,7 +187,7 @@ namespace Dispensery
                                 break;
                             case 2:
                                 admTimePeriodCalc = Convert.ToInt32(tbxNumDays.Text.ToString()) / admPerTimePeriod;
-                                administrationCost = Math.Round(admTimePeriodCalc) * admCost;
+                                administrationCost = admTimePeriodCalc * admCost;
                                 break;
                             case 3:
                                 GetTotalGranulesQuantity();
@@ -490,7 +492,26 @@ namespace Dispensery
             }
             costb4DispenseryFee = totalFormulaPrice + administrationCost;
             totalCost = (costb4DispenseryFee *(dispensingFee / 100))+ costb4DispenseryFee;
-            totalCostPlusPostage = totalCost + postageCost;
+            totalCostPlusPostage = (totalCost + postageCost);
+            if (tbxDiscount.Text.ToString() == "0.00" || tbxDiscount.Text.ToString() == "")
+            {
+                discount = 0;
+            }
+            else
+            {
+                discount = Convert.ToDecimal(tbxDiscount.Text.ToString());
+            }
+            
+            //if(totalCostPlusPostage<discount)
+            //{
+            //    totalCostPlusPostage = 0;
+            //}
+            //else
+            //{
+            //    totalCostPlusPostage = totalCostPlusPostage - discount;
+
+            //}
+            tbxDiscount.Text = discount.ToString();
             lblTotalCost.Text = "€"+ totalCostPlusPostage.ToString("0.00");
 
 
@@ -670,7 +691,7 @@ namespace Dispensery
             if (rdbAdministration.SelectedItem == null)
             {
                 divAlert.Visible = true;
-                lblNoSelectionAlertHeader.Text = "No Administration Method Selected.";
+                lblNoSelectionAlertHeader.Text = "No Dispensing Method Selected.";
                 
             }
             else if(rdbPostage.SelectedItem == null)
@@ -692,6 +713,7 @@ namespace Dispensery
                     command.Parameters.AddWithValue("@dispensingFee", Convert.ToDecimal(ddlDispensingFee.SelectedItem.Value));
                     command.Parameters.AddWithValue("@postage", rdbPostage.SelectedItem.Text);
                     command.Parameters.AddWithValue("@postageFee", postageCost);
+                    command.Parameters.AddWithValue("@discount", Convert.ToDecimal(tbxDiscount.Text.ToString()));
                     command.Parameters.AddWithValue("@prescriptionStatus", "Pending");
                     con.Open();
                     try
@@ -721,6 +743,17 @@ namespace Dispensery
         protected void btnAddNewPatient_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddPatient.aspx");
+        }
+
+        protected void tbxDiscount_TextChanged(object sender, EventArgs e)
+        {
+            GetTotals();
+            tbxDiscount.Text = discount.ToString();
+        }
+
+        protected void tbxDiscount_PreRender(object sender, EventArgs e)
+        {
+            tbxDiscount.Attributes["Value"] = tbxDiscount.Text;
         }
     }
 }

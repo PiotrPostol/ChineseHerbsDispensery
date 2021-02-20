@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="col-md-8 mb-4">
                                         <label class=" font-weight-bold myFont" for="ddlPrescripion">Number Of Days:</label>
-                                        <asp:TextBox ID="tbxNumDays" OnTextChanged="tbxNumDays_TextChanged" class="NumbersOnly form-control" runat="server" ToolTip="Enter Number of Days"></asp:TextBox>
+                                        <asp:TextBox ID="tbxNumDays" OnTextChanged="tbxNumDays_TextChanged" class="NumbersOnly form-control" runat="server" ToolTip="Enter Number of Days" ></asp:TextBox>
                                         <div id="divNumDays" class="col-md-9 border border-success rounded p-2 " runat="server">
                                             <asp:Label ID="lblNumDays" CssClass=" font-weight-bold" runat="server" Visible="false"></asp:Label>
                                         </div>
@@ -159,11 +159,11 @@
                                     </div>
                                     <div class="form-group col-md-5">
                                         <label class=" font-weight-bold myFont" for="tbxHerb">Select Herb:</label>
-                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" ></asp:TextBox>
+                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" AutoPostBack="false" ></asp:TextBox>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label class=" font-weight-bold myFont" for="tbxQuantity">Quantity (g):</label>
-                                        <asp:TextBox ID="tbxQuantity" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" Title="Enter Raw Herb Quantity In Grams"></asp:TextBox>
+                                        <asp:TextBox ID="tbxQuantity" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" Title="Enter Raw Herb Quantity In Grams" AutoPostBack="false"></asp:TextBox>
                                     </div>
                                     <div class="form-group col-md-2 text-right mb-3  align-self-end">
                                         <asp:Button ID="btnAddToTable" class="btn col-md-12 btn-success  " data-toggle="tooltip" title="Add New Herb" runat="server" Text="Add" OnClick="btnAddToTable_Click"></asp:Button>
@@ -309,7 +309,7 @@
                                 <br />
                                 <hr />
                                 <div class="form-group">
-                                    <div class="row">
+                                    <div class="form-row mb-5">
                                         <div class="col-sm-2">
                                             <i class="fa fa-mail-bulk fa-4x" style="color: #9fc299;"></i>
                                         </div>
@@ -318,7 +318,7 @@
                                         </div>
                                         <div class="col-sm-5">
 
-                                            <asp:RadioButtonList required="true" CssClass="form-check-input" ID="rdbPostage" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource6" DataTextField="PostageMethod" DataValueField="PostageCost">
+                                            <asp:RadioButtonList required="true" CssClass="form-check-input ml-lg-1" ID="rdbPostage" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource6" DataTextField="PostageMethod" DataValueField="PostageCost">
                                             </asp:RadioButtonList>
                                             <asp:SqlDataSource runat="server" ID="SqlDataSource6" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT * FROM [PostageCost]"></asp:SqlDataSource>
                                         
@@ -327,6 +327,21 @@
                                 </div>
 
                                 <br />
+                                  <hr />
+                                 <div class="form-group">
+                                    <div class="form-row mt-2">
+                                        <div class="col-sm-2">
+                                            <i class="far fa-minus-square fa-4x" style="color: #9fc299;"></i>
+                                        </div>
+                                        <div class="col-form-label myFont col-sm-5 font-weight-bold pt-0 pl-0">
+                                            Discount
+                                        </div>
+                                        <div class="col-sm-5 align-self-center">
+
+                                            <asp:TextBox ID="tbxDiscount"  CssClass="form-control" runat="server" placeholder="€0.00" Text=""  AutoPostBack="false"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br />
                                 <hr />
                                 <br />

@@ -115,7 +115,7 @@
                                             <a href="ViewInventory.aspx">View Stock</a>
                                         </li>
                                         <li>
-                                            <a href="#">Update Stock</a>
+                                            <a href="AddHerbToStock.aspx">Add Stock</a>
                                         </li>
                                          <li>
                                             <a href="#">Patent Formulas</a>

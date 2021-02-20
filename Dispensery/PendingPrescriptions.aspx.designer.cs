@@ -112,6 +112,15 @@ namespace Dispensery {
         protected global::System.Web.UI.WebControls.Label lblPatientPhone;
         
         /// <summary>
+        /// lblDosageDays control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDosageDays;
+        
+        /// <summary>
         /// patientInvoice control.
         /// </summary>
         /// <remarks>
@@ -164,6 +173,24 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPostageFee;
+        
+        /// <summary>
+        /// divDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiscount;
+        
+        /// <summary>
+        /// lblDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiscount;
         
         /// <summary>
         /// lblTotalCost control.
@@ -254,6 +281,24 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracPostageCost;
+        
+        /// <summary>
+        /// divPracDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPracDiscount;
+        
+        /// <summary>
+        /// lblPracDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPracDiscount;
         
         /// <summary>
         /// lblPracTotalCost control.

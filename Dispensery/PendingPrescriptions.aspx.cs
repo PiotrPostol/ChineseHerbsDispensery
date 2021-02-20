@@ -45,13 +45,18 @@ namespace Dispensery
         string practitionerName;
         string practitionerPhoneNo;
         string practitionerEmail;
+        decimal discount;
 
 
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (IsPostBack)
+            {
+                divDiscount.Visible = false;
+                divPracDiscount.Visible = false;
+            }
         }
 
         protected void GetDataFromPrescriptionMain(string formulaRefNum)
@@ -172,7 +177,9 @@ namespace Dispensery
                         postageMethod = rdr["Postage"].ToString();
                         postageFee = Convert.ToDecimal(rdr["PostageFee"].ToString());
                         prescriptionStatus = rdr["PrescriptionStatus"].ToString();
+                        discount = Convert.ToDecimal(rdr["Discount"].ToString());
                     }
+                    Convert.ToDecimal(rdr["PostageFee"].ToString());
                 }
                 catch (Exception ex)
                 {
@@ -252,9 +259,21 @@ namespace Dispensery
             lblPatientPhone.Text = patientPhoneNo;
             
             decimal subtotalWithDispFee = formulaTotalCost - methodOfAdministCost - postageFee;
+            if(subtotalWithDispFee <= 0)
+            {
+                subtotalWithDispFee = 0;
+
+            }
             lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);
             lblDispensingFee.Text = String.Format("{0:C}", methodOfAdministCost);
             lblPostageFee.Text = String.Format("{0:C}", postageFee);
+            if(discount != 0)
+            {
+                divDiscount.Visible = true;
+                lblDiscount.Text = String.Format("{0:C}", discount);
+                formulaTotalCost -= discount;
+            }
+            lblDosageDays.Text = "For "+dosageDays.ToString()+" days.";
             lblTotalCost.Text = String.Format("{0:C}", formulaTotalCost);
            
             lblPractitionerDetails.Text = practitionerName + ", " + practitionerPhoneNo;
@@ -290,27 +309,30 @@ namespace Dispensery
             lblPatientEmail.Text = patientEmail;
             lblPatientPhone.Text = patientPhoneNo;
 
-            decimal subtotalWithDispFee = formulaTotalCost - methodOfAdministCost - postageFee;
-            lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);
+            decimal subtotalWithDispFee = formulaTotalCost - postageFee;
+            //lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);
            
-            
-           
-           
-            
             if (dispensingFee != 0)
             {
-                lblPracDispensingFee.Text = String.Format("{0:C}", subtotalWithDispFee * (dispensingFee / 100));
-
+                lblPracDispensingFee.Text = String.Format("{0:C}", subtotalWithDispFee - (subtotalWithDispFee * 1/(1+(dispensingFee/100))));
             }
+          
             else
             {
                 lblPracDispensingFee.Text = "€0.00";
             }
-
+            lblDosageDays.Text = "For " + dosageDays.ToString() + " days.";
             lblPracAdminiMethod.Text = methodOfAdminist.ToString();
             lblPracAdminiCost.Text = String.Format("{0:C}", methodOfAdministCost);
             lblPracPostageMethod.Text = postageMethod.ToString();
             lblPracPostageCost.Text = String.Format("{0:C}", postageFee);
+            if (discount != 0)
+            {
+                divPracDiscount.Visible = true;
+                lblPracDiscount.Text = String.Format("{0:C}", discount);
+                formulaTotalCost -= discount;
+            }
+           
             lblPracTotalCost.Text = String.Format("{0:C}", formulaTotalCost);
 
             lblPractitionerDetails2.Text = "<b>Dispensing Practitioner:</b>"+" "+practitionerName ;
