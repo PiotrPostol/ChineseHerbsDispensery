@@ -13,6 +13,24 @@ namespace Dispensery {
     public partial class PendingPrescriptions {
         
         /// <summary>
+        /// divAlertSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlertSuccess;
+        
+        /// <summary>
+        /// lblNoSelectionAlertHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoSelectionAlertHeader;
+        
+        /// <summary>
         /// Repeater1 control.
         /// </summary>
         /// <remarks>
@@ -290,6 +308,15 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPracDiscount;
+        
+        /// <summary>
+        /// lbldiscountReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbldiscountReason;
         
         /// <summary>
         /// lblPracDiscount control.

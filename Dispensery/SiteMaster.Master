@@ -207,9 +207,9 @@
                                         <li>
                                             <a href="AllPatients.aspx">View Patients</a>
                                         </li>
-                                        <li>
+                                       <%-- <li>
                                             <a href="#">Edit Patient</a>
-                                        </li>
+                                        </li>--%>
                                     </ul>
                                 </div>
                             </li>

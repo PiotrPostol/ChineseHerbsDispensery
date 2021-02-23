@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <script>
         $(document).ready(function () {
+                        $('[data-toggle="tooltip"]').tooltip();
 
 
             $('input[type=text]').each(function () {
@@ -148,7 +149,7 @@
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateReceived">Ratio:</label>
-                                            <asp:TextBox ID="tbxRatio" CssClass=" form-control" runat="server" placeholder="0.0"></asp:TextBox>
+                                            <asp:TextBox ID="tbxRatio" CssClass=" form-control" runat="server" placeholder="0.0" data-toggle="tooltip" data-placement="top" Title="e.g. if 1 to 5 enter 5"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateReceived">Date Received:</label>

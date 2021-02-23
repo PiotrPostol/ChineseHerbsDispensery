@@ -333,10 +333,14 @@
                                         <div class="col-sm-2">
                                             <i class="far fa-minus-square fa-4x" style="color: #9fc299;"></i>
                                         </div>
-                                        <div class="col-form-label myFont col-sm-5 font-weight-bold pt-0 pl-0">
+                                        <div class="col-form-label myFont col-sm-2 font-weight-bold pt-0 pl-0 align-self-center">
                                             Discount
                                         </div>
                                         <div class="col-sm-5 align-self-center">
+
+                                            <asp:TextBox ID="tbxDiscountReason" TextMode="MultiLine"  CssClass="form-control" runat="server" placeholder="Discount Reason" Text=""  AutoPostBack="false"></asp:TextBox>
+                                        </div>
+                                        <div class="col-sm-3 align-self-center">
 
                                             <asp:TextBox ID="tbxDiscount"  CssClass="form-control" runat="server" placeholder="€0.00" Text=""  AutoPostBack="false"></asp:TextBox>
                                         </div>

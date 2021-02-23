@@ -67,6 +67,15 @@ namespace Dispensery {
         protected global::System.Web.UI.WebControls.TextBox tbxPatientCityTown;
         
         /// <summary>
+        /// ddlPatientCounty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPatientCounty;
+        
+        /// <summary>
         /// tbxEirecode control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxEirecode;
+        
+        /// <summary>
+        /// ddlPatientCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPatientCountry;
         
         /// <summary>
         /// tbxPatientPhoneNumber control.
@@ -94,24 +112,6 @@ namespace Dispensery {
         protected global::System.Web.UI.WebControls.TextBox tbxPatientEmail;
         
         /// <summary>
-        /// tbxPatientMedication control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxPatientMedication;
-        
-        /// <summary>
-        /// tbxCurrentSupplements control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxCurrentSupplements;
-        
-        /// <summary>
         /// tbxPatientMedicalConditions control.
         /// </summary>
         /// <remarks>
@@ -119,6 +119,15 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientMedicalConditions;
+        
+        /// <summary>
+        /// tbxPatientMedication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxPatientMedication;
         
         /// <summary>
         /// btnAddPatient control.

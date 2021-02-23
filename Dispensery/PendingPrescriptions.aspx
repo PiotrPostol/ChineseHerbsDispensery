@@ -37,6 +37,23 @@
                 </div>
                 <div class="card-body">
                     <div class="container ">
+<%--                        -----------------Alert Success----------------%>
+                          <div id="divAlertSuccess" class="form-row" runat="server" visible="false">
+                                <div class="alert alert-success alert-dismissible col-md-12">
+                                    <div class="form-row m-2">
+                                        <div class="col-2">
+                                            <i class="fa fa-check-circle fa-4x" style="color: #9fc299;"></i>
+                                        </div>
+                                        <div class="col-8 justify-content-start ">
+
+                                            <h4 class="font-weight-bold text-center ">
+                                                <asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="Stock Adjusted Successfuly" runat="server"></asp:Label></h4>
+
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="repeatRow row justify-content-center">
                             <div class="form-row justify-content-center ">
                                 <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
@@ -88,7 +105,7 @@
                                                     <asp:Button ID="btnPractitionerView" CssClass="btn btn-outline-info btn-block" runat="server" Text="Practitioner Invoice" OnClick="btnPractitionerView_Click" />
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <asp:Button ID="btnChangeStatus" CssClass="btn btn-outline-danger " runat="server" Text="Change Status To Paid" />
+                                                    <asp:Button ID="btnChangeStatus" CssClass="btn btn-outline-danger " runat="server" Text="Change Status To Paid" OnClick="btnChangeStatus_Click" />
                                                 </div>
                                             </div>
 
@@ -193,9 +210,9 @@
 
                             </div>
                             <div class="col-md-6">
-                                <h5>FOR:</h5>
+                                <h5>FOR:<asp:Label ID="lblDosageDays" CssClass="" runat="server"></asp:Label></h5>
                                 <p style="font-size: 0.9rem;">Herbal Prescription: Granules</p>
-                                <p><asp:Label ID="lblDosageDays" CssClass="form-text font-weight-bold" runat="server"></asp:Label></p>
+                                <p></p>
                             </div>
 
                         </div>
@@ -382,6 +399,7 @@
                                         <h5 class="font-weight-bold  ">Discount:</h5>
                                     </div>
                                     <div class="col-md-4">
+                                        <h6><asp:Label CssClass="font-italic" ID="lbldiscountReason" runat="server"></asp:Label></h6>
                                     </div>
                                     <div class="col-md-4 pl-0 ">
                                         <div class="border border-bottom-0" style="border-color: #dee2e6; padding: 0.75rem;">

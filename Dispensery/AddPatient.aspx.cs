@@ -32,11 +32,12 @@ namespace Dispensery
                 command.Parameters.AddWithValue("@patientSurname", tbxPatientSurname.Text );
                 command.Parameters.AddWithValue("@patientAddress", tbxPatientAddress.Text);
                 command.Parameters.AddWithValue("@patientTown", tbxPatientCityTown.Text );
+                command.Parameters.AddWithValue("@patientCounty", ddlPatientCounty.SelectedItem.Text);
                 command.Parameters.AddWithValue("@patientEirecode", tbxEirecode.Text );
                 command.Parameters.AddWithValue("@patientPhoneNum", tbxPatientPhoneNumber.Text);
                 command.Parameters.AddWithValue("@patientEmail", tbxPatientEmail.Text );
                 command.Parameters.AddWithValue("@patientMedication", tbxPatientMedication.Text );
-                command.Parameters.AddWithValue("@patientSupplementation", tbxCurrentSupplements.Text);
+                command.Parameters.AddWithValue("@patientCountry", ddlPatientCountry.SelectedItem.Text);
                 command.Parameters.AddWithValue("@patientMedicalCondition", tbxPatientMedicalConditions.Text );
 
 

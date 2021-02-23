@@ -46,8 +46,8 @@ namespace Dispensery
         string practitionerPhoneNo;
         string practitionerEmail;
         decimal discount;
-
-
+        string formulaRefNum;
+        string discountReason;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -178,6 +178,7 @@ namespace Dispensery
                         postageFee = Convert.ToDecimal(rdr["PostageFee"].ToString());
                         prescriptionStatus = rdr["PrescriptionStatus"].ToString();
                         discount = Convert.ToDecimal(rdr["Discount"].ToString());
+                        discountReason = rdr["DiscountReason"].ToString();
                     }
                     Convert.ToDecimal(rdr["PostageFee"].ToString());
                 }
@@ -243,7 +244,7 @@ namespace Dispensery
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
 
             //Reference the Label and TextBox.
-           string formulaRefNum = (item.FindControl("hdFormulaRefNum") as HiddenField).Value.ToString();
+            formulaRefNum = (item.FindControl("hdFormulaRefNum") as HiddenField).Value.ToString();
             modallblFormulaRefNum.Text = formulaRefNum;
             GetDataFromPrescriptionMain(formulaRefNum);
             GetPatientData(patientID);
@@ -273,7 +274,7 @@ namespace Dispensery
                 lblDiscount.Text = String.Format("{0:C}", discount);
                 formulaTotalCost -= discount;
             }
-            lblDosageDays.Text = "For "+dosageDays.ToString()+" days.";
+            lblDosageDays.Text = " "+dosageDays.ToString()+" days";
             lblTotalCost.Text = String.Format("{0:C}", formulaTotalCost);
            
             lblPractitionerDetails.Text = practitionerName + ", " + practitionerPhoneNo;
@@ -294,7 +295,7 @@ namespace Dispensery
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
 
             //Reference the Label and TextBox.
-            string formulaRefNum = (item.FindControl("hdFormulaRefNum") as HiddenField).Value.ToString();
+            formulaRefNum = (item.FindControl("hdFormulaRefNum") as HiddenField).Value.ToString();
             modallblFormulaRefNum.Text = formulaRefNum;
             GetDataFromPrescriptionMain(formulaRefNum);
             GetPatientData(patientID);
@@ -308,6 +309,7 @@ namespace Dispensery
             lblPatientEirecode.Text = patientEirecode;
             lblPatientEmail.Text = patientEmail;
             lblPatientPhone.Text = patientPhoneNo;
+            lbldiscountReason.Text = discountReason;
 
             decimal subtotalWithDispFee = formulaTotalCost - postageFee;
             //lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);
@@ -321,7 +323,7 @@ namespace Dispensery
             {
                 lblPracDispensingFee.Text = "€0.00";
             }
-            lblDosageDays.Text = "For " + dosageDays.ToString() + " days.";
+            lblDosageDays.Text = " " + dosageDays.ToString() + " days";
             lblPracAdminiMethod.Text = methodOfAdminist.ToString();
             lblPracAdminiCost.Text = String.Format("{0:C}", methodOfAdministCost);
             lblPracPostageMethod.Text = postageMethod.ToString();
@@ -365,6 +367,46 @@ namespace Dispensery
 
 
 
+
+        }
+
+        protected void btnChangeStatus_Click(object sender, EventArgs e)
+        {
+            string message;
+            RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
+            formulaRefNum = (item.FindControl("hdFormulaRefNum") as HiddenField).Value.ToString();
+
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                SqlCommand command = new SqlCommand("spUpdateStock", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
+     
+                con.Open();
+                //SqlDataReader rdr = command.ExecuteReader();
+                try
+                {
+
+                    command.ExecuteNonQuery();
+                    divAlertSuccess.Visible = true;
+                    Repeater1.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                    message = "";
+                }
+                finally
+                {
+
+                    con.Close();
+
+                }
+            }
 
         }
     }   

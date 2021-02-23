@@ -55,7 +55,11 @@ namespace Dispensery
                 if (!(String.IsNullOrEmpty(ddlPatient.Text.Trim())))
                 {
                     lblPatient.Text = ViewState["Patient"].ToString();
-                    patientID = Convert.ToInt16(ViewState["PatientID"].ToString());
+                    if(ddlPatient.SelectedValue != "0.1")
+                    {
+                        patientID = Convert.ToInt16(ViewState["PatientID"].ToString());
+                    }
+                   
                     ddlPatient.Visible = false;
                     btnAddNewPatient.Visible = false;
                     lblPatient.Visible = true;
@@ -714,6 +718,7 @@ namespace Dispensery
                     command.Parameters.AddWithValue("@postage", rdbPostage.SelectedItem.Text);
                     command.Parameters.AddWithValue("@postageFee", postageCost);
                     command.Parameters.AddWithValue("@discount", Convert.ToDecimal(tbxDiscount.Text.ToString()));
+                    command.Parameters.AddWithValue("@discountReason", tbxDiscountReason.Text);
                     command.Parameters.AddWithValue("@prescriptionStatus", "Pending");
                     con.Open();
                     try
