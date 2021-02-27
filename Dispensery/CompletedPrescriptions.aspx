@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="PendingPrescriptions.aspx.cs" Inherits="Dispensery.PendingPrescriptions" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="CompletedPrescriptions.aspx.cs" Inherits="Dispensery.CompletedPrescriptions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
@@ -16,6 +16,7 @@
             border: 0;
         }
     </style>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="UserInfo" runat="server">
 </asp:Content>
@@ -26,10 +27,11 @@
                 <div class="card-header p-1 rounded">
                     <div class="row container-fluid ">
                         <div class="col-md-2">
-                   <i class="fa fa-clipboard-list fa-5x m-2 pt-md-2" aria-hidden="true" style="color: #9fc299;"></i>
+                            <i class="fa fa-archive fa-4x m-2 pt-md-2" aria-hidden="true" style="color: #9fc299;"></i>
+                            <%--<img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
                         <div class="col-md-10 d-flex">
-                            <h3 class=" title col-md-10  pt-4 align-content-center" aria-hidden="true">Prescriptions - Pending</h3>
+                            <h3 class="title col-md-10  pt-4 " aria-hidden="true">Prescriptions - Completed</h3>
 
                         </div>
                     </div>
@@ -37,23 +39,36 @@
                 </div>
                 <div class="card-body">
                     <div class="container ">
-<%--                        -----------------Alert Success----------------%>
-                          <div id="divAlertSuccess" class="form-row" runat="server" visible="false">
-                                <div class="alert alert-success alert-dismissible col-md-12">
-                                    <div class="form-row m-2">
-                                        <div class="col-2">
-                                            <i class="fa fa-check-circle fa-4x" style="color: #9fc299;"></i>
-                                        </div>
-                                        <div class="col-8 justify-content-start ">
 
-                                            <h4 class="font-weight-bold text-center ">
-                                                <asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="Stock Adjusted Successfuly" runat="server"></asp:Label></h4>
+                        <div class="col-md-8 mb-4 align-content-center">
+                            <i class="fa fa-user-check fa-4x" aria-hidden="true" style="color: #9fc299;"></i>
+                            <label class=" font-weight-bold" for="ddlPrescripion">Select Patient:</label>
 
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <asp:DropDownList ID="ddlPatient" OnSelectedIndexChanged="ddlPatient_SelectedIndexChanged" AutoPostBack="true" AppendDataBoundItems="true" CssClass="form-control" runat="server" DataSourceID="SqlDataSource3" DataTextField="PatientName" DataValueField="PatientID">
+                                <asp:ListItem Text="-- Select Patient --" Value="0" Selected="true"></asp:ListItem>
+                            </asp:DropDownList>
+
+                            <asp:SqlDataSource runat="server" ID="SqlDataSource3" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatientID, PatientName + ' ' + PatientSurname AS PatientName FROM Patient ORDER BY PatientName"></asp:SqlDataSource>
+                        </div>
+                        <br />
+                        <hr />
+                        <%--                        -----------------Alert Success----------------%>
+                        <div id="divAlertSuccess" class="form-row" runat="server" visible="false">
+                            <div class="alert alert-success alert-dismissible col-md-12">
+                                <div class="form-row m-2">
+                                    <div class="col-2">
+                                        <i class="fa fa-check-circle fa-4x" style="color: #9fc299;"></i>
                                     </div>
+                                    <div class="col-8 justify-content-start ">
+
+                                        <h4 class="font-weight-bold text-center ">
+                                            <asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="Stock Adjusted Successfuly" runat="server"></asp:Label></h4>
+
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                                 </div>
                             </div>
+                        </div>
                         <div class="repeatRow row justify-content-center">
                             <div class="form-row justify-content-center ">
                                 <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
@@ -104,9 +119,9 @@
                                                 <div class="col-md-4 ">
                                                     <asp:Button ID="btnPractitionerView" CssClass="btn btn-outline-info btn-block" runat="server" Text="Practitioner Invoice" OnClick="btnPractitionerView_Click" />
                                                 </div>
-                                                <div class="col-md-4">
+                                                <%--<div class="col-md-4">
                                                     <asp:Button ID="btnChangeStatus" CssClass="btn btn-outline-danger " runat="server" Text="Change Status To Paid" OnClick="btnChangeStatus_Click" />
-                                                </div>
+                                                </div>--%>
                                             </div>
 
 
@@ -114,7 +129,11 @@
 
                                     </ItemTemplate>
                                 </asp:Repeater>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT PrescriptionCost.PrescriptionID, PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost - PrescriptionCost.Discount AS FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Pending') ORDER BY PrescriptionCost.PrescriptionID DESC"></asp:SqlDataSource>
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT PrescriptionCost.PrescriptionID, PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost - PrescriptionCost.Discount AS FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName, Patient.PatientID FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Completed') AND (Patient.PatientID = @patientID) ORDER BY PrescriptionCost.PrescriptionID DESC">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="ddlPatient" PropertyName="SelectedValue" DefaultValue="0" Name="patientID"></asp:ControlParameter>
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
                             </div>
 
                         </div>
@@ -335,7 +354,7 @@
                                     <HeaderStyle CssClass="" Font-Size="Larger" />
                                     <FooterStyle CssClass=" alert-info font-weight-bold" BackColor="#dee2e6" Font-Italic="true" />
                                 </asp:GridView>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource4" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PrescriptionMain.HerbBatchNum, AllHerbs.HerbName, PrescriptionMain.GranulesQuantity / PrescriptionMain.DosageDays AS DailyDosage, PrescriptionMain.GranulesQuantity, HerbStock.SellPrice, PrescriptionMain.Subtotal FROM PrescriptionMain INNER JOIN AllHerbs ON PrescriptionMain.HerbRefNum = AllHerbs.RefNum INNER JOIN HerbStock ON AllHerbs.RefNum = HerbStock.HerbRefNum AND PrescriptionMain.HerbBatchNum = HerbStock.BatchNum WHERE (PrescriptionMain.FormulaRefNum = @formulaRefNum)">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource4" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PrescriptionMain.HerbBatchNum, AllHerbs.HerbName, PrescriptionMain.GranulesQuantity / PrescriptionMain.DosageDays AS DailyDosage, PrescriptionMain.GranulesQuantity, PrescriptionMain.SellPrice, PrescriptionMain.Subtotal FROM PrescriptionMain INNER JOIN AllHerbs ON PrescriptionMain.HerbRefNum = AllHerbs.RefNum WHERE (PrescriptionMain.FormulaRefNum = @formulaRefNum)">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="modallblFormulaRefNum" PropertyName="Text" Name="formulaRefNum" DefaultValue="0"></asp:ControlParameter>
                                     </SelectParameters>
@@ -459,4 +478,7 @@
         </div>
     </div>
 </div>
+
+
+
 </asp:Content>

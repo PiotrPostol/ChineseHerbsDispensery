@@ -59,7 +59,7 @@
                                                     <asp:Label runat="server" CssClass="form-control" Text='<%# Eval("HerbName") %>' ID="Label1"></asp:Label>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server" Text='<%# Bind("HerbName") %>' ID="Label1"></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("HerbName") %>' ID="Label1"></asp:Label> 
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Batch" SortExpression="BatchNum">

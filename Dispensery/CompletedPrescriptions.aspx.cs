@@ -13,12 +13,12 @@ using System.Text.RegularExpressions;
 
 namespace Dispensery
 {
-    public partial class PendingPrescriptions : System.Web.UI.Page
+    public partial class CompletedPrescriptions : System.Web.UI.Page
     {
         decimal granulesTotal;
         decimal dailyDosageTotal;
         decimal totalCost;
-     
+
         string formulaName;
         decimal dosageDays;
         int patientID;
@@ -48,7 +48,6 @@ namespace Dispensery
         decimal discount;
         string formulaRefNum;
         string discountReason;
-        IList<string> herbBatchNums = new List<string>();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -107,7 +106,7 @@ namespace Dispensery
         }
         protected void GetPatientData(int patientID)
         {
-         
+
             string patientFirstName;
             string patientSurname;
             string message;
@@ -151,7 +150,7 @@ namespace Dispensery
                 }
             }
 
-       
+
         }
 
         protected void GetPrescriptionCostData(string formulaRefNumber)
@@ -213,10 +212,10 @@ namespace Dispensery
                     while (rdr.Read())
                     {
 
-                        practitionerName = rdr["PracName"].ToString() + " "+ rdr["PracSurname"].ToString();
+                        practitionerName = rdr["PracName"].ToString() + " " + rdr["PracSurname"].ToString();
                         practitionerEmail = rdr["PracEmail"].ToString();
                         practitionerPhoneNo = rdr["PracTellphoneNum"].ToString();
-                         
+
                     }
                 }
                 catch (Exception ex)
@@ -251,17 +250,17 @@ namespace Dispensery
             GetPatientData(patientID);
             GetPrescriptionCostData(formulaRefNum);
             GetPractitionerData(practitionerID);
-            mdlblCurrentDate.Text =  String.Format("{0:dd/MM/yyyy}",dateCreated);
-            lblPatientID.Text = " #"+patientID.ToString();
+            mdlblCurrentDate.Text = String.Format("{0:dd/MM/yyyy}", dateCreated);
+            lblPatientID.Text = " #" + patientID.ToString();
             lblPatientName.Text = patientName;
             lblPatientAddress.Text = patientAddress;
             lblPatientTown.Text = patientTown;
             lblPatientEirecode.Text = patientEirecode;
             lblPatientEmail.Text = patientEmail;
             lblPatientPhone.Text = patientPhoneNo;
-            
+
             decimal subtotalWithDispFee = formulaTotalCost - methodOfAdministCost - postageFee;
-            if(subtotalWithDispFee <= 0)
+            if (subtotalWithDispFee <= 0)
             {
                 subtotalWithDispFee = 0;
 
@@ -269,26 +268,26 @@ namespace Dispensery
             lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);
             lblDispensingFee.Text = String.Format("{0:C}", methodOfAdministCost);
             lblPostageFee.Text = String.Format("{0:C}", postageFee);
-            if(discount != 0)
+            if (discount != 0)
             {
                 divDiscount.Visible = true;
                 lblDiscount.Text = String.Format("{0:C}", discount);
                 formulaTotalCost -= discount;
             }
-            lblDosageDays.Text = " "+dosageDays.ToString()+" days";
+            lblDosageDays.Text = " " + dosageDays.ToString() + " days";
             lblTotalCost.Text = String.Format("{0:C}", formulaTotalCost);
-           
+
             lblPractitionerDetails.Text = practitionerName + ", " + practitionerPhoneNo;
-        
-        
+
+
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "patientModal();", true);
-            
-           
+
+
         }
 
         protected void btnPractitionerView_Click(object sender, EventArgs e)
         {
-           
+
             GridView1.Visible = false;
             patientInvoice.Visible = false;
             practitionerInvoice.Visible = true;
@@ -314,12 +313,12 @@ namespace Dispensery
 
             decimal subtotalWithDispFee = formulaTotalCost - postageFee;
             //lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);
-           
+
             if (dispensingFee != 0)
             {
-                lblPracDispensingFee.Text = String.Format("{0:C}", subtotalWithDispFee - (subtotalWithDispFee * 1/(1+(dispensingFee/100))));
+                lblPracDispensingFee.Text = String.Format("{0:C}", subtotalWithDispFee - (subtotalWithDispFee * 1 / (1 + (dispensingFee / 100))));
             }
-          
+
             else
             {
                 lblPracDispensingFee.Text = "€0.00";
@@ -335,17 +334,17 @@ namespace Dispensery
                 lblPracDiscount.Text = String.Format("{0:C}", discount);
                 formulaTotalCost -= discount;
             }
-           
+
             lblPracTotalCost.Text = String.Format("{0:C}", formulaTotalCost);
 
-            lblPractitionerDetails2.Text = "<b>Dispensing Practitioner:</b>"+" "+practitionerName ;
+            lblPractitionerDetails2.Text = "<b>Dispensing Practitioner:</b>" + " " + practitionerName;
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "patientModal();", true);
 
-           
+
         }
 
-     
+
 
         protected void GridView2_RowDataBound1(object sender, GridViewRowEventArgs e)
         {
@@ -354,7 +353,7 @@ namespace Dispensery
                 dailyDosageTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "DailyDosage"));
             else if (e.Row.RowType == DataControlRowType.Footer)
                 e.Row.Cells[2].Text = String.Format("{0:f0}", "<b>" + String.Format("{0:f0}", dailyDosageTotal) + "</b>");
-            
+
 
             if (e.Row.RowType == DataControlRowType.DataRow)
                 granulesTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "GranulesQuantity"));
@@ -364,10 +363,9 @@ namespace Dispensery
             if (e.Row.RowType == DataControlRowType.DataRow)
                 totalCost += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Subtotal"));
             else if (e.Row.RowType == DataControlRowType.Footer)
-                e.Row.Cells[5].Text = String.Format("{0:C}", "<b>" + String.Format("{0:C}",totalCost) + "</b>");
+                e.Row.Cells[5].Text = String.Format("{0:C}", "<b>" + String.Format("{0:C}", totalCost) + "</b>");
 
-        
-           
+
 
 
         }
@@ -380,49 +378,41 @@ namespace Dispensery
 
             string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
-            foreach (GridViewRow row in GridView2.Rows)
+            using (SqlConnection con = new SqlConnection(constr))
             {
-                herbBatchNums.Add(row.Cells[0].Text);
-            }
-            for (int i = 0; i < herbBatchNums.Count; i++)
-            {
-                string herbBatchNum  = herbBatchNums[i];
-                using (SqlConnection con = new SqlConnection(constr))
+                SqlCommand command = new SqlCommand("spUpdateStock", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
+
+                con.Open();
+                //SqlDataReader rdr = command.ExecuteReader();
+                try
                 {
-                    SqlCommand command = new SqlCommand("spUpdateStock", con);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
-                    command.Parameters.AddWithValue("@herbBatchNum", herbBatchNum);
-
-                    con.Open();
-                    //SqlDataReader rdr = command.ExecuteReader();
-                    try
-                    {
-
-                        command.ExecuteNonQuery();
-                        divAlertSuccess.Visible = true;
-                        Repeater1.DataBind();
-                    }
-                    catch (Exception ex)
-                    {
-                        message = "Error! " + ex;
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
-                        message = "";
-                    }
-                    finally
-                    {
-
-                        con.Close();
-
-                    }
+                    command.ExecuteNonQuery();
+                    divAlertSuccess.Visible = true;
+                    Repeater1.DataBind();
                 }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                    message = "";
+                }
+                finally
+                {
 
+                    con.Close();
+
+                }
             }
-
-
-
 
         }
-    }   
+
+        protected void ddlPatient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Repeater1.DataBind();
+        }
+    }
 }

@@ -36,6 +36,9 @@ namespace Dispensery
         decimal totalCostPlusPostage;
         decimal discount;
         decimal totalPrescriptionCost;
+        decimal dosageQuantity;
+      
+        List<HerbInStock> listHerbInSock = new List<HerbInStock>();
 
 
         //DataTable herbDT;
@@ -93,6 +96,7 @@ namespace Dispensery
                 divPatient.Visible = false;
                 divNumDays.Visible = false;
                 divFormulaName.Visible = false;
+                ClearPrescriptionTempTable();
                 GetTotals();
                 grvShort.DataBind();
                grvShort.UseAccessibleHeader = true;
@@ -106,11 +110,49 @@ namespace Dispensery
                 //herbDT.Columns.AddRange(new DataColumn[4] { new DataColumn("No", typeof(int)),  new DataColumn("RefNum", typeof(string)), new DataColumn("HerbName", typeof(string)), new DataColumn("Quantity", typeof(decimal)) });
                 //Session["data"] = herbDT;
                 divAlert.Visible = false;
+                divAlertError.Visible = false;
+               
 
             }
            
 
         }
+        //--------------Clear Temp Table if !IsPostBack-----------------
+        protected void ClearPrescriptionTempTable()
+        {
+            string message;
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                SqlCommand command = new SqlCommand("spClearPrescriptionTemp", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+   
+                con.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    lblError.Text = message;
+                    divAlertError.Visible = true;
+                    message = "";
+                }
+                finally
+                {
+
+                    con.Close();
+
+                }
+            }
+
+
+        }
+
+
         protected void GetTotalGranulesQuantity()
         {
             string message;
@@ -262,7 +304,9 @@ namespace Dispensery
                             if (refNum == "")
                             {
                                 message = "No Herb: " + herbName + " in Herb Database! ";
-                                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                                    divAlertError.Visible = true;
+                                    lblError.Text = message;
+                                //ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
                                 message = "";
                             }
 
@@ -272,7 +316,9 @@ namespace Dispensery
                     catch (Exception ex)
                     {
                         message = "Error! " + ex;
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                            divAlertError.Visible = true;
+                            lblError.Text = message;
+                            //ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
                         message = "";
                     }
                     finally
@@ -290,7 +336,9 @@ namespace Dispensery
             else
             {
                 message = "No Herb selected! Please Enter requiered Herb.";
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                    divAlertError.Visible = true;
+                    lblError.Text = message;
+                    //ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
                 message = "";
             }
                int instock =  CheckStock(refNum, herbQuantity);
@@ -305,10 +353,15 @@ namespace Dispensery
 //-------------------HardCodeed Practitioner ID!!!!!!!!!!!!--------------------
                     practitionerID = 1;
 
-
+                    CheckBatch(refNum,dosageQuantity);
 
                     formulaRefNum = hdFormulaRefNum.Value.ToString();
-                        InsertRecordTempPrescription(formulaRefNum, refNum, formulaName,herbQuantity, numOfDosageDays, patientID, practitionerID);
+                    foreach (HerbInStock herbInStock in listHerbInSock)
+                    {
+                        InsertRecordTempPrescription(formulaRefNum, refNum, formulaName, herbInStock.Quantity, numOfDosageDays, patientID, practitionerID,herbInStock.BatchNum);
+                    }
+               
+                        
 
                         GetTotals();
 
@@ -317,6 +370,85 @@ namespace Dispensery
                     grvShort.HeaderRow.TableSection = TableRowSection.TableHeader;
                 }
             }
+        }
+
+        protected void CheckBatch(string herbRefNum, decimal totalHerbQuantity)
+        {
+            List<int> herbsInStockIDs = new List<int>();
+            List<decimal> herbInStockQuantity = new List<decimal>();
+            List<string> herbInStockBatchNum = new List<string>();
+            List<decimal> Ratio = new List<decimal>();
+
+            string message;
+
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                SqlCommand command = new SqlCommand("spAllStocksIDOfHerb", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@herbRefNum", herbRefNum);
+                con.Open();
+                SqlDataReader rdr = command.ExecuteReader();
+                try
+                {
+
+                    while (rdr.Read())
+                    {
+                        herbsInStockIDs.Add(Convert.ToInt32(rdr["HerbStockID"].ToString()));
+                        herbInStockQuantity.Add(Convert.ToDecimal(rdr["Quantity"].ToString()));
+                        herbInStockBatchNum.Add(rdr["BatchNum"].ToString());
+                        Ratio.Add(Convert.ToDecimal(rdr["HerbRawToGranRatio"].ToString()));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    divAlertError.Visible = true;
+                    lblError.Text = message;
+                    message = "";
+                }
+                finally
+                {
+
+                    con.Close();
+
+                }
+            }
+
+            HerbInStock resultHerbInStock;
+
+            for (int i=0; i < herbsInStockIDs.Count; i++)
+            {
+  
+
+                if (herbInStockQuantity[i] >= totalHerbQuantity)
+                {
+                                     
+                   resultHerbInStock = new HerbInStock();
+                    resultHerbInStock.HerbStockID = herbsInStockIDs[i];
+                    resultHerbInStock.BatchNum = herbInStockBatchNum[i];
+                    resultHerbInStock.Quantity = totalHerbQuantity*Ratio[i]/numOfDosageDays;
+
+                    listHerbInSock.Add(resultHerbInStock);
+                    break;
+                }
+                else
+                {
+                   
+                    resultHerbInStock = new HerbInStock();
+                    resultHerbInStock.HerbStockID = herbsInStockIDs[i];
+                    resultHerbInStock.BatchNum = herbInStockBatchNum[i];
+                    resultHerbInStock.Quantity = herbInStockQuantity[i] * Ratio[i] / numOfDosageDays;
+                    listHerbInSock.Add(resultHerbInStock);
+                    totalHerbQuantity -= herbInStockQuantity[i];
+
+                }
+               
+
+            }
+
         }
 
         protected void FormulaRefNum()
@@ -375,27 +507,33 @@ namespace Dispensery
 
                     while (rdr.Read())
                     {
-
-                        totalHerbStock = Convert.ToDecimal(rdr["TotalQuantity"].ToString());
-                        decimal dosageQuantity = (herbQuantity * numOfDosageDays) / 5;
-
-                        if (totalHerbStock < dosageQuantity)
+                        if (rdr["TotalQuantity"].ToString() != null)
                         {
-                            lblalertLowStock.Text = String.Format("Quantity of {0} in stock: {1}g" ,herbName, totalHerbStock);
-                            lblHerbQuantityToOrder.Text = String.Format("Missing quantity: {0}g, herb refrence number: {1}", dosageQuantity - totalHerbStock, refNum);
-                            stockAlert.Visible = true;
-                            result = 0;
+                            totalHerbStock = Convert.ToDecimal(rdr["TotalQuantity"].ToString());
+                            dosageQuantity = (herbQuantity * numOfDosageDays) / 5;
+
+                            if (totalHerbStock < dosageQuantity)
+                            {
+                                lblalertLowStock.Text = String.Format("Quantity of {0} in stock: {1}g", herbName, totalHerbStock);
+                                lblHerbQuantityToOrder.Text = String.Format("Missing quantity: {0}g, herb refrence number: {1}", dosageQuantity - totalHerbStock, refNum);
+                                stockAlert.Visible = true;
+                                stockAlert.Focus();
+                                result = 0;
+                            }
+                            else
+                            {
+                                result = 1;
+                            }
                         }
-                        else
-                        {
-                            result = 1;
-                        }
+                       
                     }
                 }
                 catch (Exception ex)
                 {
                     message = "Error! " + ex;
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                    divAlertError.Visible = true;
+                    divAlertError.Focus();
+                    lblError.Text = message;
                     message = "";
                 }
                 finally
@@ -472,7 +610,7 @@ namespace Dispensery
             }
             grvShort.Columns[0].FooterText = "Total:";
 
-            grvShort.Columns[4].FooterText = string.Format("{0:C}", totalFormulaPrice);
+            grvShort.Columns[5].FooterText = string.Format("{0:C}", totalFormulaPrice);
             grvShort.FooterStyle.CssClass = "font-weight-bold";
             CheckAdministrationFees();
             if (ddlDispensingFee.SelectedValue.ToString() == "")
@@ -521,7 +659,7 @@ namespace Dispensery
 
         }
 
-        private void InsertRecordTempPrescription(string formulaRefNum, string herbRefNum, string formulaName, decimal herbQuantity, int numOfDosageDays, int patientID, int practitionerID)
+        private void InsertRecordTempPrescription(string formulaRefNum, string herbRefNum, string formulaName, decimal herbQuantity, int numOfDosageDays, int patientID, int practitionerID, string herbBatchNum)
         {
             string message;
             string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
@@ -537,6 +675,7 @@ namespace Dispensery
                 command.Parameters.AddWithValue("@numOfDosageDays", numOfDosageDays);
                 command.Parameters.AddWithValue("@patientID", patientID);
                 command.Parameters.AddWithValue("@practitionerID", practitionerID);
+                command.Parameters.AddWithValue("@herbBatchNum", herbBatchNum);
 
                 con.Open();
                 try

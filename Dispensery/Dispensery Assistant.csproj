@@ -73,6 +73,7 @@
     <Content Include="AddNewPrescription.aspx" />
     <Content Include="AddPatient.aspx" />
     <Content Include="AllPatients.aspx" />
+    <Content Include="CompletedPrescriptions.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -344,6 +345,13 @@
     <Compile Include="AllPatients.aspx.designer.cs">
       <DependentUpon>AllPatients.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CompletedPrescriptions.aspx.cs">
+      <DependentUpon>CompletedPrescriptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompletedPrescriptions.aspx.designer.cs">
+      <DependentUpon>CompletedPrescriptions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dispensery.Master.cs">
       <DependentUpon>Dispensery.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,6 +362,7 @@
     <Compile Include="GetHerbsNameAutocomplete.ashx.cs">
       <DependentUpon>GetHerbsNameAutocomplete.ashx</DependentUpon>
     </Compile>
+    <Compile Include="HerbInStock.cs" />
     <Compile Include="ManageHerbs.aspx.cs">
       <DependentUpon>ManageHerbs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
