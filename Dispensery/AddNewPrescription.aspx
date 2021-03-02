@@ -212,7 +212,8 @@
                                     </div>
                                 </div>
                                 <br />
-                                <div class="form-row">
+<%--------------------------------Traditional Formula dropdown list-------------------------%>
+<%--                                <div class="form-row">
                                     <div class="col-md-2  text-center">
                                         <i class="fas fa-mortar-pestle fa-4x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
                                     </div>
@@ -227,7 +228,7 @@
                                     <div class="col-md-2 text-right mb-4  align-self-end ">
                                         <asp:Button ID="btnSelectPrescription" CssClass="btn col-md-12 btn-success" runat="server" Text="Select" OnClick="btnSelectPrescription_Click" />
                                     </div>
-                                </div>
+                                </div>--%>
                                 <br />
 
                                 <div class="form-row  ">

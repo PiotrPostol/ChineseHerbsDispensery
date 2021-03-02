@@ -29,6 +29,7 @@ namespace Dispensery
         public DateTime ToDispensery { get; set; }
         public string HerbForm { get; set; }
         public DateTime LastChanged { get; set; }
+        public decimal HerbProcentage { get; set; }
 
         public HerbInStock()
         {

@@ -77,21 +77,21 @@
                     <!-- sidebar-search  -->
                     <div class="sidebar-menu">
                         <ul>
-                            <li class="header-menu">
+                            <%--<li class="header-menu">
                                 <span>General</span>
                             </li>
                             <li class="sidebar-dropdown">
                                 <a href="PrescriptionMain.aspx">
                                     <i class="fa fa-tachometer-alt fa-lg"></i>
                                     <span>Dashboard</span>
-                                    <%--<span class="badge badge-pill badge-warning">New</span>--%>
+                                    <span class="badge badge-pill badge-warning">New</span>
                                 </a>
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
                                             <a href="#">Dashboard 1
                    
-                                                <%--                                                <span class="badge badge-pill badge-success">Pro</span>--%>
+                                                                                                <span class="badge badge-pill badge-success">Pro</span>
                                             </a>
                                         </li>
                                         <li>
@@ -102,7 +102,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li>--%>
                             <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-shopping-cart fa-lg"></i>
@@ -162,7 +162,7 @@
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="#">Manufacture</a>
+                                            <a href="NewPatentFormula.aspx">Create New</a>
                                         </li>
                                          <%--<li>
                                             <a href="#">New Raw Herb Order</a>
@@ -180,7 +180,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="sidebar-dropdown">
+<%--                            <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-chart-line fa-lg"></i>
                                     <span>Charts</span>
@@ -196,7 +196,7 @@
                                       
                                     </ul>
                                 </div>
-                            </li>
+                            </li>--%>
                             <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-address-book fa-lg"></i>
@@ -216,10 +216,10 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="header-menu">
+                         <%--   <li class="header-menu">
                                 <span>Extra</span>
-                            </li>
-                             <li class="sidebar-dropdown">
+                            </li>--%>
+<%--                             <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-envelope fa-lg"></i>
                                     <span>Mailing Center</span>
@@ -235,13 +235,13 @@
                                         
                                     </ul>
                                 </div>
-                            </li>
-                            <li>
+                            </li>--%>
+<%--                            <li>
                                 <a href="#">
                                     <i class="fa fa-calendar"></i>
                                     <span>Calendar</span>
                                 </a>
-                            </li>
+                            </li>--%>
                             <%--<li>
                                 <a href="#">
                                     <i class="fa fa-folder"></i>

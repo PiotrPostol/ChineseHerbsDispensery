@@ -270,6 +270,7 @@ namespace Dispensery
 
         protected void btnAddToTable_Click(object sender, EventArgs e)
         {
+            divAlertError.Visible = false;
             stockAlert.Visible = false;
             string message;
 
@@ -507,9 +508,27 @@ namespace Dispensery
 
                     while (rdr.Read())
                     {
-                        if (rdr["TotalQuantity"].ToString() != null)
+                        if (!Convert.IsDBNull(rdr["TotalQuantity"]))
                         {
                             totalHerbStock = Convert.ToDecimal(rdr["TotalQuantity"].ToString());
+                            dosageQuantity = (herbQuantity * numOfDosageDays) / 5;
+
+                            if (totalHerbStock < dosageQuantity)
+                            {
+                                lblalertLowStock.Text = String.Format("Quantity of {0} in stock: {1}g", herbName, totalHerbStock);
+                                lblHerbQuantityToOrder.Text = String.Format("Missing quantity: {0}g, herb refrence number: {1}", dosageQuantity - totalHerbStock, refNum);
+                                stockAlert.Visible = true;
+                                stockAlert.Focus();
+                                result = 0;
+                            }
+                            else
+                            {
+                                result = 1;
+                            }
+                        }
+                        else
+                        {
+                            totalHerbStock = 0;
                             dosageQuantity = (herbQuantity * numOfDosageDays) / 5;
 
                             if (totalHerbStock < dosageQuantity)
@@ -742,66 +761,66 @@ namespace Dispensery
 
         }
 
-        protected void btnSelectPrescription_Click(object sender, EventArgs e)
-        {
-            string message;
-            string tradFormulaName;
+        //protected void btnSelectPrescription_Click(object sender, EventArgs e)
+        //{
+        //    string message;
+        //    string tradFormulaName;
 
 
-            if (ddlPrescripion.Text != "" && ddlPrescripion.Text.ToString() != "-- Select Formula --")
-            {
-                FormulaRefNum();
-                tradFormulaName = ddlPrescripion.SelectedItem.Text.ToString();
-                string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+        //    if (ddlPrescripion.Text != "" && ddlPrescripion.Text.ToString() != "-- Select Formula --")
+        //    {
+        //        FormulaRefNum();
+        //        tradFormulaName = ddlPrescripion.SelectedItem.Text.ToString();
+        //        string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    SqlCommand command = new SqlCommand("spInsertTraditionalFormula", con);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+        //        using (SqlConnection con = new SqlConnection(constr))
+        //        {
+        //            SqlCommand command = new SqlCommand("spInsertTraditionalFormula", con);
+        //            command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@formulaName", tradFormulaName);
-                    command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
-                    command.Parameters.AddWithValue("@dosageDays", numOfDosageDays);
-                    command.Parameters.AddWithValue("@patientID", patientID);
-                    command.Parameters.AddWithValue("@practitionerID", practitionerID);
-                    con.Open();
-                    SqlDataReader rdr = command.ExecuteReader();
-                    try
-                    {
+        //            command.Parameters.AddWithValue("@formulaName", tradFormulaName);
+        //            command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
+        //            command.Parameters.AddWithValue("@dosageDays", numOfDosageDays);
+        //            command.Parameters.AddWithValue("@patientID", patientID);
+        //            command.Parameters.AddWithValue("@practitionerID", practitionerID);
+        //            con.Open();
+        //            SqlDataReader rdr = command.ExecuteReader();
+        //            try
+        //            {
 
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        message = "Error! " + ex;
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
-                        message = "";
-                    }
-                    finally
-                    {
+        //                command.ExecuteNonQuery();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                message = "Error! " + ex;
+        //                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+        //                message = "";
+        //            }
+        //            finally
+        //            {
 
-                        con.Close();
+        //                con.Close();
 
-                    }
-                }
-            }
-            else
-            {
-                message = "No Formula selected! Please select Formula.";
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
-                message = "";
-            }
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        message = "No Formula selected! Please select Formula.";
+        //        ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+        //        message = "";
+        //    }
 
-            grvShort.DataBind();
-            grvShort.UseAccessibleHeader = true;
-            int rowCount = grvShort.Rows.Count;
-            if (rowCount != 0)
-            {
-                grvShort.HeaderRow.TableSection = TableRowSection.TableHeader;
-            }
-            GetTotals();
+        //    grvShort.DataBind();
+        //    grvShort.UseAccessibleHeader = true;
+        //    int rowCount = grvShort.Rows.Count;
+        //    if (rowCount != 0)
+        //    {
+        //        grvShort.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    }
+        //    GetTotals();
 
-        }
+        //}
         
         protected void grvShort_RowDeleted(object sender, GridViewDeletedEventArgs e)
         {

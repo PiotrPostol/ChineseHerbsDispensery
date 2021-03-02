@@ -165,6 +165,7 @@
     <Content Include="Img\price.jpeg" />
     <Content Include="Img\stop.png" />
     <Content Include="ManageHerbs.aspx" />
+    <Content Include="NewPatentFormula.aspx" />
     <Content Include="PendingPrescriptions.aspx" />
     <Content Include="Prescription.aspx" />
     <Content Include="PrescriptionMain.aspx" />
@@ -369,6 +370,13 @@
     </Compile>
     <Compile Include="ManageHerbs.aspx.designer.cs">
       <DependentUpon>ManageHerbs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewPatentFormula.aspx.cs">
+      <DependentUpon>NewPatentFormula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewPatentFormula.aspx.designer.cs">
+      <DependentUpon>NewPatentFormula.aspx</DependentUpon>
     </Compile>
     <Compile Include="PendingPrescriptions.aspx.cs">
       <DependentUpon>PendingPrescriptions.aspx</DependentUpon>
