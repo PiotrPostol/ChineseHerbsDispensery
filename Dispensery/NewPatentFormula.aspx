@@ -77,13 +77,17 @@
                                     </div>
 
                                     <hr>
-                                    <asp:Label ID="lblalertLowStock" CssClass="p-4 mb-1" runat="server" Text=""></asp:Label>
-                                    <br />
-                                    <asp:Label ID="lblHerbQuantityToOrder" CssClass="p-4" runat="server" Text=""></asp:Label>
+                                    <div class="row">
+                                        <asp:Label ID="lblalertLowStock" CssClass="p-4 mb-1" runat="server" Text=""></asp:Label>
+                                        <br />
+                                        <asp:Label ID="lblHerbQuantityToOrder" CssClass="p-4" runat="server" Text=""></asp:Label>
+
+                                    </div>
+
                                 </div>
                             </div>
                             <%--        -----------------------Form Start-----------------------------------%>
-                            <div class="form-row ">
+                            <div class="form-row " id="divFormInput" runat="server">
                                 <div class="form-group col-lg-6">
                                     <label class=" font-weight-bold" for="tbxHerb">Select Patent Formula:</label>
                                     <asp:DropDownList ID="ddlPatentFormula" CssClass="form-control" runat="server" DataSourceID="SqlDataSource2" DataTextField="FormulaName" DataValueField="FormulaName"></asp:DropDownList>
@@ -97,10 +101,34 @@
                                 <div class="form-group col-lg-2 align-self-end">
                                     <asp:Button runat="server" OnClick="btnCreatePatentFormula_Click" ID="btnCreatePatentFormula" type="submit" class="btn  btn-success btn-block" Text="Create"></asp:Button>
                                 </div>
+                               
                             </div>
-                            <hr />
+                         
+                            <%--                            ------------------------------------cancel button----------------------------%>
+                            <div class="form-row " id="divCancel" runat="server">
+                                <div class="col-lg-8">
+                                     <div class="form-group row ">
+                                    <label class="col-sm-3 font-weight-bold" for="tbxFormulaName">Formula Name:</label>
+                                    <div class="col-sm-9">
+                                    <asp:TextBox ID="tbxFormulaName" required="true" class="form-control ml-md-2" readonly="true" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
 
-<%--              ------------------   lables hidden------------------------%>
+                                    </div>
+                                </div>
+
+                                </div>
+                               
+                                <div class="form-group col-lg-2">
+                                </div>
+                                <div class="form-group col-lg-2 align-self-end">
+                                    <asp:Button runat="server" OnClick="btnCancel_Click" ID="btnCancel" type="submit" class="btn  btn-danger btn-block" Text="Cancel"></asp:Button>
+                                </div>
+                                
+                            </div>
+                             <br />
+                                   <hr />
+
+
+                            <%--              ------------------   lables hidden------------------------%>
                             <div id="lables" runat="server" visible="false">
                                 <div class="form-row ">
                                     <div class="form-group col-lg-4">
@@ -126,16 +154,18 @@
 
                                 <asp:GridView ID="GridView1" CssClass="table table-striped table-hover" GridLines="None" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
                                     <Columns>
-                                        <asp:BoundField DataField="FormulaName" HeaderText="Formula Name" SortExpression="FormulaName"></asp:BoundField>
-                                        <asp:BoundField DataField="FormulaRefNum" Visible="false" HeaderText="Ref. Num." SortExpression="FormulaRefNum"></asp:BoundField>
+                                        <asp:BoundField DataField="FormulaRefNum" HeaderText="FormulaRefNum" SortExpression="FormulaRefNum" Visible="False"></asp:BoundField>
+                                        <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch Num" SortExpression="HerbBatchNum"></asp:BoundField>
                                         <asp:BoundField DataField="HerbName" HeaderText="Herb Name" SortExpression="HerbName"></asp:BoundField>
-                                        <asp:BoundField DataField="DosageGrams" HeaderText="Dosage Per Bottle" SortExpression="DosageGrams"></asp:BoundField>
+                                        <asp:BoundField DataField="DosageGrams" HeaderText="Dosage (g)" SortExpression="DosageGrams"></asp:BoundField>
                                         <asp:BoundField DataField="TotalDosageGrams" HeaderText="Total Dosage (g)" SortExpression="TotalDosageGrams" ReadOnly="True"></asp:BoundField>
 
+                                        <asp:BoundField DataField="SellPrice" HeaderText="Unit Price" SortExpression="SellPrice" ReadOnly="True"></asp:BoundField>
+                                        <asp:BoundField DataField="HerbRefNum" HeaderText="Herb Ref Num" SortExpression="HerbRefNum"></asp:BoundField>
                                     </Columns>
                                 </asp:GridView>
 
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatentFormulaTemp.FormulaRefNum, AllHerbs.HerbName, PatentFormulaTemp.DosageGrams, PatentFormulaTemp.TotalDosageGrams, PatentFormulaTemp.FormulaName FROM AllHerbs INNER JOIN PatentFormulaTemp ON AllHerbs.RefNum = PatentFormulaTemp.HerbRefNum WHERE (PatentFormulaTemp.FormulaName = @PFname)">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatentFormulaTemp.FormulaRefNum, PatentFormulaTemp.HerbBatchNum, AllHerbs.HerbName, PatentFormulaTemp.DosageGrams, PatentFormulaTemp.TotalDosageGrams, PatentFormulaTemp.HerbRefNum, (SELECT SellPrice FROM HerbStock WHERE (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS SellPrice FROM AllHerbs INNER JOIN PatentFormulaTemp ON AllHerbs.RefNum = PatentFormulaTemp.HerbRefNum WHERE (PatentFormulaTemp.FormulaName = @PFname)">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="ddlPatentFormula" PropertyName="SelectedValue" DefaultValue="0" Name="PFname"></asp:ControlParameter>
                                     </SelectParameters>

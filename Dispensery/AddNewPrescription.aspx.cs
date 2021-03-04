@@ -229,7 +229,8 @@ namespace Dispensery
                         switch (admMethodID)
                         {
                             case 1:
-                                administrationCost = 0;
+                                admTimePeriodCalc = Convert.ToInt32(tbxNumDays.Text.ToString()) / admPerTimePeriod;
+                                administrationCost = admTimePeriodCalc * admCost;
                                 break;
                             case 2:
                                 admTimePeriodCalc = Convert.ToInt32(tbxNumDays.Text.ToString()) / admPerTimePeriod;
@@ -238,7 +239,7 @@ namespace Dispensery
                             case 3:
                                 GetTotalGranulesQuantity();
                               
-                                administrationCost = ((totalGranulesQuantity / 2) / admPerTimePeriod)* admCost;
+                                administrationCost = ((totalGranulesQuantity) / admPerTimePeriod)* admCost;
                                 break;
 
                         }
@@ -359,7 +360,7 @@ namespace Dispensery
                     formulaRefNum = hdFormulaRefNum.Value.ToString();
                     foreach (HerbInStock herbInStock in listHerbInSock)
                     {
-                        InsertRecordTempPrescription(formulaRefNum, refNum, formulaName, herbInStock.Quantity, numOfDosageDays, patientID, practitionerID,herbInStock.BatchNum);
+                        InsertRecordTempPrescription(formulaRefNum, refNum, formulaName, herbQuantity, numOfDosageDays, patientID, practitionerID,herbInStock.BatchNum);
                     }
                
                         

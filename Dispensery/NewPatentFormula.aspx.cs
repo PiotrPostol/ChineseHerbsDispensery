@@ -15,50 +15,76 @@ namespace Dispensery
         List<string> herbRefNum = new List<string>();
         List<decimal> herbQty = new List<decimal>();
         List<decimal> herbProcentage = new List<decimal>();
-       
+        HerbInStock herb;
+        string lowStockMessage;
         List<HerbInStock> listHerbInSock = new List<HerbInStock>();
         protected void Page_Load(object sender, EventArgs e)
         {
             lables.Visible = false;
+            if (!IsPostBack)
+            {
+                Session["update"] = Server.UrlEncode(System.DateTime.Now.ToString());
+                DeleteDataOnCancel();
+                divFormInput.Visible = true;
+                divCancel.Visible = false;
+            }
         }
-//---------------------Button Click Add To Temp Table-------------------
+
+        void Page_PreRender(object obj, EventArgs e)
+        {
+            ViewState["update"] = Session["update"];
+        }
+        //---------------------Button Click Add To Temp Table-------------------
         protected void btnCreatePatentFormula_Click(object sender, EventArgs e)
         {
-            DateTime today = DateTime.Now;
-            string dayOfYear = today.DayOfYear.ToString();
-            int yearInt = today.Year % 100;
-            string year = yearInt.ToString();
-            Label lblMasterStatus = (Label)Master.FindControl("lblPractitionerName");
-            string PFname = ddlPatentFormula.SelectedItem.ToString();
-            int Bquantity = Convert.ToInt32(tbxQuantity.Text.ToString());
 
-            string PFrefNum = ExtractInitialsFromName(PFname) + dayOfYear + year + DateTime.Now.ToString("HHmmss") + "/" + Bquantity;
-
-            //-----------Get PF all herb ref Num and write to herbRefNum list and herbqty list--------------------
-            GetPTherbsRefNum(PFname,Bquantity);
-
-            //----------------- Check each herbRefNum and herbQty if in stock--------------------------
-            for(int i=0; i<herbRefNum.Count; i++)
+            if (Session["update"].ToString() == ViewState["update"].ToString())
             {
-                if(CheckStock(herbRefNum[i], herbQty[i]) == 0)
+                divFormInput.Visible = false;
+                divCancel.Visible = true;
+                DateTime today = DateTime.Now;
+                string dayOfYear = today.DayOfYear.ToString();
+                int yearInt = today.Year % 100;
+                string year = yearInt.ToString();
+                Label lblMasterStatus = (Label)Master.FindControl("lblPractitionerName");
+                string PFname = ddlPatentFormula.SelectedItem.ToString();
+                tbxFormulaName.Text = PFname;
+                int Bquantity = Convert.ToInt32(tbxQuantity.Text.ToString());
+
+                string PFrefNum = ExtractInitialsFromName(PFname) + dayOfYear + year + DateTime.Now.ToString("HHmmss") + "/" + Bquantity;
+
+                //-----------Get PF all herb ref Num and write to herbRefNum list and herbqty list--------------------
+                GetPTherbsRefNum(PFname, Bquantity);
+
+                //----------------- Check each herbRefNum and herbQty if in stock--------------------------
+                for (int i = 0; i < herbRefNum.Count; i++)
                 {
-                    break;
+                    if (CheckStock(herbRefNum[i], herbQty[i], Bquantity) == 0)
+                    {
+                      
+                    }
+                    else
+                    {
+                        CheckBatch(herbRefNum[i], herbQty[i], herbProcentage[i]);
+                    }
+                    
                 }
-                CheckBatch(herbRefNum[i], herbQty[i], herbProcentage[i]);
-            }
-            //-------------------insert data to temp table-----------------------------
-            foreach( HerbInStock item in listHerbInSock)
-            {
-                InsertDataToTemp(PFname, PFrefNum, Bquantity, item.HerbRefNum, item.BatchNum, item.Quantity, item.HerbProcentage);
-            }
-            if(lblPFrefNum.Text !=null || lblBottleQty.Text != null)
-            {
-                lables.Visible = true;
-                lblPFrefNum.Text = PFrefNum.ToString();
-                lblBottleQty.Text = Bquantity.ToString();
-                GridView1.DataBind();
-            }
+                //-------------------insert data to temp table-----------------------------
+                foreach (HerbInStock item in listHerbInSock)
+                {
+                    InsertDataToTemp(PFname, PFrefNum, Bquantity, item.HerbRefNum, item.BatchNum, item.Quantity, item.HerbProcentage);
+                }
+                if (lblPFrefNum.Text != null || lblBottleQty.Text != null)
+                {
+                    lables.Visible = true;
+                    lblPFrefNum.Text = PFrefNum.ToString();
+                    lblBottleQty.Text = Bquantity.ToString();
+                    GridView1.DataBind();
+                }
 
+
+
+            }
 
 
         }
@@ -192,27 +218,16 @@ namespace Dispensery
 
 
         }
-
-
-        //-----------------Insert Data To Temp Table----------------------
-        protected void InsertDataToTemp(string patentFormulaName, string PFrefNum, int bottleQuantity, string herbRefNum, string herbBatchNum, decimal herbQty, decimal herbProcentage )
+        //----------------Delete All Data---------------------------------
+        protected void DeleteDataOnCancel()
         {
             string message;
             string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(constr))
             {
-                SqlCommand command = new SqlCommand("spInsertPatentFormulaToTemp", con);
+                SqlCommand command = new SqlCommand("spDeleteAllPatentFormulaTemp", con);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@patentFormulaName", patentFormulaName);
-                command.Parameters.AddWithValue("@PFrefNum", PFrefNum);
-                command.Parameters.AddWithValue("@bottleQuantity", bottleQuantity);
-                command.Parameters.AddWithValue("@herbRefNum", herbRefNum);
-                command.Parameters.AddWithValue("@herbBatchNum", herbBatchNum);
-                command.Parameters.AddWithValue("@dosageGrams", herbQty);
-                command.Parameters.AddWithValue("@herbProcentage", herbProcentage);
-
-
                 con.Open();
                 try
                 {
@@ -235,11 +250,57 @@ namespace Dispensery
                 }
             }
 
+        }
 
+        //-----------------Insert Data To Temp Table----------------------
+        protected void InsertDataToTemp(string patentFormulaName, string PFrefNum, int bottleQuantity, string herbRefNum, string herbBatchNum, decimal herbQty, decimal herbProcentage )
+        {
+
+            if (Session["update"].ToString() == ViewState["update"].ToString())
+            {
+                string message;
+                string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    SqlCommand command = new SqlCommand("spInsertPatentFormulaToTemp", con);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@patentFormulaName", patentFormulaName);
+                    command.Parameters.AddWithValue("@PFrefNum", PFrefNum);
+                    command.Parameters.AddWithValue("@bottleQuantity", bottleQuantity);
+                    command.Parameters.AddWithValue("@herbRefNum", herbRefNum);
+                    command.Parameters.AddWithValue("@herbBatchNum", herbBatchNum);
+                    command.Parameters.AddWithValue("@dosageGrams", herbQty);
+                    command.Parameters.AddWithValue("@herbProcentage", herbProcentage);
+
+
+                    con.Open();
+                    try
+                    {
+                        command.ExecuteNonQuery();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        message = "Error! " + ex;
+                        divAlertWarning.Visible = true;
+                        divAlertWarning.Focus();
+                        lblAlertWarning.Text = message;
+                        message = "";
+                    }
+                    finally
+                    {
+
+                        con.Close();
+
+                    }
+                }
+
+            }
         }
 
 //--------------------Check stock---------------------------
-        protected int CheckStock(string herbRefNum, decimal herbQuantity)
+        protected int CheckStock(string herbRefNum, decimal herbQuantity, int bottleQty)
         {
             decimal totalHerbStock;
             int result = 0;
@@ -260,15 +321,17 @@ namespace Dispensery
 
                     while (rdr.Read())
                     {
-                        if (!Convert.IsDBNull(rdr["TotalQuantity"]) || rdr["TotalQuantity"].ToString() != null)
+                        if (Convert.IsDBNull(rdr["TotalQuantity"]) != true)
                         {
                             totalHerbStock = Convert.ToDecimal(rdr["TotalQuantity"].ToString());
-                             dosageQuantity = herbQuantity;
+                             dosageQuantity = herbQuantity * bottleQty;
 
                             if (totalHerbStock < dosageQuantity)
                             {
-                                lblalertLowStock.Text = String.Format("Quantity of {0} in stock: {1}g", herbRefNum, totalHerbStock);
-                                lblHerbQuantityToOrder.Text = String.Format("Missing quantity: {0}g, herb refrence number: {1}", dosageQuantity - totalHerbStock, herbRefNum);
+                                GetHerbName(herbRefNum);
+                                lowStockMessage += String.Format("Quantity of {0} in stock: {1}g", herb.HerbName, totalHerbStock) +"<br/>";
+                                lowStockMessage += String.Format("Missing quantity: {0}g, herb refrence number: {1}", dosageQuantity - totalHerbStock, herbRefNum)+ "<br/><hr/>";
+                                lblalertLowStock.Text = lowStockMessage;
                                 stockAlert.Visible = true;
                                 stockAlert.Focus();
                                 result = 0;
@@ -281,12 +344,14 @@ namespace Dispensery
                         else
                         {
                             totalHerbStock = 0;
-                            dosageQuantity = (herbQuantity );
+                            dosageQuantity = (herbQuantity * bottleQty);
 
                             if (totalHerbStock < dosageQuantity)
                             {
-                                lblalertLowStock.Text = String.Format("Quantity of {0} in stock: {1}g", herbRefNum, totalHerbStock);
-                                lblHerbQuantityToOrder.Text = String.Format("Missing quantity: {0}g, herb refrence number: {1}", dosageQuantity - totalHerbStock, herbRefNum);
+                                GetHerbName(herbRefNum);
+                                lowStockMessage += String.Format("Quantity of {0} in stock: {1}g\n", herb.HerbName, totalHerbStock) + "<br/>";
+                                lowStockMessage += String.Format("Missing quantity: {0}g, herb refrence number: {1}\n", dosageQuantity - totalHerbStock, herbRefNum) + "<br/><hr/>";
+                                lblalertLowStock.Text = lowStockMessage;
                                 stockAlert.Visible = true;
                                 stockAlert.Focus();
                                 result = 0;
@@ -344,5 +409,56 @@ namespace Dispensery
             return initials.ToUpperInvariant();
         }
 
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            DeleteDataOnCancel();
+            divFormInput.Visible = true;
+            divCancel.Visible = false;
+            GridView1.DataBind();
+            tbxQuantity.Text = "";
+            stockAlert.Visible = false;
+
+        }
+
+        protected void GetHerbName(string herbRefNum)
+        {
+            string message;
+
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                SqlCommand command = new SqlCommand("spGetHerbName", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+               
+                command.Parameters.AddWithValue("@herbRefNum", herbRefNum);
+                con.Open();
+                SqlDataReader rdr = command.ExecuteReader();
+                try
+                {
+
+                    while (rdr.Read())
+                    {
+                        herb = new HerbInStock();
+                        herb.HerbName = (rdr["HerbName"].ToString());
+                       
+                    }
+                }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    divAlertWarning.Visible = true;
+                    divAlertWarning.Focus();
+                    lblAlertWarning.Text = message;
+                    message = "";
+                }
+                finally
+                {
+
+                    con.Close();
+
+                }
+            }
+        }
     }
 }

@@ -192,6 +192,10 @@
                                             <td>
                                                 <asp:Label ID="lblPatientTown" runat="server" Text=""></asp:Label></td>
                                         </tr>
+                                         <tr>
+                                            <td>
+                                                <asp:Label ID="lblPatientCounty" runat="server" Text=""></asp:Label></td>
+                                        </tr>
                                         <tr>
                                             <td>
                                                 <asp:Label ID="lblPatientEirecode" runat="server" Text=""></asp:Label></td>
@@ -257,7 +261,7 @@
                                     <div class="col-md-5">
                                     </div>
                                     <div class="col-md-3 ">
-                                        <h5 class="font-weight-bold ">Administration Fee</h5>
+                                        <h5 class="font-weight-bold ">Dispensing</h5>
                                     </div>
                                     <div class="col-md-4 pl-0 ">
                                         <div class="border border-bottom-0" style="border-color: #dee2e6; padding: 0.75rem;">

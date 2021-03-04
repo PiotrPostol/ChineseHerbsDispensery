@@ -48,6 +48,7 @@ namespace Dispensery
         decimal discount;
         string formulaRefNum;
         string discountReason;
+        string patientCounty;
         IList<string> herbBatchNums = new List<string>();
 
 
@@ -134,6 +135,15 @@ namespace Dispensery
                         patientEirecode = rdr["PatientEirecode"].ToString();
                         patientPhoneNo = rdr["PatientPhoneNum"].ToString();
                         patientEmail = rdr["PatientEmail"].ToString();
+                        if(Convert.IsDBNull(rdr["PatientCounty"]) == true )
+                        {
+                            patientCounty = "";
+                        }
+                        else
+                        {
+                            patientCounty = "Co. " + rdr["PatientCounty"].ToString();
+                        }
+                   
 
                     }
                 }
@@ -198,6 +208,7 @@ namespace Dispensery
 
         protected void GetPractitionerData(int practitionerId)
         {
+
             string message;
             string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
@@ -240,6 +251,7 @@ namespace Dispensery
             GridView2.Visible = false;
             patientInvoice.Visible = true;
             GridView1.Visible = true;
+            lblDosageDays.Visible = false;
             //string message;
 
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
@@ -256,6 +268,7 @@ namespace Dispensery
             lblPatientName.Text = patientName;
             lblPatientAddress.Text = patientAddress;
             lblPatientTown.Text = patientTown;
+            lblPatientCounty.Text = patientCounty;
             lblPatientEirecode.Text = patientEirecode;
             lblPatientEmail.Text = patientEmail;
             lblPatientPhone.Text = patientPhoneNo;
@@ -293,6 +306,7 @@ namespace Dispensery
             patientInvoice.Visible = false;
             practitionerInvoice.Visible = true;
             GridView2.Visible = true;
+            lblDosageDays.Visible = true;
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
 
             //Reference the Label and TextBox.
@@ -311,6 +325,7 @@ namespace Dispensery
             lblPatientEmail.Text = patientEmail;
             lblPatientPhone.Text = patientPhoneNo;
             lbldiscountReason.Text = discountReason;
+            lblPatientCounty.Text = patientCounty;
 
             decimal subtotalWithDispFee = formulaTotalCost - postageFee;
             //lblSubtotal.Text = String.Format("{0:C}", subtotalWithDispFee);

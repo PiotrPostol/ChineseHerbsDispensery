@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dispensery {
-    
-    
-    public partial class PendingPrescriptions {
-        
+namespace Dispensery
+{
+
+
+    public partial class PendingPrescriptions
+    {
+
         /// <summary>
         /// divAlertSuccess control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlertSuccess;
-        
+
         /// <summary>
         /// lblNoSelectionAlertHeader control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoSelectionAlertHeader;
-        
+
         /// <summary>
         /// Repeater1 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater Repeater1;
-        
+
         /// <summary>
         /// SqlDataSource1 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-        
+
         /// <summary>
         /// modallblFormulaRefNum control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label modallblFormulaRefNum;
-        
+
         /// <summary>
         /// mdlblCurrentDate control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label mdlblCurrentDate;
-        
+
         /// <summary>
         /// lblPatientID control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientID;
-        
+
         /// <summary>
         /// lblPatientName control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientName;
-        
+
         /// <summary>
         /// lblPatientAddress control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientAddress;
-        
+
         /// <summary>
         /// lblPatientTown control.
         /// </summary>
@@ -101,7 +103,16 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientTown;
-        
+
+        /// <summary>
+        /// lblPatientCounty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPatientCounty;
+
         /// <summary>
         /// lblPatientEirecode control.
         /// </summary>
@@ -110,7 +121,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientEirecode;
-        
+
         /// <summary>
         /// lblPatientEmail control.
         /// </summary>
@@ -119,7 +130,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientEmail;
-        
+
         /// <summary>
         /// lblPatientPhone control.
         /// </summary>
@@ -128,7 +139,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPatientPhone;
-        
+
         /// <summary>
         /// lblDosageDays control.
         /// </summary>
@@ -137,7 +148,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDosageDays;
-        
+
         /// <summary>
         /// patientInvoice control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl patientInvoice;
-        
+
         /// <summary>
         /// GridView1 control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
-        
+
         /// <summary>
         /// SqlDataSource2 control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
-        
+
         /// <summary>
         /// lblSubtotal control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSubtotal;
-        
+
         /// <summary>
         /// lblDispensingFee control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDispensingFee;
-        
+
         /// <summary>
         /// lblPostageFee control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPostageFee;
-        
+
         /// <summary>
         /// divDiscount control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiscount;
-        
+
         /// <summary>
         /// lblDiscount control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDiscount;
-        
+
         /// <summary>
         /// lblTotalCost control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalCost;
-        
+
         /// <summary>
         /// lblPractitionerDetails control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPractitionerDetails;
-        
+
         /// <summary>
         /// practitionerInvoice control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl practitionerInvoice;
-        
+
         /// <summary>
         /// GridView2 control.
         /// </summary>
@@ -245,7 +256,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView2;
-        
+
         /// <summary>
         /// SqlDataSource4 control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
-        
+
         /// <summary>
         /// lblPracDispensingFee control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracDispensingFee;
-        
+
         /// <summary>
         /// lblPracAdminiMethod control.
         /// </summary>
@@ -272,7 +283,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracAdminiMethod;
-        
+
         /// <summary>
         /// lblPracAdminiCost control.
         /// </summary>
@@ -281,7 +292,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracAdminiCost;
-        
+
         /// <summary>
         /// lblPracPostageMethod control.
         /// </summary>
@@ -290,7 +301,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracPostageMethod;
-        
+
         /// <summary>
         /// lblPracPostageCost control.
         /// </summary>
@@ -299,7 +310,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracPostageCost;
-        
+
         /// <summary>
         /// divPracDiscount control.
         /// </summary>
@@ -308,7 +319,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPracDiscount;
-        
+
         /// <summary>
         /// lbldiscountReason control.
         /// </summary>
@@ -317,7 +328,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbldiscountReason;
-        
+
         /// <summary>
         /// lblPracDiscount control.
         /// </summary>
@@ -326,7 +337,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracDiscount;
-        
+
         /// <summary>
         /// lblPracTotalCost control.
         /// </summary>
@@ -335,7 +346,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPracTotalCost;
-        
+
         /// <summary>
         /// lblPractitionerDetails2 control.
         /// </summary>

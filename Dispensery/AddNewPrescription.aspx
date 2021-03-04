@@ -57,6 +57,18 @@
         .slideanim {
             visibility: hidden;
         }
+          .radiostyle {
+      height: auto;
+    }
+
+    .radiostyle label {
+        margin-left: 3px !important;
+        margin-right: 10px !important;
+    }
+     input[type="radio"]
+        {
+            margin: 4px 4px 4px 4px;    
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="UserInfo" runat="server">
@@ -289,14 +301,16 @@
                                         <div class="col-sm-2">
                                             <i class="fa fa-pills fa-4x " style="color: #9fc299;"></i>
                                         </div>
-                                        <div class="col-form-label  col-sm-5 font-weight-bold pt-0 pl-0">
+                                        <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
                                             Dispensing Method 
                                         </div>
-                                        <div class="col-sm-5">
-                                            <asp:RadioButtonList CssClass="form-check-input mb-4" required="true" ID="rdbAdministration" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource7" DataTextField="AdmMethod" DataValueField="AdmId">
+                                        <div class="col-sm-6">
+                                            <div class="form-check form-check-inline ">
+                                            <asp:RadioButtonList CssClass="form-check-input" required="true" ID="rdbAdministration" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource7" DataTextField="AdmMethod" DataValueField="AdmId">
                                             </asp:RadioButtonList>
                                             <asp:SqlDataSource runat="server" ID="SqlDataSource7" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT * FROM [AdministrationMethod]"></asp:SqlDataSource>
                                         </div>
+                                            </div>
                                     </div>
                                 </div>
                                 <br />
@@ -307,10 +321,10 @@
                                         <div class="col-sm-2">
                                             <i class="fa fa-balance-scale-left fa-4x" style="color: #9fc299;"></i>
                                         </div>
-                                        <div class="col-form-label  col-sm-5 font-weight-bold pt-0 pl-0">
+                                        <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
                                             Handling Fee
                                         </div>
-                                        <div class="col-sm-5 pl-0">
+                                        <div class="col-sm-6 pl-0">
                                             <asp:DropDownList CssClass="form-control " required="true" AutoPostBack="true" ID="ddlDispensingFee" runat="server" DataSourceID="SqlDataSource5" DataTextField="DispensingFeeName" DataValueField="DispFeePercentage">
                                             </asp:DropDownList>
                                             <%--<asp:RadioButtonList CssClass="form-check-input" ID="rdbdispensingFee" Style="font-weight: bold" RepeatLayout="Flow" RepeatDirection="Vertical" runat="server">
@@ -325,28 +339,30 @@
 
                                 <br />
                                 <hr />
-                                <div class="form-group">
-                                    <div class="form-row mb-5">
+                              <%--  <div class="form-group">--%>
+                                    <div class="form-row mb-1">
                                         <div class="col-sm-2">
                                             <i class="fa fa-mail-bulk fa-4x" style="color: #9fc299;"></i>
                                         </div>
-                                        <div class="col-form-label  col-sm-5 font-weight-bold pt-0 pl-0">
+                                        <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
                                             Postage
                                         </div>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                           <div class="form-check form-check-inline ">
 
-                                            <asp:RadioButtonList required="true" CssClass="form-check-input ml-lg-1" ID="rdbPostage" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource6" DataTextField="PostageMethod" DataValueField="PostageCost">
+                                          
+                                            <asp:RadioButtonList required="true" CssClass="form-check-input" ID="rdbPostage" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" repeatdirection="Vertical" runat="server" DataSourceID="SqlDataSource6" DataTextField="PostageMethod" DataValueField="PostageCost">
                                             </asp:RadioButtonList>
                                             <asp:SqlDataSource runat="server" ID="SqlDataSource6" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT * FROM [PostageCost]"></asp:SqlDataSource>
-                                        
+                                         </div>
                                         </div>
                                     </div>
-                                </div>
+                              <%--  </div>--%>
 
                                 <br />
                                   <hr />
                                  <div class="form-group">
-                                    <div class="form-row mt-2">
+                                    <div class="form-row mt-1">
                                         <div class="col-sm-2">
                                             <i class="far fa-minus-square fa-4x" style="color: #9fc299;"></i>
                                         </div>
