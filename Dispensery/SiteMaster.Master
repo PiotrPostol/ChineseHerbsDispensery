@@ -171,7 +171,7 @@
                                             <a href="#">Dispense</a>
                                         </li>
                                         <li>
-                                            <a href="#">View Stock</a>
+                                            <a href="ViewPatentFormulaStock.aspx">View Stock</a>
                                         </li>
                                     
                                         <li>

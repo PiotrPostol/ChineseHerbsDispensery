@@ -3,6 +3,23 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var priceTotal = 0;
+        //var subtotal;
+
+        $.each($(".priceCSS"), function (index, value) {
+            priceTotal += parseFloat($(value).text());
+        });
+
+        $(".priceSpan").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceTotal));
+
+        //$.each($(".subtotalCSS"), function (index, value) {
+        //    subtotal = parseFloat($(value).text())
+        //    $(".subtotalCSS").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(subtotal))
+        //});
+    });
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="UserInfo" runat="server">
 </asp:Content>
@@ -35,7 +52,7 @@
                                         <div class="col-lg-8 justify-content-start ">
 
                                             <h4 class="font-weight-bold text-center ">
-                                                <asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="Herb Added Successfuly" runat="server"></asp:Label></h4>
+                                                <asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="Patent Formula Added Successfuly" runat="server"></asp:Label></h4>
 
                                         </div>
                                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -70,7 +87,7 @@
                                             <i class="fa fa-exclamation-triangle fa-4x"></i>
                                         </div>
                                         <div class="col-8 justify-content-start ">
-                                            <h4 class="font-weight-bold text-center ">Insufficient herb quantity in stock!</h4>
+                                            <h4 class="font-weight-bold text-center ">Insufficient Herb Quantity In Stock!</h4>
 
                                         </div>
                                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -101,31 +118,31 @@
                                 <div class="form-group col-lg-2 align-self-end">
                                     <asp:Button runat="server" OnClick="btnCreatePatentFormula_Click" ID="btnCreatePatentFormula" type="submit" class="btn  btn-success btn-block" Text="Create"></asp:Button>
                                 </div>
-                               
+
                             </div>
-                         
+
                             <%--                            ------------------------------------cancel button----------------------------%>
                             <div class="form-row " id="divCancel" runat="server">
                                 <div class="col-lg-8">
-                                     <div class="form-group row ">
-                                    <label class="col-sm-3 font-weight-bold" for="tbxFormulaName">Formula Name:</label>
-                                    <div class="col-sm-9">
-                                    <asp:TextBox ID="tbxFormulaName" required="true" class="form-control ml-md-2" readonly="true" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
+                                    <div class="form-group row ">
+                                        <label class="col-sm-3 font-weight-bold" for="tbxFormulaName">Formula Name:</label>
+                                        <div class="col-sm-9">
+                                            <asp:TextBox ID="tbxFormulaName" required="true" class="form-control ml-md-2" ReadOnly="true" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
 
+                                        </div>
                                     </div>
-                                </div>
 
                                 </div>
-                               
+
                                 <div class="form-group col-lg-2">
                                 </div>
                                 <div class="form-group col-lg-2 align-self-end">
                                     <asp:Button runat="server" OnClick="btnCancel_Click" ID="btnCancel" type="submit" class="btn  btn-danger btn-block" Text="Cancel"></asp:Button>
                                 </div>
-                                
+
                             </div>
-                             <br />
-                                   <hr />
+                            <br />
+                            <hr />
 
 
                             <%--              ------------------   lables hidden------------------------%>
@@ -151,27 +168,55 @@
 
                             <%--------------------------gridview Table-------------------------------------%>
                             <div class="table-responsive-xl">
-
-                                <asp:GridView ID="GridView1" CssClass="table table-striped table-hover" GridLines="None" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
+                                <asp:GridView ID="GridView1" CssClass="table  table-hover table-striped" ShowFooter="true" GridLines="None" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
                                     <Columns>
-                                        <asp:BoundField DataField="FormulaRefNum" HeaderText="FormulaRefNum" SortExpression="FormulaRefNum" Visible="False"></asp:BoundField>
-                                        <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch Num" SortExpression="HerbBatchNum"></asp:BoundField>
+                                        <asp:BoundField DataField="FormulaRefNum" Visible="false" HeaderText="Formula Ref. Num." SortExpression="FormulaRefNum"></asp:BoundField>
+                                        <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch Num." SortExpression="HerbBatchNum"></asp:BoundField>
                                         <asp:BoundField DataField="HerbName" HeaderText="Herb Name" SortExpression="HerbName"></asp:BoundField>
-                                        <asp:BoundField DataField="DosageGrams" HeaderText="Dosage (g)" SortExpression="DosageGrams"></asp:BoundField>
-                                        <asp:BoundField DataField="TotalDosageGrams" HeaderText="Total Dosage (g)" SortExpression="TotalDosageGrams" ReadOnly="True"></asp:BoundField>
+                                        <asp:BoundField DataField="DosageGrams" HeaderText="Dosage Per Bottle (g)" SortExpression="DosageGrams"></asp:BoundField>
+                                        <asp:BoundField DataField="TotalDosageGrams" HeaderText="Total Dosage (g)" ReadOnly="True" SortExpression="TotalDosageGrams"></asp:BoundField>
+                                        <asp:BoundField DataField="HerbRefNum" Visible="false" HeaderText="Herb Ref. Num." SortExpression="HerbRefNum"></asp:BoundField>
+                                        <asp:BoundField DataField="SellPrice" HeaderText="Unit Price" ReadOnly="True" SortExpression="SellPrice" DataFormatString="{0:##.####€}"></asp:BoundField>
+                                        <asp:TemplateField HeaderText="Subtotal" SortExpression="Subtotal">
+                                            <EditItemTemplate>
+                                                <asp:Label runat="server" Text='<%# Eval("Subtotal", "{0:##.##€}") %>' ID="Label1" CssClass="subtotalCSS"></asp:Label>
+                                            </EditItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" Text='<%# Bind("Subtotal","{0:##.##€}") %>' ID="Label1" CssClass="priceCSS "></asp:Label>
+                                            </ItemTemplate>
+                                            <FooterTemplate>
+                                                <span class="priceSpan font-weight-bold"></span>
+                                            </FooterTemplate>
+                                         
+                                        </asp:TemplateField>
 
-                                        <asp:BoundField DataField="SellPrice" HeaderText="Unit Price" SortExpression="SellPrice" ReadOnly="True"></asp:BoundField>
-                                        <asp:BoundField DataField="HerbRefNum" HeaderText="Herb Ref Num" SortExpression="HerbRefNum"></asp:BoundField>
                                     </Columns>
                                 </asp:GridView>
-
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatentFormulaTemp.FormulaRefNum, PatentFormulaTemp.HerbBatchNum, AllHerbs.HerbName, PatentFormulaTemp.DosageGrams, PatentFormulaTemp.TotalDosageGrams, PatentFormulaTemp.HerbRefNum, (SELECT SellPrice FROM HerbStock WHERE (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS SellPrice FROM AllHerbs INNER JOIN PatentFormulaTemp ON AllHerbs.RefNum = PatentFormulaTemp.HerbRefNum WHERE (PatentFormulaTemp.FormulaName = @PFname)">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT        PatentFormulaTemp.FormulaRefNum, PatentFormulaTemp.HerbBatchNum, AllHerbs.HerbName, PatentFormulaTemp.DosageGrams, PatentFormulaTemp.TotalDosageGrams, PatentFormulaTemp.HerbRefNum,
+                             (SELECT        SellPrice
+                               FROM            HerbStock
+                               WHERE        (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS SellPrice, PatentFormulaTemp.TotalDosageGrams *
+                             (SELECT        SellPrice
+                               FROM            HerbStock AS HerbStock_1
+                               WHERE        (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS Subtotal
+FROM            AllHerbs INNER JOIN
+                         PatentFormulaTemp ON AllHerbs.RefNum = PatentFormulaTemp.HerbRefNum
+WHERE        (PatentFormulaTemp.FormulaName = @PFname)">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="ddlPatentFormula" PropertyName="SelectedValue" DefaultValue="0" Name="PFname"></asp:ControlParameter>
                                     </SelectParameters>
                                 </asp:SqlDataSource>
-                            </div>
 
+                                
+
+                            </div>
+                            <br />
+                            <div class="row justify-content-center" runat="server" id="createPF">
+                                    <div class="form-group col-lg-4">
+                                        <asp:Button ID="btnCreatePF" OnClick="btnCreatePF_Click" CssClass="btn btn-success  btn-block" runat="server" Text="Create Patent Formula" />
+                                    </div>
+                                    
+                                </div>
 
                         </div>
                     </div>

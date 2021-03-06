@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -15,11 +16,14 @@ namespace Dispensery
         List<string> herbRefNum = new List<string>();
         List<decimal> herbQty = new List<decimal>();
         List<decimal> herbProcentage = new List<decimal>();
+        DataTable dt = new DataTable();
         HerbInStock herb;
         string lowStockMessage;
         List<HerbInStock> listHerbInSock = new List<HerbInStock>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            divAlertSuccess.Visible = false;
+
             lables.Visible = false;
             if (!IsPostBack)
             {
@@ -27,6 +31,7 @@ namespace Dispensery
                 DeleteDataOnCancel();
                 divFormInput.Visible = true;
                 divCancel.Visible = false;
+                btnCreatePF.Visible = false;
             }
         }
 
@@ -79,7 +84,10 @@ namespace Dispensery
                     lables.Visible = true;
                     lblPFrefNum.Text = PFrefNum.ToString();
                     lblBottleQty.Text = Bquantity.ToString();
+                    
                     GridView1.DataBind();
+
+                    btnCreatePF.Visible = true;
                 }
 
 
@@ -88,15 +96,11 @@ namespace Dispensery
 
 
         }
-
         protected void CheckBatch(string herbRefNum, decimal totalHerbQuantity, decimal herbProcentage)
         {
             List<int> herbsInStockIDs = new List<int>();
             List<decimal> herbInStockQuantity = new List<decimal>();
             List<string> herbInStockBatchNum = new List<string>();
-            
-  
-           
 
             string message;
 
@@ -417,6 +421,7 @@ namespace Dispensery
             GridView1.DataBind();
             tbxQuantity.Text = "";
             stockAlert.Visible = false;
+            btnCreatePF.Visible = false;
 
         }
 
@@ -459,6 +464,50 @@ namespace Dispensery
 
                 }
             }
+        }
+
+        protected void btnCreatePF_Click(object sender, EventArgs e)
+        {
+            string message;
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                SqlCommand command = new SqlCommand("spCreatePatentFormula", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+              
+
+
+                con.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+                    divAlertSuccess.Visible = true;
+                    divAlertSuccess.Focus();
+                    divFormInput.Visible = true;
+                    divCancel.Visible = false;
+                    GridView1.DataBind();
+                    tbxQuantity.Text = "";
+                    stockAlert.Visible = false;
+                    btnCreatePF.Visible = false;
+
+                }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    divAlertWarning.Visible = true;
+                    divAlertWarning.Focus();
+                    lblAlertWarning.Text = message;
+                    message = "";
+                }
+                finally
+                {
+
+                    con.Close();
+
+                }
+            }
+
         }
     }
 }

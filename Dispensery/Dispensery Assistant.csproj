@@ -290,6 +290,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Styless\customStyles.css" />
     <Content Include="ViewInventory.aspx" />
+    <Content Include="ViewPatentFormulaStock.aspx" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -413,6 +414,13 @@
     </Compile>
     <Compile Include="ViewInventory.aspx.designer.cs">
       <DependentUpon>ViewInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPatentFormulaStock.aspx.cs">
+      <DependentUpon>ViewPatentFormulaStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPatentFormulaStock.aspx.designer.cs">
+      <DependentUpon>ViewPatentFormulaStock.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
