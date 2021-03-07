@@ -13,5 +13,17 @@ namespace Dispensery
         {
 
         }
+
+        protected void btnModalDetails_Click(object sender, EventArgs e)
+        {
+            RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
+
+            string pfFormulaName= (item.FindControl("hdFormulaName") as HiddenField).Value.ToString();
+            hdModalFormulaName.Value = pfFormulaName;
+            lblFormulaName.Text = pfFormulaName;
+
+
+            ClientScript.RegisterStartupScript(this.GetType(), "pupup", "openModal()", true);
+        }
     }
 }
