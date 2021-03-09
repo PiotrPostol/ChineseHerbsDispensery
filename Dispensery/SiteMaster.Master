@@ -168,7 +168,7 @@
                                             <a href="#">New Raw Herb Order</a>
                                         </li>--%>
                                         <li>
-                                            <a href="#">Dispense</a>
+                                            <a href="DispensePatentFormula.aspx">Dispense</a>
                                         </li>
                                         <li>
                                             <a href="ViewPatentFormulaStock.aspx">View Stock</a>

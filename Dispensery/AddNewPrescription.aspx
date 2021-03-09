@@ -6,14 +6,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <script>
         $(document).ready(function () {
-           
+
 
             $('input[type=text]').each(function () {
                 $(this).val('');
             });
 
             $('.Herb').autocomplete({
-                source: 'GetHerbsNameAutocomplete.ashx'
+                source: 'GetHerbsNameInStockAutocomplete.ashx'
             });
 
             $('.NumbersOnly').keypress(function (event) {
@@ -51,23 +51,24 @@
             }
 
         });
-       
+
     </script>
     <style>
         .slideanim {
             visibility: hidden;
         }
-          .radiostyle {
-      height: auto;
-    }
 
-    .radiostyle label {
-        margin-left: 3px !important;
-        margin-right: 10px !important;
-    }
-     input[type="radio"]
-        {
-            margin: 4px 4px 4px 4px;    
+        .radiostyle {
+            height: auto;
+        }
+
+            .radiostyle label {
+                margin-left: 3px !important;
+                margin-right: 10px !important;
+            }
+
+        input[type="radio"] {
+            margin: 4px 4px 4px 4px;
         }
     </style>
 </asp:Content>
@@ -103,7 +104,7 @@
                     <div class="container ">
                         <div class="repeatRow row justify-content-center">
 
-                               <div id="divAlertError" class="form-row" runat="server" visible="false">
+                            <div id="divAlertError" class="form-row" runat="server" visible="false">
                                 <div class="alert alert-danger alert-dismissible col-md-12">
                                     <div class="form-row m-2">
                                         <div class="col-2">
@@ -126,10 +127,9 @@
                                 </div>
                                 <br />
                                 <div class="form-group">
-
                                     <div class="form-row">
                                         <div class="col-md-2 text-center">
-                                            <i class="fa fa-user-circle fa-4x align-bottom" aria-hidden="true" style="color: #9fc299;"></i>
+                                            <i class="fa fa-user-circle fa-3x align-bottom" aria-hidden="true" style="color: #9fc299;"></i>
                                         </div>
                                         <div class="col-md-8 mb-4">
                                             <label class=" font-weight-bold " for="ddlPrescripion">Patient:</label>
@@ -142,42 +142,34 @@
                                                 <asp:Label ID="lblPatient" CssClass="  font-weight-bold" runat="server" Visible="false"></asp:Label>
                                             </div>
                                         </div>
-
-
                                         <div class="col-md-2 text-right mb-4  align-self-end ">
                                             <asp:Button ID="btnAddNewPatient" CssClass="btn col-md-12 btn-success" runat="server" Text="Add Patient" OnClick="btnAddNewPatient_Click" />
                                         </div>
                                     </div>
                                 </div>
+                                <br />
                                 <hr />
-
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-2  text-center">
-
-                                            <i class="fas fa-prescription fa-4x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
+                                            <i class="fas fa-prescription fa-3x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
                                         </div>
-                                        <div class="form-group col-md-8 pl-3">
+                                        <div class="form-group col-md-4 pl-3">
                                             <label class=" font-weight-bold " for="tbxHerb">Prescription Name:</label>
                                             <asp:TextBox ID="tbxFormulaName" OnTextChanged="tbxFormulaName_TextChanged" class="form-control" runat="server"></asp:TextBox>
                                             <div id="divFormulaName" class="col-md-9 border border-success rounded p-2 " runat="server">
                                                 <asp:Label ID="lblFormulaName" CssClass=" font-weight-bold" runat="server" Visible="false"></asp:Label>
                                             </div>
                                         </div>
-
-                                    </div>
-
-                                </div>
-                                <br />
-                                <div class="form-row">
-                                    <div class="col-md-2  text-center">
-                                        <i class="fas fa-calendar-alt fa-4x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
-                                    </div>
-                                    <div class="col-md-8 mb-4">
-                                        <label class=" font-weight-bold " for="ddlPrescripion">Number Of Days:</label>
-                                        <asp:TextBox ID="tbxNumDays" OnTextChanged="tbxNumDays_TextChanged" class="NumbersOnly form-control" runat="server" ToolTip="Enter Number of Days" ></asp:TextBox>
-                                        <div id="divNumDays" class="col-md-9 border border-success rounded p-2 " runat="server">
-                                            <asp:Label ID="lblNumDays" CssClass=" font-weight-bold" runat="server" Visible="false"></asp:Label>
+                                        <div class="col-md-2  text-center">
+                                            <i class="fas fa-calendar-alt fa-3x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <label class=" font-weight-bold " for="ddlPrescripion">Number Of Days:</label>
+                                            <asp:TextBox ID="tbxNumDays" OnTextChanged="tbxNumDays_TextChanged" class="NumbersOnly form-control" runat="server" ToolTip="Enter Number of Days"></asp:TextBox>
+                                            <div id="divNumDays" class="col-md-9 border border-success rounded p-2 " runat="server">
+                                                <asp:Label ID="lblNumDays" CssClass=" font-weight-bold" runat="server" Visible="false"></asp:Label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -185,11 +177,11 @@
                                 <hr />
                                 <div class="form-row">
                                     <div class="col-md-2  text-center">
-                                        <i class="fab fa-pagelines fa-4x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
+                                        <i class="fab fa-pagelines fa-3x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
                                     </div>
                                     <div class="form-group col-md-5">
                                         <label class=" font-weight-bold " for="tbxHerb">Select Herb:</label>
-                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" AutoPostBack="false" ></asp:TextBox>
+                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label class=" font-weight-bold " for="tbxQuantity">Quantity (g):</label>
@@ -208,11 +200,11 @@
                                     <div class="alert alert-danger alert-dismissible col-md-12">
                                         <div class="form-row m-2">
                                             <div class="col-2">
-                                                <i class="fa fa-exclamation-triangle fa-4x"></i>
+                                                <i class="fa fa-exclamation-triangle fa-3x"></i>
                                             </div>
                                             <div class="col-8 justify-content-start ">
                                                 <h4 class="font-weight-bold text-center ">Insufficient herb quantity in stock!</h4>
-                                               
+
                                             </div>
                                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                                         </div>
@@ -224,8 +216,8 @@
                                     </div>
                                 </div>
                                 <br />
-<%--------------------------------Traditional Formula dropdown list-------------------------%>
-<%--                                <div class="form-row">
+                                <%--------------------------------Traditional Formula dropdown list-------------------------%>
+                                <%--                                <div class="form-row">
                                     <div class="col-md-2  text-center">
                                         <i class="fas fa-mortar-pestle fa-4x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
                                     </div>
@@ -241,16 +233,16 @@
                                         <asp:Button ID="btnSelectPrescription" CssClass="btn col-md-12 btn-success" runat="server" Text="Select" OnClick="btnSelectPrescription_Click" />
                                     </div>
                                 </div>--%>
-                                <br />
-
-                                <div class="form-row  ">
-                                    <span class=" slideanim font-weight-bolder ">Formula:</span>
+                           
+                                <hr />
+                                <div class="row  ">
+                                    <span class="slideanim font-weight-bolder ">Formula:</span>
                                 </div>
                                 <br />
                                 <div class="form-row justify-content-center ">
                                     <asp:GridView ID="grvShort" CssClass="table  table-hover table-striped" ShowFooter="true" GridLines="None" AutoGenerateColumns="False" runat="server" DataSourceID="SqlDataSource1" DataKeyNames="FormulaID" OnRowUpdated="grvShort_RowUpdated" OnRowDeleted="grvShort_RowDeleted">
                                         <Columns>
-                                           
+
                                             <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch" ReadOnly="True" SortExpression="HerbBatchNum"></asp:BoundField>
                                             <asp:BoundField DataField="HerbChineseName" HeaderText="Herb Name" ReadOnly="True" SortExpression="HerbChineseName"></asp:BoundField>
                                             <asp:TemplateField HeaderText="Quantity" SortExpression="HerbQuantity">
@@ -258,7 +250,7 @@
                                                     <asp:TextBox runat="server" CssClass="form-control" Text='<%# Bind("HerbQuantity") %>' ID="TextBox1"></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server"  Text='<%# Bind("HerbQuantity") %>' ID="Label1"></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("HerbQuantity") %>' ID="Label1"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
@@ -266,7 +258,7 @@
                                             <asp:BoundField DataField="DailyCost" HeaderText="Daily Cost" ReadOnly="True" SortExpression="DailyCost"></asp:BoundField>
                                             <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" ReadOnly="True" SortExpression="Subtotal"></asp:BoundField>
                                             <asp:BoundField DataField="Procentage" HeaderText="Procentage" ReadOnly="True" SortExpression="Procentage"></asp:BoundField>
-                                             <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
+                                            <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
                                         </Columns>
                                     </asp:GridView>
                                     <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT HerbBatchNum, HerbChineseName, HerbTemperature, HerbQuantity, SellPrice, DailyCost, Subtotal, Procentage, FormulaID FROM PrescriptionMainTemp" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [PrescriptionMainTemp] WHERE [FormulaID] = @original_FormulaID AND (([HerbChineseName] = @original_HerbChineseName) OR ([HerbChineseName] IS NULL AND @original_HerbChineseName IS NULL)) AND (([HerbTemperature] = @original_HerbTemperature) OR ([HerbTemperature] IS NULL AND @original_HerbTemperature IS NULL)) AND [HerbQuantity] = @original_HerbQuantity AND (([SellPrice] = @original_SellPrice) OR ([SellPrice] IS NULL AND @original_SellPrice IS NULL)) AND (([Subtotal] = @original_Subtotal) OR ([Subtotal] IS NULL AND @original_Subtotal IS NULL)) AND (([Procentage] = @original_Procentage) OR ([Procentage] IS NULL AND @original_Procentage IS NULL))" InsertCommand="INSERT INTO [PrescriptionMainTemp] ([HerbChineseName], [HerbTemperature], [HerbQuantity], [SellPrice], [Subtotal], [Procentage]) VALUES (@HerbChineseName, @HerbTemperature, @HerbQuantity, @SellPrice, @Subtotal, @Procentage)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [PrescriptionMainTemp] SET  [HerbQuantity] = @HerbQuantity  WHERE [FormulaID] = @original_FormulaID">
@@ -293,24 +285,24 @@
                                         </UpdateParameters>
                                     </asp:SqlDataSource>
                                 </div>
-
-                                <br />
                                 <hr />
+                                <br />
+                         
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            <i class="fa fa-pills fa-4x " style="color: #9fc299;"></i>
+                                            <i class="fa fa-pills fa-3x " style="color: #9fc299;"></i>
                                         </div>
                                         <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
                                             Dispensing Method 
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-check form-check-inline ">
-                                            <asp:RadioButtonList CssClass="form-check-input" required="true" ID="rdbAdministration" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource7" DataTextField="AdmMethod" DataValueField="AdmId">
-                                            </asp:RadioButtonList>
-                                            <asp:SqlDataSource runat="server" ID="SqlDataSource7" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT * FROM [AdministrationMethod]"></asp:SqlDataSource>
-                                        </div>
+                                                <asp:RadioButtonList CssClass="form-check-input" required="true" ID="rdbAdministration" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" runat="server" DataSourceID="SqlDataSource7" DataTextField="AdmMethod" DataValueField="AdmId">
+                                                </asp:RadioButtonList>
+                                                <asp:SqlDataSource runat="server" ID="SqlDataSource7" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT * FROM [AdministrationMethod]"></asp:SqlDataSource>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br />
@@ -319,7 +311,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            <i class="fa fa-balance-scale-left fa-4x" style="color: #9fc299;"></i>
+                                            <i class="fa fa-balance-scale-left fa-3x" style="color: #9fc299;"></i>
                                         </div>
                                         <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
                                             Handling Fee
@@ -339,43 +331,43 @@
 
                                 <br />
                                 <hr />
-                              <%--  <div class="form-group">--%>
-                                    <div class="form-row mb-1">
-                                        <div class="col-sm-2">
-                                            <i class="fa fa-mail-bulk fa-4x" style="color: #9fc299;"></i>
-                                        </div>
-                                        <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
-                                            Postage
-                                        </div>
-                                        <div class="col-sm-6">
-                                           <div class="form-check form-check-inline ">
+                                <%--  <div class="form-group">--%>
+                                <div class="form-row mb-1">
+                                    <div class="col-sm-2">
+                                        <i class="fa fa-mail-bulk fa-3x" style="color: #9fc299;"></i>
+                                    </div>
+                                    <div class="col-form-label  col-sm-4 font-weight-bold pt-0 pl-0">
+                                        Postage
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-check form-check-inline ">
 
-                                          
-                                            <asp:RadioButtonList required="true" CssClass="form-check-input" ID="rdbPostage" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" repeatdirection="Vertical" runat="server" DataSourceID="SqlDataSource6" DataTextField="PostageMethod" DataValueField="PostageCost">
+
+                                            <asp:RadioButtonList required="true" CssClass="form-check-input" ID="rdbPostage" AutoPostBack="true" Style="font-weight: bold" RepeatLayout="Flow" RepeatDirection="Vertical" runat="server" DataSourceID="SqlDataSource6" DataTextField="PostageMethod" DataValueField="PostageCost">
                                             </asp:RadioButtonList>
                                             <asp:SqlDataSource runat="server" ID="SqlDataSource6" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT * FROM [PostageCost]"></asp:SqlDataSource>
-                                         </div>
                                         </div>
                                     </div>
-                              <%--  </div>--%>
+                                </div>
+                                <%--  </div>--%>
 
                                 <br />
-                                  <hr />
-                                 <div class="form-group">
+                                <hr />
+                                <div class="form-group">
                                     <div class="form-row mt-1">
                                         <div class="col-sm-2">
-                                            <i class="far fa-minus-square fa-4x" style="color: #9fc299;"></i>
+                                            <i class="far fa-minus-square fa-3x" style="color: #9fc299;"></i>
                                         </div>
                                         <div class="col-form-label  col-sm-2 font-weight-bold pt-0 pl-0 align-self-center">
                                             Discount
                                         </div>
                                         <div class="col-sm-5 align-self-center">
 
-                                            <asp:TextBox ID="tbxDiscountReason" TextMode="MultiLine"  CssClass="form-control" runat="server" placeholder="Discount Reason" Text=""  AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxDiscountReason" TextMode="MultiLine" CssClass="form-control" runat="server" placeholder="Discount Reason" Text="" AutoPostBack="false"></asp:TextBox>
                                         </div>
                                         <div class="col-sm-3 align-self-center">
 
-                                            <asp:TextBox ID="tbxDiscount"  CssClass="form-control" runat="server" placeholder="€0.00" Text=""  AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxDiscount" CssClass="form-control" runat="server" placeholder="€0.00" Text="" AutoPostBack="false"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -400,7 +392,7 @@
                                 <br />
                                 <br />
                                 <hr />
-                                   <!-- alert -->
+  <!---------------------- alert -------------------------->
                                 <div id="divAlert" class="form-row" runat="server" visible="false">
                                     <div class="alert alert-danger alert-dismissible col-md-12">
                                         <div class="form-row m-2">
@@ -408,8 +400,9 @@
                                                 <i class="fa fa-exclamation-triangle fa-4x"></i>
                                             </div>
                                             <div class="col-8 justify-content-start ">
-                                               
-                                                <h4 class="font-weight-bold text-center "><asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="" runat="server"></asp:Label></h4>
+
+                                                <h4 class="font-weight-bold text-center ">
+                                                    <asp:Label ID="lblNoSelectionAlertHeader" CssClass="font-weight-bold" Text="" runat="server"></asp:Label></h4>
 
                                             </div>
                                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -417,23 +410,26 @@
 
                                         <hr>
                                         <asp:Label ID="lblSelect" CssClass="p-4 mb-1" runat="server" Text=""></asp:Label>
-                                 
-                                       
+
+
                                     </div>
                                 </div>
                                 <br />
-                              
-                                <div class="row justify-content-center ">
 
-                                    <div class="col-md-8  mb-4  align-self-center">
-                                        <asp:Button ID="addPrescription" class="btn btn-lg btn-danger col-md-12" runat="server" Text="Submit" OnClick="addPrescription_Click"/>
+                                <div class="row justify-content-between ">
 
+                                    <div class="col-md-4  mb-4  align-self-center">
+                                        <asp:Button ID="addPrescription" class="btn btn-lg btn-success col-md-12" runat="server" Text="Submit" OnClick="addPrescription_Click" />
                                     </div>
+                                    <div class="col-md-4">
+                                         <asp:Button ID="btnCancel" class="btn btn-lg btn-danger col-md-12" runat="server" Text="Cancel" OnClick="btnCancel_Click"/>
+                                    </div>
+
                                 </div>
                                 <br />
                                 <hr />
 
-                             
+
 
                             </div>
                         </div>

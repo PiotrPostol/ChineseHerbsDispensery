@@ -919,5 +919,10 @@ namespace Dispensery
         {
             tbxDiscount.Attributes["Value"] = tbxDiscount.Text;
         }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }
