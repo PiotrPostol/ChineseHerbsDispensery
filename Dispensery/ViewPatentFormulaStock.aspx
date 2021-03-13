@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="ViewPatentFormulaStock.aspx.cs" Inherits="Dispensery.ViewPatentFormulaStock" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="ViewPatentFormulaStock.aspx.cs" Inherits="Dispensery.ViewPatentFormulaStock" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
@@ -216,7 +216,7 @@
 
                     <div class="form-group row">
 
-                        <label class="col-lg-2 font-weight-bold" for="tbxpfRefNum">Reference Number:</label>
+                        <label class="col-lg-2 font-weight-bold" for="tbxpfRefNum">Select Reference Number:</label>
 
                         <div class="col-lg-8 ">
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -234,7 +234,7 @@
                                         <asp:ListItem Value="0.1">---Select Referance Number---</asp:ListItem>
                                     </asp:DropDownList>--%>
 
-                                    <asp:SqlDataSource runat="server" ID="SqlDataSource3" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT FormulaRefNum FROM PatentFormulaMain WHERE (FormulaName = @formulaName) AND (BottleQuantity > 0)">
+                                    <asp:SqlDataSource runat="server"  ID="SqlDataSource3" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT FormulaRefNum FROM PatentFormulaMain WHERE (FormulaName = @formulaName) AND (BottleQuantity > 0)">
                                         <SelectParameters>
                                             <asp:ControlParameter ControlID="ddlFormulaName" PropertyName="SelectedValue" DefaultValue="0" Name="formulaName"></asp:ControlParameter>
                                         </SelectParameters>

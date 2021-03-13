@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="NewPatentFormula.aspx.cs" Inherits="Dispensery.NewPatentFormula" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="NewPatentFormula.aspx.cs" Inherits="Dispensery.NewPatentFormula" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label class=" font-weight-bold" for="tbxQuantity">Quantity:</label>
-                                    <asp:TextBox ID="tbxQuantity" required="true" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="top" Title="Enter Quantity of Patent Formula Bottles (100 capsuls - 50g per bottle)." AutoPostBack="false"></asp:TextBox>
+                                    <asp:TextBox ID="tbxQuantity" required="true" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="top" Title="Enter Quantity of Patent Formula Bottles (75 capsuls - 37.5g per bottle)." AutoPostBack="false"></asp:TextBox>
                                 </div>
 
                                 <div class="form-group col-lg-2 align-self-end">

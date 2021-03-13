@@ -35,7 +35,7 @@
             <nav id="sidebar" class="sidebar-wrapper">
                 <div class="sidebar-content">
                     <div class="sidebar-brand">
-                        <a href="#">Dispensery Manager</a>
+                        <a href="#">Dispensary Manager</a>
                         <div id="close-sidebar">
                             <i class="fas fa-times"></i>
                         </div>
@@ -157,7 +157,7 @@
                              <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fas fa-prescription-bottle fa-lg"></i>
-                                    <span>Patent Formula</span>
+                                    <span>Patent Formulas</span>
                                 </a>
                                 <div class="sidebar-submenu">
                                     <ul>

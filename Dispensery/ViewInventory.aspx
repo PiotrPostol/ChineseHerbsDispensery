@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="ViewInventory.aspx.cs" Inherits="Dispensery.ViewInventory" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" EnableEventValidation="false" MaintainScrollPositionOnPostback="true" CodeBehind="ViewInventory.aspx.cs" Inherits="Dispensery.ViewInventory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
@@ -15,8 +15,11 @@
                             <i class="fa fa-cubes fa-4x pt-md-2 pb-md-2" aria-hidden="true" style="color: #9fc299;"></i>
                             <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
-                        <div class="col-md-10 d-flex">
-                            <h2 class="myFont title col-md-10   pt-md-4 mt-2 align-content-center" aria-hidden="true">Herbs Stock</h2>
+                        <div class="col-md-8 d-flex">
+                            <h1 class="col-md-8 font-weight-bold   pt-md-2 mt-2 align-content-center"aria-hidden="true" style="color: #9fc299;">Herbs Stock</h1>
+                        </div>
+                        <div class="col-md-2 align-self-center " >
+                            <asp:Button ID="btnExportToExl" OnClick="btnExportToExl_Click" CssClass="btn btn-success btn-block" runat="server" Text="Export To Excel" />
                         </div>
                     </div>
                 </div>
@@ -51,7 +54,7 @@
                                 <div class="table-responsive-xl col-xl-12 pl-md-0">
                                     <asp:GridView ID="GridView1" CssClass="table table-sm table-hover table-striped" GridLines="None" runat="server" AutoGenerateColumns="False" DataKeyNames="HerbStockID" DataSourceID="SqlDataSource1">
                                         <Columns>
-                                            <asp:TemplateField ShowHeader="False">
+                                            <asp:TemplateField ShowHeader="True" HeaderText="Edit/Delete">
                                                 <EditItemTemplate>
                                                     <asp:LinkButton runat="server" Text="Update" CssClass="btn btn-sm btn-outline-primary" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Cancel" CssClass="btn btn-sm btn-outline-danger" CommandName="Cancel" CausesValidation="False" ID="LinkButton2"></asp:LinkButton>
                                                 </EditItemTemplate>
@@ -114,7 +117,7 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                            <asp:BoundField DataField="SupplierName" HeaderText="Supp. Name" SortExpression="SupplierName" ReadOnly="True"></asp:BoundField>
+<%--                                            <asp:BoundField DataField="SupplierName" HeaderText="Supp. Name" SortExpression="SupplierName" ReadOnly="True"></asp:BoundField>--%>
                                             <asp:TemplateField HeaderText="Ratio" SortExpression="HerbRawToGranRatio">
                                                 <EditItemTemplate>
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("HerbRawToGranRatio") %>' ID="TextBox6"></asp:TextBox>
@@ -380,6 +383,7 @@
                 </div>
            
         </div>
+            </div>
     </main>
 
 </asp:Content>
