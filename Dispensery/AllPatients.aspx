@@ -22,12 +22,12 @@
                             <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
                         <div class="col-md-10 d-flex">
-                            <h2 class="myFont title col-md-10   pt-md-4 mt-2 align-content-center" aria-hidden="true">All Patients</h2>
+                            <h2 class="col-md-10 font-weight-bold   pt-md-4 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">All Patients</h2>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="container ">
+                    <div class="container">
                         <div class="line rounded p-4 col-md-12 justify-content-md-center justify-content-lg-center ">
                             <%--            ------------------Alert Success--%>
                             <div id="divAlertSuccess" class="form-row" runat="server" visible="false">
@@ -54,49 +54,120 @@
 
                             <div class="form-row justify-content-center">
                                 <div class="table-responsive-lg col-md-12 col-lg-12">
-                                    <asp:GridView ID="grvShort" CssClass="table  table-hover table-striped" ShowFooter="true" GridLines="None" AutoGenerateColumns="False" runat="server" DataKeyNames="PatientID" DataSourceID="SqlDataSource1">
-
+                                    <asp:GridView ID="grvShort" OnRowEditing="grvShort_RowEditing" CssClass="table  table-hover table-striped" runat="server" GridLines="None" AutoGenerateColumns="False" DataKeyNames="PatientID" DataSourceID="SqlDataSource1">
                                         <Columns>
-                                            <asp:TemplateField HeaderText="ID">
+                                            <asp:TemplateField ShowHeader="True" HeaderText="Edit/Delete">
+                                                <EditItemTemplate>
+                                                    <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>
+                                                </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblPatientID" runat="server" Text='<%# Eval("PatientID") %>'></asp:Label>
+                                                    <asp:LinkButton runat="server" Text="" CssClass="btn btn-outline-success" CommandName="Edit" CausesValidation="False" ID="LinkButton1"><i class="fas fa-pencil-alt"></i></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Delete" CssClass="btn btn-outline-danger" CommandName="Delete" CausesValidation="False" ID="LinkButton2"><i class="fas fa-trash-alt"></i></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Name">
+
+                                            <asp:BoundField DataField="PatientID" HeaderText="ID" ReadOnly="True" InsertVisible="False" SortExpression="PatientID"></asp:BoundField>
+                                            <asp:TemplateField HeaderText="Name" SortExpression="PatientName">
+                                                <EditItemTemplate>
+                                                    <asp:TextBox runat="server" Text='<%# Bind("PatientName") %>' ID="TextBox1"></asp:TextBox>
+                                                </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblPatientName" runat="server" Text='<%# Eval("PatientName") %>'></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("PatientName") %>' ID="lblPatientName"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Surname">
+                                            <asp:TemplateField HeaderText="Surname" SortExpression="PatientSurname">
+                                                <EditItemTemplate>
+                                                    <asp:TextBox runat="server" Text='<%# Bind("PatientSurname") %>' ID="TextBox2"></asp:TextBox>
+                                                </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblPatientSurname" runat="server" Text='<%# Eval("PatientSurname") %>'></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("PatientSurname") %>' ID="lblPatientSurname"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Phone Number">
+                                            <asp:TemplateField HeaderText="Phone Number" SortExpression="PatientPhoneNum">
+                                                <EditItemTemplate>
+                                                    <asp:TextBox runat="server" Text='<%# Bind("PatientPhoneNum") %>' ID="TextBox3"></asp:TextBox>
+                                                </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblPhoneNumber" runat="server" Text='<%# Eval("PatientPhoneNum") %>'></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("PatientPhoneNum") %>' ID="Label3"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Email">
+                                            <asp:TemplateField HeaderText="Email" SortExpression="PatientEmail">
+                                                <EditItemTemplate>
+                                                    <asp:TextBox runat="server" Text='<%# Bind("PatientEmail") %>' ID="TextBox4"></asp:TextBox>
+                                                </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblPatientEmail" runat="server" Text='<%# Eval("PatientEmail") %>'></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("PatientEmail") %>' ID="Label4"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <%--                                            <asp:BoundField DataField="PatientID" HeaderText="ID" ReadOnly="True" InsertVisible="False" SortExpression="PatientID"></asp:BoundField>
-                                            <asp:BoundField DataField="PatientName" HeaderText="Name" SortExpression="PatientName"></asp:BoundField>
-                                            <asp:BoundField DataField="PatientSurname" HeaderText="Surname" SortExpression="PatientSurname"></asp:BoundField>
-                                            <asp:BoundField DataField="PatientPhoneNum" HeaderText="Phone Number" SortExpression="PatientPhoneNum"></asp:BoundField>
-                                            <asp:BoundField DataField="PatientEmail" HeaderText="Email Address" SortExpression="PatientEmail"></asp:BoundField>--%>
-                                            <%-- <asp:CommandField ShowDeleteButton="True"></asp:CommandField>--%>
-                                            <asp:TemplateField HeaderText="">
+
+                                            <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnShowDetails" runat="server" Text="Show Details" CssClass="btn btn-info"
                                                         OnClick="btnShowDetails_Click"></asp:LinkButton>
+
+
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
                                     </asp:GridView>
+                                    <%--           <asp:GridView ID="grvShort" OnRowEditing="grvShort_RowEditing" CssClass="table  table-hover table-striped" ShowFooter="true" GridLines="None" AutoGenerateColumns="False" runat="server" DataKeyNames="PatientID" DataSourceID="SqlDataSource1">
 
+                                        <Columns>
+                                          
+                                            <asp:BoundField DataField="PatientID" HeaderText="PatientID" InsertVisible="False" ReadOnly="True" SortExpression="PatientID"></asp:BoundField>
+                                            <asp:BoundField DataField="PatientName" HeaderText="PatientName" SortExpression="PatientName"></asp:BoundField>
+                                            <asp:BoundField DataField="PatientSurname" HeaderText="PatientSurname" SortExpression="PatientSurname"></asp:BoundField>
+
+                                            <asp:DynamicField HeaderText="PatientEmail" DataField="PatientEmail"></asp:DynamicField>
+                                            <asp:DynamicField HeaderText="PatientPhoneNum" DataField="PatientPhoneNum"></asp:DynamicField>
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnShowDetails" runat="server" Text="Show Details" CssClass="btn btn-info"
+                                                        OnClick="btnShowDetails_Click"></asp:LinkButton>
+
+
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                         
+                                            <asp:TemplateField HeaderText="" ShowHeader="False">
+                                                <EditItemTemplate>
+                                                    <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>
+
+                                                </EditItemTemplate>
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="grvShortBtnEdit" runat="server" Text="Edit" CausesValidation="False" CommandName="Edit"></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            
+
+                                        </Columns>
+                                    </asp:GridView>
+
+                                    <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConflictDetection="CompareAllValues" ConnectionString='<%$ ConnectionStrings:conStr %>' DeleteCommand="DELETE FROM [Patient] WHERE [PatientID] = @original_PatientID AND (([PatientName] = @original_PatientName) OR ([PatientName] IS NULL AND @original_PatientName IS NULL)) AND (([PatientSurname] = @original_PatientSurname) OR ([PatientSurname] IS NULL AND @original_PatientSurname IS NULL)) AND (([PatientPhoneNum] = @original_PatientPhoneNum) OR ([PatientPhoneNum] IS NULL AND @original_PatientPhoneNum IS NULL)) AND (([PatientEmail] = @original_PatientEmail) OR ([PatientEmail] IS NULL AND @original_PatientEmail IS NULL))" InsertCommand="INSERT INTO [Patient] ([PatientName], [PatientSurname], [PatientPhoneNum], [PatientEmail]) VALUES (@PatientName, @PatientSurname, @PatientPhoneNum, @PatientEmail)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [PatientID], [PatientName], [PatientSurname], [PatientPhoneNum], [PatientEmail] FROM [Patient] ORDER BY [PatientSurname], [PatientName]" UpdateCommand="UPDATE [Patient] SET [PatientName] = @PatientName, [PatientSurname] = @PatientSurname, [PatientPhoneNum] = @PatientPhoneNum, [PatientEmail] = @PatientEmail WHERE [PatientID] = @original_PatientID AND (([PatientName] = @original_PatientName) OR ([PatientName] IS NULL AND @original_PatientName IS NULL)) AND (([PatientSurname] = @original_PatientSurname) OR ([PatientSurname] IS NULL AND @original_PatientSurname IS NULL)) AND (([PatientPhoneNum] = @original_PatientPhoneNum) OR ([PatientPhoneNum] IS NULL AND @original_PatientPhoneNum IS NULL)) AND (([PatientEmail] = @original_PatientEmail) OR ([PatientEmail] IS NULL AND @original_PatientEmail IS NULL))">
+                                        <DeleteParameters>
+                                            <asp:Parameter Name="original_PatientID" Type="Int32"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientName" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientSurname" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientPhoneNum" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientEmail" Type="String"></asp:Parameter>
+                                        </DeleteParameters>
+                                        <InsertParameters>
+                                            <asp:Parameter Name="PatientName" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="PatientSurname" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="PatientPhoneNum" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="PatientEmail" Type="String"></asp:Parameter>
+                                        </InsertParameters>
+                                        <UpdateParameters>
+                                            <asp:Parameter Name="PatientName" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="PatientSurname" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="PatientPhoneNum" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="PatientEmail" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientID" Type="Int32"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientName" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientSurname" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientPhoneNum" Type="String"></asp:Parameter>
+                                            <asp:Parameter Name="original_PatientEmail" Type="String"></asp:Parameter>
+                                        </UpdateParameters>
+                                    </asp:SqlDataSource>--%>
                                     <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConflictDetection="CompareAllValues" ConnectionString='<%$ ConnectionStrings:conStr %>' DeleteCommand="DELETE FROM [Patient] WHERE [PatientID] = @original_PatientID AND (([PatientName] = @original_PatientName) OR ([PatientName] IS NULL AND @original_PatientName IS NULL)) AND (([PatientSurname] = @original_PatientSurname) OR ([PatientSurname] IS NULL AND @original_PatientSurname IS NULL)) AND (([PatientPhoneNum] = @original_PatientPhoneNum) OR ([PatientPhoneNum] IS NULL AND @original_PatientPhoneNum IS NULL)) AND (([PatientEmail] = @original_PatientEmail) OR ([PatientEmail] IS NULL AND @original_PatientEmail IS NULL))" InsertCommand="INSERT INTO [Patient] ([PatientName], [PatientSurname], [PatientPhoneNum], [PatientEmail]) VALUES (@PatientName, @PatientSurname, @PatientPhoneNum, @PatientEmail)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [PatientID], [PatientName], [PatientSurname], [PatientPhoneNum], [PatientEmail] FROM [Patient] ORDER BY [PatientSurname], [PatientName]" UpdateCommand="UPDATE [Patient] SET [PatientName] = @PatientName, [PatientSurname] = @PatientSurname, [PatientPhoneNum] = @PatientPhoneNum, [PatientEmail] = @PatientEmail WHERE [PatientID] = @original_PatientID AND (([PatientName] = @original_PatientName) OR ([PatientName] IS NULL AND @original_PatientName IS NULL)) AND (([PatientSurname] = @original_PatientSurname) OR ([PatientSurname] IS NULL AND @original_PatientSurname IS NULL)) AND (([PatientPhoneNum] = @original_PatientPhoneNum) OR ([PatientPhoneNum] IS NULL AND @original_PatientPhoneNum IS NULL)) AND (([PatientEmail] = @original_PatientEmail) OR ([PatientEmail] IS NULL AND @original_PatientEmail IS NULL))">
                                         <DeleteParameters>
                                             <asp:Parameter Name="original_PatientID" Type="Int32"></asp:Parameter>

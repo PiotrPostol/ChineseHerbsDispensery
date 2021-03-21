@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cbe0e11d9d2a4122b1762e8e975bc5b2" Name="Diagram1">
+        <EntityTypeShape EntityType="DispenseryModel.AdministrationMethod" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.AllHerb" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.DispensingFee" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.HerbStock" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PatentFormulaMain" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PatentFormula" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PatentFormulaSaleHistory" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PatentFormulaStock" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PatentFormulaTemp" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.Patient" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PostageCost" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.Practitioner" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PrescriptionCost" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PrescriptionMain" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PrescriptionMainTemp" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.PrescriptionTemp" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.SupplierTable" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.sysdiagram" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DispenseryModel.TraditionalFormula" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="DispenseryModel.FK__HerbStock__HerbR__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__PatentFor__HerbR__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__Prescript__HerbR__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__Prescript__HerbR__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__HerbStock__Suppl__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK_PatentFormulaSaleHistory_Practitioner" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__Prescript__Patie__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__Prescript__Patie__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__Prescript__Pract__2CF2ADDF" ManuallyRouted="false" />
+        <AssociationConnector Association="DispenseryModel.FK__Prescript__Pract__6FE99F9F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

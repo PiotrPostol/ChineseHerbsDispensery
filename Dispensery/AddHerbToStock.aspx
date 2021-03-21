@@ -8,9 +8,9 @@
                         $('[data-toggle="tooltip"]').tooltip();
 
 
-            $('input[type=text]').each(function () {
-                $(this).val('');
-            });
+            //$('input[type=text]').each(function () {
+            //    $(this).val('');
+            //});
 
             $('.Herb').autocomplete({
                 source: 'GetHerbsNameAutocomplete.ashx'
@@ -61,7 +61,8 @@
                             <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
                         <div class="col-md-10 d-flex">
-                            <p class="myFont title col-md-10  pt-4 align-content-center" aria-hidden="true">Add Harbs To Stock</p>
+                            <h3 id="addHerbToStock" runat="server"  class=" col-md-10  pt-4 align-content-center" aria-hidden="true" style="color: #9fc299;">Add Harbs To Stock</h3>
+                            <h3 id="updateHerbStock" runat="server"  visible="false" class=" col-md-10  pt-4 align-content-center" aria-hidden="true" style="color: #9fc299;">Update Harb Stock</h3>
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,7 @@
                                     <div class="form-row ">
                                         <div class="form-group col-lg-6">
                                             <label class=" font-weight-bold" for="tbxHerb">Select Herb:</label>
-                                            <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" ></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxQuantity">Quantity (g):</label>
@@ -117,7 +118,7 @@
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxBatchNumber">Batch Number:</label>
-                                            <asp:TextBox ID="tbxBatchNumber" class="form-control" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxBatchNumber" class="form-control" runat="server" Text="" ></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxExpiaryDate">Expiry Date:</label>
@@ -163,7 +164,7 @@
                                     <hr />
                                     <div class="form-group  justify-content-end align-content-end">
                                         <asp:Button runat="server" OnClick="btnAddHerb_Click" ID="btnAddHerb" type="submit" class="btn  btn-success" Text="Add Herb"></asp:Button>
-
+                                        <asp:Button runat="server" OnClick="btnUpdateHerbStock_Click"  ID="btnUpdateHerbStock" type="submit" class="btn  btn-info" Text="Update Herb" Visible="false"></asp:Button>
                                     </div>
 
 

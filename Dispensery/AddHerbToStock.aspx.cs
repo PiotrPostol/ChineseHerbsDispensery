@@ -16,16 +16,50 @@ namespace Dispensery
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (!IsPostBack)
+            {
+                if (!String.IsNullOrWhiteSpace(Request.QueryString["id"]))
+                {
+                    int id = Convert.ToInt32(Request.QueryString["id"]);
+                    int rowIndex = Convert.ToInt32(Request.QueryString["rowIndex"]);
+                    FillPage(id);
+                    addHerbToStock.Visible = false;
+                    updateHerbStock.Visible = true;
+                    btnAddHerb.Visible = false;
+                    btnUpdateHerbStock.Visible = true;
+                }
+            }
+                if (IsPostBack)
             {
                 divAlertWarning.Visible = false;
                 divAlertSuccess.Visible = false;
             }
 
+
         }
 
+        private void FillPage(int id)
+        {
+            HerbStockModel herbStock = new HerbStockModel();
+            HerbStock hs = herbStock.GetHerbStock(id);
+            AllHerbsModel ahm = new AllHerbsModel();
+            AllHerb ah = ahm.GetAllHerb(hs.HerbRefNum.ToString());
+            tbxHerb.Text =  ah.HerbName ;
+            tbxQuantity.Text = hs.Quantity.ToString();
+            tbxBatchNumber.Text = hs.BatchNum;
+            tbxExpiaryDate.Text = String.Format("{0:dd/MM/yyyy}",hs.ExpiryDate);
+            ddlSupplier.SelectedValue = hs.SupplierID.ToString();
+            tbxSupplierPrice.Text = String.Format("{0:0.0000}",hs.BuyPrice);
+            ddlHerbForm.SelectedValue = hs.HerbForm.ToString();
+            tbxRatio.Text = hs.HerbRawToGranRatio.ToString();
+            tbxDateReceived.Text = String.Format("{0:dd/MM/yyyy}", hs.DateReceived);
+            tbxDateToDispensery.Text = String.Format("{0:dd/MM/yyyy}", hs.DateToDispensery);
 
-//-----------------Get Herb Ref Number---------------------------------
+
+
+        }
+
+        //-----------------Get Herb Ref Number---------------------------------
         protected void GetHerbRefNum(string herbName)
         {
             string message;
@@ -136,5 +170,39 @@ namespace Dispensery
 
 
         }
+
+        protected void btnUpdateHerbStock_Click(object sender, EventArgs e)
+        {
+            HerbStockModel hsModel = new HerbStockModel();
+            HerbStock hs = CreateHerbStock();
+
+            if (!String.IsNullOrWhiteSpace(Request.QueryString["id"]))
+            {
+                int id = Convert.ToInt32(Request.QueryString["id"]);
+                int rowIndex = Convert.ToInt32(Request.QueryString["rowIndex"]);
+
+                divAlertSuccess.Visible = true;
+                lblNoSelectionAlertHeader.Text = hsModel.UpdateHerbStock(id, hs);
+                Response.Redirect("ViewInventory.aspx?rowIndex="+ rowIndex);
+            }
+        }
+        private HerbStock CreateHerbStock()
+        {
+            HerbStock hs = new HerbStock();
+            AllHerbsModel ahm = new AllHerbsModel();
+            AllHerb ah = ahm.GetHerbByName(tbxHerb.Text);
+            hs.HerbRefNum = ah.RefNum.ToString();
+            hs.BatchNum = tbxBatchNumber.Text;
+            hs.BuyPrice = Convert.ToDecimal(tbxSupplierPrice.Text);
+            hs.ExpiryDate = Convert.ToDateTime(tbxExpiaryDate.Text);
+            hs.Quantity = Convert.ToDecimal(tbxQuantity.Text);
+            hs.SupplierID = Convert.ToInt32(ddlSupplier.SelectedValue);
+            hs.HerbRawToGranRatio = Convert.ToDecimal(tbxRatio.Text);
+            hs.DateReceived = Convert.ToDateTime(tbxDateReceived.Text);
+            hs.DateToDispensery = Convert.ToDateTime(tbxDateToDispensery.Text);
+            hs.HerbForm = ddlHerbForm.SelectedItem.Text;
+            return hs;
+        }
+
     }
 }

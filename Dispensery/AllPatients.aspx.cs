@@ -26,7 +26,7 @@ namespace Dispensery
             lblPatientName.Text = (row.FindControl("lblPatientName") as Label).Text + " "+ (row.FindControl("lblPatientSurname") as Label).Text;
             tbxPatientName.Text = (row.FindControl("lblPatientName") as Label).Text;
             tbxPatientSurname.Text = (row.FindControl("lblPatientSurname") as Label).Text;
-            hdPatientID.Value = (row.FindControl("lblPatientID") as Label).Text;
+            hdPatientID.Value = row.Cells[1].Text;
 
             ShowData();
 
@@ -74,6 +74,16 @@ namespace Dispensery
         protected void btnModalShowDatails_Click(object sender, EventArgs e)
         {
             Response.Redirect("PendingPrescriptions.aspx");
+        }
+
+        protected void grvShort_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            int rowIndex = e.NewEditIndex;
+            GridViewRow row = grvShort.Rows[e.NewEditIndex];
+            string cellValue = row.Cells[1].Text;
+            int rowId = Convert.ToInt32(row.Cells[1].Text);
+
+            Response.Redirect("AddPatient.aspx?id=" + rowId);
         }
     }
 }

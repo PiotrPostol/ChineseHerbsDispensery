@@ -12,6 +12,19 @@ namespace Dispensery
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (!String.IsNullOrWhiteSpace(Request.QueryString["rowIndex"]))
+                {
+                 
+                    int rowIndex = Convert.ToInt32(Request.QueryString["rowIndex"]);
+
+
+                    GridView1.Focus();
+                    GridView1.Rows[rowIndex].Cells[0].Focus();
+                    GridView1.Rows[rowIndex].BackColor = System.Drawing.Color.FromArgb(159, 194, 153);
+                }
+            }
 
         }
         public override void VerifyRenderingInServerForm(Control control)
@@ -44,5 +57,17 @@ namespace Dispensery
         {
             ExportGridToExcel();
         }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            int rowIndex = e.NewEditIndex;
+            GridViewRow row = GridView1.Rows[e.NewEditIndex];
+            string cellValue = ((Label)(row.Cells[1].FindControl("Label1"))).Text;
+            int rowId = Convert.ToInt32(cellValue);
+
+            Response.Redirect("AddHerbToStock.aspx?id=" + rowId+"&rowIndex="+rowIndex);
+        }
+
+      
     }
 }

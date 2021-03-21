@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" EnableEventValidation="false" MaintainScrollPositionOnPostback="true" CodeBehind="ViewInventory.aspx.cs" Inherits="Dispensery.ViewInventory" %>
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" EnableEventValidation="false" MaintainScrollPositionOnPostback="true" CodeBehind="ViewInventory.aspx.cs" Inherits="Dispensery.ViewInventory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
@@ -52,20 +52,20 @@
                             
 
                                 <div class="table-responsive-xl col-xl-12 pl-md-0">
-                                    <asp:GridView ID="GridView1" CssClass="table table-sm table-hover table-striped" GridLines="None" runat="server" AutoGenerateColumns="False" DataKeyNames="HerbStockID" DataSourceID="SqlDataSource1">
+                                    <asp:GridView ID="GridView1" OnRowEditing="GridView1_RowEditing" CssClass="table table-sm table-hover table-striped" GridLines="None" runat="server" AutoGenerateColumns="False" DataKeyNames="HerbStockID" DataSourceID="SqlDataSource1">
                                         <Columns>
                                             <asp:TemplateField ShowHeader="True" HeaderText="Edit/Delete">
                                                 <EditItemTemplate>
-                                                    <asp:LinkButton runat="server" Text="Update" CssClass="btn btn-sm btn-outline-primary" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Cancel" CssClass="btn btn-sm btn-outline-danger" CommandName="Cancel" CausesValidation="False" ID="LinkButton2"></asp:LinkButton>
+                                                    <asp:LinkButton runat="server" Text="Update"  CssClass="btn btn-sm btn-outline-primary" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Cancel" CssClass="btn btn-sm btn-outline-danger" CommandName="Cancel" CausesValidation="False" ID="LinkButton2"></asp:LinkButton>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:LinkButton runat="server" Text="" CssClass="btn btn-sm btn-primary" CommandName="Edit" CausesValidation="False" ID="LinkButton1"><i class="fas fa-pencil-alt"></i></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Delete" CssClass="btn btn-sm btn-danger" CommandName="Delete" CausesValidation="False" ID="LinkButton2"><i class="far fa-trash-alt"></i></asp:LinkButton>
+                                                    <asp:LinkButton runat="server" Text="" CssClass="btn btn-sm btn-outline-primary" CommandName="Edit" CausesValidation="False" ID="LinkButton1"><i class="fas fa-pencil-alt"></i></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Delete" CssClass="btn btn-sm btn-outline-danger" CommandName="Delete" CausesValidation="False" ID="LinkButton2"><i class="far fa-trash-alt"></i></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
 
 
-                                            <asp:TemplateField HeaderText="HerbStockID" InsertVisible="False" SortExpression="HerbStockID" Visible="False">
+                                            <asp:TemplateField HeaderText="ID" InsertVisible="false" SortExpression="HerbStockID" Visible="true">
                                                 <EditItemTemplate>
                                                     <asp:Label runat="server" Text='<%# Eval("HerbStockID") %>' ID="Label1"></asp:Label>
                                                 </EditItemTemplate>
@@ -131,7 +131,7 @@
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("DateReceived") %>' ID="TextBox7"></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server" Text='<%# Bind("DateReceived") %>' ID="Label8"></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("DateReceived","{0:dd/MM/yy}") %>' ID="Label8"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Expiry Date" SortExpression="ExpiryDate">
@@ -139,7 +139,7 @@
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("ExpiryDate") %>' ID="TextBox8"></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server" Text='<%# Bind("ExpiryDate") %>' ID="Label9"></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("ExpiryDate","{0:dd/MM/yy}") %>' ID="Label9"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="To Dispensery" SortExpression="DateToDispensery">
@@ -147,7 +147,7 @@
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("DateToDispensery") %>' ID="TextBox9"></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server" Text='<%# Bind("DateToDispensery") %>' ID="Label10"></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("DateToDispensery","{0:dd/MM/yy}") %>' ID="Label10"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Form" SortExpression="HerbForm">

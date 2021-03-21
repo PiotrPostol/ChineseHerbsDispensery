@@ -48,7 +48,7 @@
                                 <asp:ListItem Text="-- Select Patient --" Value="0" Selected="true"></asp:ListItem>
                             </asp:DropDownList>
 
-                            <asp:SqlDataSource runat="server" ID="SqlDataSource3" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatientID, PatientName + ' ' + PatientSurname AS PatientName FROM Patient ORDER BY PatientName"></asp:SqlDataSource>
+                            <asp:SqlDataSource runat="server" ID="SqlDataSource3" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT Patient.PatientID, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID ORDER BY PatientName"></asp:SqlDataSource>
                         </div>
                         <br />
                         <hr />
@@ -479,6 +479,8 @@
     </div>
 </div>
 
+    <div class="modal" id="lableModal">
 
+    </div>
 
 </asp:Content>

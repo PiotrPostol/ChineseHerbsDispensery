@@ -7,11 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dispensery {
-    
-    
-    public partial class AddPatient {
-        
+namespace Dispensery
+{
+
+
+    public partial class AddPatient
+    {
+
+        /// <summary>
+        /// headerAddPatient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl headerAddPatient;
+
+        /// <summary>
+        /// headerUpdatePatient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl headerUpdatePatient;
+
         /// <summary>
         /// divAlertSuccess control.
         /// </summary>
@@ -20,7 +40,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlertSuccess;
-        
+
         /// <summary>
         /// lblNoSelectionAlertHeader control.
         /// </summary>
@@ -29,7 +49,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoSelectionAlertHeader;
-        
+
         /// <summary>
         /// tbxPatientName control.
         /// </summary>
@@ -38,7 +58,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientName;
-        
+
         /// <summary>
         /// tbxPatientSurname control.
         /// </summary>
@@ -47,7 +67,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientSurname;
-        
+
         /// <summary>
         /// tbxPatientAddress control.
         /// </summary>
@@ -56,7 +76,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientAddress;
-        
+
         /// <summary>
         /// tbxPatientCityTown control.
         /// </summary>
@@ -65,7 +85,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientCityTown;
-        
+
         /// <summary>
         /// ddlPatientCounty control.
         /// </summary>
@@ -74,7 +94,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPatientCounty;
-        
+
         /// <summary>
         /// tbxEirecode control.
         /// </summary>
@@ -83,7 +103,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxEirecode;
-        
+
         /// <summary>
         /// ddlPatientCountry control.
         /// </summary>
@@ -92,7 +112,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPatientCountry;
-        
+
         /// <summary>
         /// tbxPatientPhoneNumber control.
         /// </summary>
@@ -101,7 +121,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientPhoneNumber;
-        
+
         /// <summary>
         /// tbxPatientEmail control.
         /// </summary>
@@ -110,7 +130,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientEmail;
-        
+
         /// <summary>
         /// tbxPatientMedicalConditions control.
         /// </summary>
@@ -119,7 +139,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientMedicalConditions;
-        
+
         /// <summary>
         /// tbxPatientMedication control.
         /// </summary>
@@ -128,7 +148,7 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxPatientMedication;
-        
+
         /// <summary>
         /// btnAddPatient control.
         /// </summary>
@@ -137,5 +157,14 @@ namespace Dispensery {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddPatient;
+
+        /// <summary>
+        /// btnUpdatePatient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdatePatient;
     }
 }

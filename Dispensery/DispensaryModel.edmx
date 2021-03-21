@@ -1,0 +1,1944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DispenseryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdministrationMethod">
+          <Key>
+            <PropertyRef Name="AdmId" />
+          </Key>
+          <Property Name="AdmId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdmMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdmMethodPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PerTimePeriod" Type="int" />
+        </EntityType>
+        <EntityType Name="AllHerbs">
+          <Key>
+            <PropertyRef Name="RefNum" />
+          </Key>
+          <Property Name="RefNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HerbNameChinese" Type="nvarchar(max)" />
+          <Property Name="HerbName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PharmaName" Type="nvarchar(max)" />
+          <Property Name="EnglishName" Type="nvarchar(max)" />
+          <Property Name="Temperature" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DispensingFee">
+          <Key>
+            <PropertyRef Name="DispFeeId" />
+          </Key>
+          <Property Name="DispFeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DispensingFeeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DispFeePercentage" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="HerbStock">
+          <Key>
+            <PropertyRef Name="HerbStockID" />
+          </Key>
+          <Property Name="HerbStockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HerbRefNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BatchNum" Type="nvarchar" MaxLength="100" />
+          <Property Name="BuyPrice" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="SellPrice" Type="numeric" Precision="21" Scale="5" StoreGeneratedPattern="Computed" />
+          <Property Name="ExpiryDate" Type="date" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="HerbRawToGranRatio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DateReceived" Type="date" />
+          <Property Name="DateToDispensery" Type="date" />
+          <Property Name="HerbForm" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateLastChanged" Type="date" />
+        </EntityType>
+        <EntityType Name="PatentFormulaMain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormulaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="HerbRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="HerbBatchNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="DosageProcentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DosageGrams" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BottleQuantity" Type="int" />
+          <Property Name="TotalDosageGrams" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="PatentFormulas">
+          <Key>
+            <PropertyRef Name="PatentFormulaID" />
+          </Key>
+          <Property Name="PatentFormulaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="HerbRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="DosageProcentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DosageGrams" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="PatentFormulaSaleHistory">
+          <Key>
+            <PropertyRef Name="PFSaleId" />
+          </Key>
+          <Property Name="PFSaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PractitionerID" Type="int" />
+          <Property Name="PFbatchNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="BottleQuantity" Type="int" />
+          <Property Name="SaleDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PatentFormulaStock">
+          <Key>
+            <PropertyRef Name="PatentFormulaStockId" />
+          </Key>
+          <Property Name="PatentFormulaStockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormulaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BottleQuantity" Type="int" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PatentFormulaTemp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormulaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="HerbRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="HerbBatchNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="DosageProcentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DosageGrams" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BottleQuantity" Type="int" />
+          <Property Name="TotalDosageGrams" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientAddress" Type="nvarchar(max)" />
+          <Property Name="PatientTown" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientCounty" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientEirecode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientPhoneNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="PatientMedication" Type="nvarchar(max)" />
+          <Property Name="PatientCountry" Type="nvarchar(max)" />
+          <Property Name="PatientMedicalCondition" Type="nvarchar(max)" />
+          <Property Name="DateAdded" Type="date" />
+        </EntityType>
+        <EntityType Name="PostageCost">
+          <Key>
+            <PropertyRef Name="PostageId" />
+          </Key>
+          <Property Name="PostageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostageMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostageCost" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Practitioner">
+          <Key>
+            <PropertyRef Name="PractitionerID" />
+          </Key>
+          <Property Name="PractitionerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PracName" Type="varchar" MaxLength="50" />
+          <Property Name="PracSurname" Type="varchar" MaxLength="100" />
+          <Property Name="PracAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="PracEmail" Type="nvarchar" MaxLength="200" />
+          <Property Name="PracTellphoneNum" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PrescriptionCost">
+          <Key>
+            <PropertyRef Name="PrescriptionID" />
+          </Key>
+          <Property Name="PrescriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="FormulaRefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormulaTotalCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MethodOfAdminist" Type="nvarchar" MaxLength="50" />
+          <Property Name="MethodOfAdministCOST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DispensingFee" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Postage" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostageFee" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PrescriptionStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiscountReason" Type="nvarchar(max)" />
+          <Property Name="Discount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="PrescriptionMain">
+          <Key>
+            <PropertyRef Name="FormulaID" />
+          </Key>
+          <Property Name="FormulaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaRefNum" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HerbRefNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HerbQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FormulaName" Type="nvarchar(max)" />
+          <Property Name="DosageDays" Type="int" />
+          <Property Name="PatientID" Type="int" />
+          <Property Name="PractitionerID" Type="int" />
+          <Property Name="HerbRawToGranRatio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="HerbTemperature" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalHerbQuantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="HerbBatchNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="HerbChineseName" Type="nvarchar(max)" />
+          <Property Name="HerbPharmName" Type="nvarchar" MaxLength="100" />
+          <Property Name="GranulesQuantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BuyPrice" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="SellPrice" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Procentage" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
+        <EntityType Name="PrescriptionMainTemp">
+          <Key>
+            <PropertyRef Name="FormulaID" />
+          </Key>
+          <Property Name="FormulaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaRefNum" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HerbRefNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HerbQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FormulaName" Type="nvarchar(max)" />
+          <Property Name="DosageDays" Type="int" />
+          <Property Name="PatientID" Type="int" />
+          <Property Name="PractitionerID" Type="int" />
+          <Property Name="HerbRawToGranRatio" Type="decimal" Precision="18" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="HerbTemperature" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
+          <Property Name="TotalHerbQuantity" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="HerbBatchNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="HerbChineseName" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
+          <Property Name="HerbPharmName" Type="nvarchar(max)" StoreGeneratedPattern="Computed" />
+          <Property Name="GranulesQuantity" Type="decimal" Precision="18" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="BuyPrice" Type="decimal" Precision="18" Scale="4" StoreGeneratedPattern="Computed" />
+          <Property Name="SellPrice" Type="decimal" Precision="18" Scale="4" StoreGeneratedPattern="Computed" />
+          <Property Name="DailyCost" Type="decimal" Precision="18" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="Procentage" Type="decimal" Precision="18" Scale="1" StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrescriptionTemp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HerbName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PhenixPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BalancePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplierTable">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupplierAddress" Type="nvarchar(max)" />
+          <Property Name="TelNum" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TraditionalFormulas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="RefNum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HerbName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Dosage" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__HerbStock__HerbR__503BEA1C">
+          <End Role="AllHerbs" Type="Self.AllHerbs" Multiplicity="1" />
+          <End Role="HerbStock" Type="Self.HerbStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="HerbStock">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HerbStock__Suppl__4F47C5E3">
+          <End Role="SupplierTable" Type="Self.SupplierTable" Multiplicity="0..1" />
+          <End Role="HerbStock" Type="Self.HerbStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierTable">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="HerbStock">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatentFor__HerbR__31B762FC">
+          <End Role="AllHerbs" Type="Self.AllHerbs" Multiplicity="0..1" />
+          <End Role="PatentFormulas" Type="Self.PatentFormulas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="PatentFormulas">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__HerbR__2DE6D218">
+          <End Role="AllHerbs" Type="Self.AllHerbs" Multiplicity="1" />
+          <End Role="PrescriptionMainTemp" Type="Self.PrescriptionMainTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="PrescriptionMainTemp">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__HerbR__70DDC3D8">
+          <End Role="AllHerbs" Type="Self.AllHerbs" Multiplicity="1" />
+          <End Role="PrescriptionMain" Type="Self.PrescriptionMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="PrescriptionMain">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Patie__2EDAF651">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="PrescriptionMainTemp" Type="Self.PrescriptionMainTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PrescriptionMainTemp">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Patie__71D1E811">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="PrescriptionMain" Type="Self.PrescriptionMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PrescriptionMain">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Pract__2CF2ADDF">
+          <End Role="Practitioner" Type="Self.Practitioner" Multiplicity="0..1" />
+          <End Role="PrescriptionMainTemp" Type="Self.PrescriptionMainTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Practitioner">
+              <PropertyRef Name="PractitionerID" />
+            </Principal>
+            <Dependent Role="PrescriptionMainTemp">
+              <PropertyRef Name="PractitionerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Pract__6FE99F9F">
+          <End Role="Practitioner" Type="Self.Practitioner" Multiplicity="0..1" />
+          <End Role="PrescriptionMain" Type="Self.PrescriptionMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Practitioner">
+              <PropertyRef Name="PractitionerID" />
+            </Principal>
+            <Dependent Role="PrescriptionMain">
+              <PropertyRef Name="PractitionerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatentFormulaSaleHistory_Practitioner">
+          <End Role="Practitioner" Type="Self.Practitioner" Multiplicity="0..1" />
+          <End Role="PatentFormulaSaleHistory" Type="Self.PatentFormulaSaleHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Practitioner">
+              <PropertyRef Name="PractitionerID" />
+            </Principal>
+            <Dependent Role="PatentFormulaSaleHistory">
+              <PropertyRef Name="PractitionerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetAllHerbsNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spAddHerbToStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="herbRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="batchNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="buyPrice" Type="decimal" Mode="In" />
+          <Parameter Name="expiaryDate" Type="date" Mode="In" />
+          <Parameter Name="quantity" Type="decimal" Mode="In" />
+          <Parameter Name="supplierID" Type="int" Mode="In" />
+          <Parameter Name="ratio" Type="decimal" Mode="In" />
+          <Parameter Name="dateReceived" Type="date" Mode="In" />
+          <Parameter Name="dateToDispensery" Type="date" Mode="In" />
+          <Parameter Name="herbForm" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spAllStocksIDOfHerb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="herbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spClearPrescriptionTemp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spCreatePatentFormula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spDeleteAllPatentFormulaTemp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetAdmData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdmId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetAllPrescriptionMain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetDataFromPrescriptionMain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetDataOfPF" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PFname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHerbName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="herbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHerbPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="refnum" Type="varchar" Mode="In" />
+          <Parameter Name="supplier" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHerbRefNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="herbName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHerbsNameInStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHerbsNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHerbStockIdData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="herbStockID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetPatientName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patientID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetPatientPrescriptionHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patientID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetPFbottlesQty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pfRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetPractitonerData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="practitionerId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetPrescriptionCostData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaRefNumber" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetTotalGranulesQuantityFromTemp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetTotalPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetTraditionalFormula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertIntoPrescriptionMainFromTemp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaTotalCost" Type="decimal" Mode="In" />
+          <Parameter Name="methodOfAdminist" Type="nvarchar" Mode="In" />
+          <Parameter Name="methodOfAdministCOST" Type="decimal" Mode="In" />
+          <Parameter Name="dispensingFee" Type="decimal" Mode="In" />
+          <Parameter Name="postage" Type="nvarchar" Mode="In" />
+          <Parameter Name="postageFee" Type="decimal" Mode="In" />
+          <Parameter Name="prescriptionStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="discountReason" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="discount" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="spInsertNewPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patientName" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientSurname" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientAddress" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="patientTown" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientCounty" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientEirecode" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientPhoneNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="patientMedication" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="patientCountry" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="patientMedicalCondition" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spInsertPatentFormulaToTemp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patentFormulaName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PFrefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="herbRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="herbBatchNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="herbProcentage" Type="decimal" Mode="In" />
+          <Parameter Name="bottleQuantity" Type="int" Mode="In" />
+          <Parameter Name="dosageGrams" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="spInsertRecordTempPrescription" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaRefNum" Type="varchar(max)" Mode="In" />
+          <Parameter Name="herbRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="formulaName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="herbQuantity" Type="decimal" Mode="In" />
+          <Parameter Name="numOfDosageDays" Type="int" Mode="In" />
+          <Parameter Name="patientID" Type="int" Mode="In" />
+          <Parameter Name="practitionerID" Type="int" Mode="In" />
+          <Parameter Name="herbBatchNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertTraditionalFormula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaName" Type="nvarchar" Mode="In" />
+          <Parameter Name="formulaRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="dosageDays" Type="int" Mode="In" />
+          <Parameter Name="patientID" Type="int" Mode="In" />
+          <Parameter Name="practitionerID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPFsale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pracID" Type="int" Mode="In" />
+          <Parameter Name="batchNumID" Type="nvarchar" Mode="In" />
+          <Parameter Name="bottleQty" Type="int" Mode="In" />
+          <Parameter Name="saleDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="spUpdateStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formulaRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="herbBatchNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="stp_CheckHerbStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="herbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_FormulaTotalQuantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal" />
+        <Function Name="ufn_HerbBatchNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="HerbQuantity" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbBuyPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbChinesemName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar(max)">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbPharmName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar(max)">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbRawToGranRatio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="HerbBatchNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbSellPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbSellPriceWithBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="HerbBatchNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ufn_HerbTemperature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar(max)">
+          <Parameter Name="HerbRefNum" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="DispenseryModelStoreContainer">
+          <EntitySet Name="AdministrationMethod" EntityType="Self.AdministrationMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllHerbs" EntityType="Self.AllHerbs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DispensingFee" EntityType="Self.DispensingFee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HerbStock" EntityType="Self.HerbStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatentFormulaMain" EntityType="Self.PatentFormulaMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatentFormulas" EntityType="Self.PatentFormulas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatentFormulaSaleHistory" EntityType="Self.PatentFormulaSaleHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatentFormulaStock" EntityType="Self.PatentFormulaStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatentFormulaTemp" EntityType="Self.PatentFormulaTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostageCost" EntityType="Self.PostageCost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Practitioner" EntityType="Self.Practitioner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescriptionCost" EntityType="Self.PrescriptionCost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescriptionMain" EntityType="Self.PrescriptionMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescriptionMainTemp" EntityType="Self.PrescriptionMainTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescriptionTemp" EntityType="Self.PrescriptionTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierTable" EntityType="Self.SupplierTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraditionalFormulas" EntityType="Self.TraditionalFormulas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__HerbStock__HerbR__503BEA1C" Association="Self.FK__HerbStock__HerbR__503BEA1C">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="HerbStock" EntitySet="HerbStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HerbStock__Suppl__4F47C5E3" Association="Self.FK__HerbStock__Suppl__4F47C5E3">
+            <End Role="SupplierTable" EntitySet="SupplierTable" />
+            <End Role="HerbStock" EntitySet="HerbStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatentFor__HerbR__31B762FC" Association="Self.FK__PatentFor__HerbR__31B762FC">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="PatentFormulas" EntitySet="PatentFormulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__HerbR__2DE6D218" Association="Self.FK__Prescript__HerbR__2DE6D218">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="PrescriptionMainTemp" EntitySet="PrescriptionMainTemp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__HerbR__70DDC3D8" Association="Self.FK__Prescript__HerbR__70DDC3D8">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="PrescriptionMain" EntitySet="PrescriptionMain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Patie__2EDAF651" Association="Self.FK__Prescript__Patie__2EDAF651">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="PrescriptionMainTemp" EntitySet="PrescriptionMainTemp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Patie__71D1E811" Association="Self.FK__Prescript__Patie__71D1E811">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="PrescriptionMain" EntitySet="PrescriptionMain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Pract__2CF2ADDF" Association="Self.FK__Prescript__Pract__2CF2ADDF">
+            <End Role="Practitioner" EntitySet="Practitioner" />
+            <End Role="PrescriptionMainTemp" EntitySet="PrescriptionMainTemp" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Pract__6FE99F9F" Association="Self.FK__Prescript__Pract__6FE99F9F">
+            <End Role="Practitioner" EntitySet="Practitioner" />
+            <End Role="PrescriptionMain" EntitySet="PrescriptionMain" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatentFormulaSaleHistory_Practitioner" Association="Self.FK_PatentFormulaSaleHistory_Practitioner">
+            <End Role="Practitioner" EntitySet="Practitioner" />
+            <End Role="PatentFormulaSaleHistory" EntitySet="PatentFormulaSaleHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DispenseryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdministrationMethod">
+          <Key>
+            <PropertyRef Name="AdmId" />
+          </Key>
+          <Property Name="AdmId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdmMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdmMethodPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PerTimePeriod" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AllHerb">
+          <Key>
+            <PropertyRef Name="RefNum" />
+          </Key>
+          <Property Name="RefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HerbNameChinese" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HerbName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PharmaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnglishName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Temperature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HerbStocks" Relationship="Self.FK__HerbStock__HerbR__503BEA1C" FromRole="AllHerbs" ToRole="HerbStock" />
+          <NavigationProperty Name="PatentFormulas" Relationship="Self.FK__PatentFor__HerbR__31B762FC" FromRole="AllHerbs" ToRole="PatentFormulas" />
+          <NavigationProperty Name="PrescriptionMainTemps" Relationship="Self.FK__Prescript__HerbR__2DE6D218" FromRole="AllHerbs" ToRole="PrescriptionMainTemp" />
+          <NavigationProperty Name="PrescriptionMains" Relationship="Self.FK__Prescript__HerbR__70DDC3D8" FromRole="AllHerbs" ToRole="PrescriptionMain" />
+        </EntityType>
+        <EntityType Name="DispensingFee">
+          <Key>
+            <PropertyRef Name="DispFeeId" />
+          </Key>
+          <Property Name="DispFeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DispensingFeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DispFeePercentage" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="HerbStock">
+          <Key>
+            <PropertyRef Name="HerbStockID" />
+          </Key>
+          <Property Name="HerbStockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HerbRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BatchNum" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BuyPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="SellPrice" Type="Decimal" Precision="21" Scale="5" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="HerbRawToGranRatio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DateReceived" Type="DateTime" Precision="0" />
+          <Property Name="DateToDispensery" Type="DateTime" Precision="0" />
+          <Property Name="HerbForm" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateLastChanged" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AllHerb" Relationship="Self.FK__HerbStock__HerbR__503BEA1C" FromRole="HerbStock" ToRole="AllHerbs" />
+          <NavigationProperty Name="SupplierTable" Relationship="Self.FK__HerbStock__Suppl__4F47C5E3" FromRole="HerbStock" ToRole="SupplierTable" />
+        </EntityType>
+        <EntityType Name="PatentFormulaMain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormulaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HerbRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HerbBatchNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DosageProcentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DosageGrams" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BottleQuantity" Type="Int32" />
+          <Property Name="TotalDosageGrams" Type="Decimal" Precision="29" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="PatentFormula">
+          <Key>
+            <PropertyRef Name="PatentFormulaID" />
+          </Key>
+          <Property Name="PatentFormulaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HerbRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DosageProcentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DosageGrams" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="AllHerb" Relationship="Self.FK__PatentFor__HerbR__31B762FC" FromRole="PatentFormulas" ToRole="AllHerbs" />
+        </EntityType>
+        <EntityType Name="PatentFormulaSaleHistory">
+          <Key>
+            <PropertyRef Name="PFSaleId" />
+          </Key>
+          <Property Name="PFSaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PractitionerID" Type="Int32" />
+          <Property Name="PFbatchNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BottleQuantity" Type="Int32" />
+          <Property Name="SaleDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Practitioner" Relationship="Self.FK_PatentFormulaSaleHistory_Practitioner" FromRole="PatentFormulaSaleHistory" ToRole="Practitioner" />
+        </EntityType>
+        <EntityType Name="PatentFormulaStock">
+          <Key>
+            <PropertyRef Name="PatentFormulaStockId" />
+          </Key>
+          <Property Name="PatentFormulaStockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormulaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BottleQuantity" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PatentFormulaTemp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormulaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HerbRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HerbBatchNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DosageProcentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DosageGrams" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BottleQuantity" Type="Int32" />
+          <Property Name="TotalDosageGrams" Type="Decimal" Precision="29" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PatientTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientEirecode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientPhoneNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PatientMedication" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PatientCountry" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PatientMedicalCondition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PrescriptionMainTemps" Relationship="Self.FK__Prescript__Patie__2EDAF651" FromRole="Patient" ToRole="PrescriptionMainTemp" />
+          <NavigationProperty Name="PrescriptionMains" Relationship="Self.FK__Prescript__Patie__71D1E811" FromRole="Patient" ToRole="PrescriptionMain" />
+        </EntityType>
+        <EntityType Name="PostageCost">
+          <Key>
+            <PropertyRef Name="PostageId" />
+          </Key>
+          <Property Name="PostageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostageMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostageCost1" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Practitioner">
+          <Key>
+            <PropertyRef Name="PractitionerID" />
+          </Key>
+          <Property Name="PractitionerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PracName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PracSurname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PracAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PracEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PracTellphoneNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PatentFormulaSaleHistories" Relationship="Self.FK_PatentFormulaSaleHistory_Practitioner" FromRole="Practitioner" ToRole="PatentFormulaSaleHistory" />
+          <NavigationProperty Name="PrescriptionMainTemps" Relationship="Self.FK__Prescript__Pract__2CF2ADDF" FromRole="Practitioner" ToRole="PrescriptionMainTemp" />
+          <NavigationProperty Name="PrescriptionMains" Relationship="Self.FK__Prescript__Pract__6FE99F9F" FromRole="Practitioner" ToRole="PrescriptionMain" />
+        </EntityType>
+        <EntityType Name="PrescriptionCost">
+          <Key>
+            <PropertyRef Name="PrescriptionID" />
+          </Key>
+          <Property Name="PrescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="FormulaRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormulaTotalCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MethodOfAdminist" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MethodOfAdministCOST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DispensingFee" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Postage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostageFee" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrescriptionStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiscountReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="PrescriptionMain">
+          <Key>
+            <PropertyRef Name="FormulaID" />
+          </Key>
+          <Property Name="FormulaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaRefNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HerbRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HerbQuantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FormulaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DosageDays" Type="Int32" />
+          <Property Name="PatientID" Type="Int32" />
+          <Property Name="PractitionerID" Type="Int32" />
+          <Property Name="HerbRawToGranRatio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HerbTemperature" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalHerbQuantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HerbBatchNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HerbChineseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HerbPharmName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GranulesQuantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BuyPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="SellPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Procentage" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AllHerb" Relationship="Self.FK__Prescript__HerbR__70DDC3D8" FromRole="PrescriptionMain" ToRole="AllHerbs" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Prescript__Patie__71D1E811" FromRole="PrescriptionMain" ToRole="Patient" />
+          <NavigationProperty Name="Practitioner" Relationship="Self.FK__Prescript__Pract__6FE99F9F" FromRole="PrescriptionMain" ToRole="Practitioner" />
+        </EntityType>
+        <EntityType Name="PrescriptionMainTemp">
+          <Key>
+            <PropertyRef Name="FormulaID" />
+          </Key>
+          <Property Name="FormulaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaRefNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HerbRefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HerbQuantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FormulaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DosageDays" Type="Int32" />
+          <Property Name="PatientID" Type="Int32" />
+          <Property Name="PractitionerID" Type="Int32" />
+          <Property Name="HerbRawToGranRatio" Type="Decimal" Precision="18" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HerbTemperature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="TotalHerbQuantity" Type="Decimal" Precision="29" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HerbBatchNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HerbChineseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HerbPharmName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="GranulesQuantity" Type="Decimal" Precision="18" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="BuyPrice" Type="Decimal" Precision="18" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SellPrice" Type="Decimal" Precision="18" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DailyCost" Type="Decimal" Precision="18" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Procentage" Type="Decimal" Precision="18" Scale="1" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AllHerb" Relationship="Self.FK__Prescript__HerbR__2DE6D218" FromRole="PrescriptionMainTemp" ToRole="AllHerbs" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Prescript__Patie__2EDAF651" FromRole="PrescriptionMainTemp" ToRole="Patient" />
+          <NavigationProperty Name="Practitioner" Relationship="Self.FK__Prescript__Pract__2CF2ADDF" FromRole="PrescriptionMainTemp" ToRole="Practitioner" />
+        </EntityType>
+        <EntityType Name="PrescriptionTemp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HerbName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PhenixPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BalancePrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplierTable">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TelNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HerbStocks" Relationship="Self.FK__HerbStock__Suppl__4F47C5E3" FromRole="SupplierTable" ToRole="HerbStock" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TraditionalFormula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HerbName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dosage" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__HerbStock__HerbR__503BEA1C">
+          <End Role="AllHerbs" Type="Self.AllHerb" Multiplicity="1" />
+          <End Role="HerbStock" Type="Self.HerbStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="HerbStock">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatentFor__HerbR__31B762FC">
+          <End Role="AllHerbs" Type="Self.AllHerb" Multiplicity="0..1" />
+          <End Role="PatentFormulas" Type="Self.PatentFormula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="PatentFormulas">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__HerbR__2DE6D218">
+          <End Role="AllHerbs" Type="Self.AllHerb" Multiplicity="1" />
+          <End Role="PrescriptionMainTemp" Type="Self.PrescriptionMainTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="PrescriptionMainTemp">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__HerbR__70DDC3D8">
+          <End Role="AllHerbs" Type="Self.AllHerb" Multiplicity="1" />
+          <End Role="PrescriptionMain" Type="Self.PrescriptionMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllHerbs">
+              <PropertyRef Name="RefNum" />
+            </Principal>
+            <Dependent Role="PrescriptionMain">
+              <PropertyRef Name="HerbRefNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HerbStock__Suppl__4F47C5E3">
+          <End Role="SupplierTable" Type="Self.SupplierTable" Multiplicity="0..1" />
+          <End Role="HerbStock" Type="Self.HerbStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierTable">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="HerbStock">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatentFormulaSaleHistory_Practitioner">
+          <End Role="Practitioner" Type="Self.Practitioner" Multiplicity="0..1" />
+          <End Role="PatentFormulaSaleHistory" Type="Self.PatentFormulaSaleHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Practitioner">
+              <PropertyRef Name="PractitionerID" />
+            </Principal>
+            <Dependent Role="PatentFormulaSaleHistory">
+              <PropertyRef Name="PractitionerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Patie__2EDAF651">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="PrescriptionMainTemp" Type="Self.PrescriptionMainTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PrescriptionMainTemp">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Patie__71D1E811">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="PrescriptionMain" Type="Self.PrescriptionMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PrescriptionMain">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Pract__2CF2ADDF">
+          <End Role="Practitioner" Type="Self.Practitioner" Multiplicity="0..1" />
+          <End Role="PrescriptionMainTemp" Type="Self.PrescriptionMainTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Practitioner">
+              <PropertyRef Name="PractitionerID" />
+            </Principal>
+            <Dependent Role="PrescriptionMainTemp">
+              <PropertyRef Name="PractitionerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Pract__6FE99F9F">
+          <End Role="Practitioner" Type="Self.Practitioner" Multiplicity="0..1" />
+          <End Role="PrescriptionMain" Type="Self.PrescriptionMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Practitioner">
+              <PropertyRef Name="PractitionerID" />
+            </Principal>
+            <Dependent Role="PrescriptionMain">
+              <PropertyRef Name="PractitionerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DispenseryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdministrationMethods" EntityType="Self.AdministrationMethod" />
+          <EntitySet Name="AllHerbs" EntityType="Self.AllHerb" />
+          <EntitySet Name="DispensingFees" EntityType="Self.DispensingFee" />
+          <EntitySet Name="HerbStocks" EntityType="Self.HerbStock" />
+          <EntitySet Name="PatentFormulaMains" EntityType="Self.PatentFormulaMain" />
+          <EntitySet Name="PatentFormulas" EntityType="Self.PatentFormula" />
+          <EntitySet Name="PatentFormulaSaleHistories" EntityType="Self.PatentFormulaSaleHistory" />
+          <EntitySet Name="PatentFormulaStocks" EntityType="Self.PatentFormulaStock" />
+          <EntitySet Name="PatentFormulaTemps" EntityType="Self.PatentFormulaTemp" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="PostageCosts" EntityType="Self.PostageCost" />
+          <EntitySet Name="Practitioners" EntityType="Self.Practitioner" />
+          <EntitySet Name="PrescriptionCosts" EntityType="Self.PrescriptionCost" />
+          <EntitySet Name="PrescriptionMains" EntityType="Self.PrescriptionMain" />
+          <EntitySet Name="PrescriptionMainTemps" EntityType="Self.PrescriptionMainTemp" />
+          <EntitySet Name="PrescriptionTemps" EntityType="Self.PrescriptionTemp" />
+          <EntitySet Name="SupplierTables" EntityType="Self.SupplierTable" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TraditionalFormulas" EntityType="Self.TraditionalFormula" />
+          <AssociationSet Name="FK__HerbStock__HerbR__503BEA1C" Association="Self.FK__HerbStock__HerbR__503BEA1C">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="HerbStock" EntitySet="HerbStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatentFor__HerbR__31B762FC" Association="Self.FK__PatentFor__HerbR__31B762FC">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="PatentFormulas" EntitySet="PatentFormulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__HerbR__2DE6D218" Association="Self.FK__Prescript__HerbR__2DE6D218">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="PrescriptionMainTemp" EntitySet="PrescriptionMainTemps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__HerbR__70DDC3D8" Association="Self.FK__Prescript__HerbR__70DDC3D8">
+            <End Role="AllHerbs" EntitySet="AllHerbs" />
+            <End Role="PrescriptionMain" EntitySet="PrescriptionMains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HerbStock__Suppl__4F47C5E3" Association="Self.FK__HerbStock__Suppl__4F47C5E3">
+            <End Role="SupplierTable" EntitySet="SupplierTables" />
+            <End Role="HerbStock" EntitySet="HerbStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatentFormulaSaleHistory_Practitioner" Association="Self.FK_PatentFormulaSaleHistory_Practitioner">
+            <End Role="Practitioner" EntitySet="Practitioners" />
+            <End Role="PatentFormulaSaleHistory" EntitySet="PatentFormulaSaleHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Patie__2EDAF651" Association="Self.FK__Prescript__Patie__2EDAF651">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PrescriptionMainTemp" EntitySet="PrescriptionMainTemps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Patie__71D1E811" Association="Self.FK__Prescript__Patie__71D1E811">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PrescriptionMain" EntitySet="PrescriptionMains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Pract__2CF2ADDF" Association="Self.FK__Prescript__Pract__2CF2ADDF">
+            <End Role="Practitioner" EntitySet="Practitioners" />
+            <End Role="PrescriptionMainTemp" EntitySet="PrescriptionMainTemps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Pract__6FE99F9F" Association="Self.FK__Prescript__Pract__6FE99F9F">
+            <End Role="Practitioner" EntitySet="Practitioners" />
+            <End Role="PrescriptionMain" EntitySet="PrescriptionMains" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllHerbsNames" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DispenseryModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DispenseryModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="spAddHerbToStock">
+            <Parameter Name="herbRefNum" Mode="In" Type="String" />
+            <Parameter Name="batchNum" Mode="In" Type="String" />
+            <Parameter Name="buyPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="expiaryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="quantity" Mode="In" Type="Decimal" />
+            <Parameter Name="supplierID" Mode="In" Type="Int32" />
+            <Parameter Name="ratio" Mode="In" Type="Decimal" />
+            <Parameter Name="dateReceived" Mode="In" Type="DateTime" />
+            <Parameter Name="dateToDispensery" Mode="In" Type="DateTime" />
+            <Parameter Name="herbForm" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spAllStocksIDOfHerb" ReturnType="Collection(DispenseryModel.spAllStocksIDOfHerb_Result)">
+            <Parameter Name="herbRefNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spClearPrescriptionTemp" />
+          <FunctionImport Name="spCreatePatentFormula" />
+          <FunctionImport Name="spDeleteAllPatentFormulaTemp" />
+          <FunctionImport Name="spGetAdmData" ReturnType="Collection(DispenseryModel.spGetAdmData_Result)">
+            <Parameter Name="AdmId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetAllPrescriptionMain" ReturnType="Collection(DispenseryModel.spGetAllPrescriptionMain_Result)">
+            <Parameter Name="formulaRefNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetDataFromPrescriptionMain" ReturnType="Collection(DispenseryModel.spGetDataFromPrescriptionMain_Result)">
+            <Parameter Name="formulaRefNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetDataOfPF" ReturnType="Collection(DispenseryModel.spGetDataOfPF_Result)">
+            <Parameter Name="PFname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetHerbName" ReturnType="Collection(DispenseryModel.spGetHerbName_Result)">
+            <Parameter Name="herbRefNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetHerbPrice">
+            <Parameter Name="refnum" Mode="In" Type="String" />
+            <Parameter Name="supplier" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetHerbRefNum" ReturnType="Collection(String)">
+            <Parameter Name="herbName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetHerbsNameInStock" ReturnType="Collection(DispenseryModel.spGetHerbsNameInStock_Result)">
+            <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetHerbsNames" ReturnType="Collection(DispenseryModel.spGetHerbsNames_Result)">
+            <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetHerbStockIdData" ReturnType="Collection(DispenseryModel.spGetHerbStockIdData_Result)">
+            <Parameter Name="herbStockID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetPatientName" ReturnType="Collection(DispenseryModel.spGetPatientName_Result)">
+            <Parameter Name="patientID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetPatientPrescriptionHistory" ReturnType="Collection(DispenseryModel.spGetPatientPrescriptionHistory_Result)">
+            <Parameter Name="patientID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetPFbottlesQty" ReturnType="Collection(Int32)">
+            <Parameter Name="pfRefNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetPractitonerData" ReturnType="Collection(DispenseryModel.spGetPractitonerData_Result)">
+            <Parameter Name="practitionerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetPrescriptionCostData" ReturnType="Collection(DispenseryModel.spGetPrescriptionCostData_Result)">
+            <Parameter Name="formulaRefNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetTotalGranulesQuantityFromTemp" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="spGetTotalPrice" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="spGetTraditionalFormula">
+            <Parameter Name="formulaName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertIntoPrescriptionMainFromTemp">
+            <Parameter Name="formulaTotalCost" Mode="In" Type="Decimal" />
+            <Parameter Name="methodOfAdminist" Mode="In" Type="String" />
+            <Parameter Name="methodOfAdministCOST" Mode="In" Type="Decimal" />
+            <Parameter Name="dispensingFee" Mode="In" Type="Decimal" />
+            <Parameter Name="postage" Mode="In" Type="String" />
+            <Parameter Name="postageFee" Mode="In" Type="Decimal" />
+            <Parameter Name="prescriptionStatus" Mode="In" Type="String" />
+            <Parameter Name="discountReason" Mode="In" Type="String" />
+            <Parameter Name="discount" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertNewPatient">
+            <Parameter Name="patientName" Mode="In" Type="String" />
+            <Parameter Name="patientSurname" Mode="In" Type="String" />
+            <Parameter Name="patientAddress" Mode="In" Type="String" />
+            <Parameter Name="patientTown" Mode="In" Type="String" />
+            <Parameter Name="patientCounty" Mode="In" Type="String" />
+            <Parameter Name="patientEirecode" Mode="In" Type="String" />
+            <Parameter Name="patientPhoneNum" Mode="In" Type="String" />
+            <Parameter Name="patientEmail" Mode="In" Type="String" />
+            <Parameter Name="patientMedication" Mode="In" Type="String" />
+            <Parameter Name="patientCountry" Mode="In" Type="String" />
+            <Parameter Name="patientMedicalCondition" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertPatentFormulaToTemp">
+            <Parameter Name="patentFormulaName" Mode="In" Type="String" />
+            <Parameter Name="PFrefNum" Mode="In" Type="String" />
+            <Parameter Name="herbRefNum" Mode="In" Type="String" />
+            <Parameter Name="herbBatchNum" Mode="In" Type="String" />
+            <Parameter Name="herbProcentage" Mode="In" Type="Decimal" />
+            <Parameter Name="bottleQuantity" Mode="In" Type="Int32" />
+            <Parameter Name="dosageGrams" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertRecordTempPrescription">
+            <Parameter Name="formulaRefNum" Mode="In" Type="String" />
+            <Parameter Name="herbRefNum" Mode="In" Type="String" />
+            <Parameter Name="formulaName" Mode="In" Type="String" />
+            <Parameter Name="herbQuantity" Mode="In" Type="Decimal" />
+            <Parameter Name="numOfDosageDays" Mode="In" Type="Int32" />
+            <Parameter Name="patientID" Mode="In" Type="Int32" />
+            <Parameter Name="practitionerID" Mode="In" Type="Int32" />
+            <Parameter Name="herbBatchNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsertTraditionalFormula">
+            <Parameter Name="formulaName" Mode="In" Type="String" />
+            <Parameter Name="formulaRefNum" Mode="In" Type="String" />
+            <Parameter Name="dosageDays" Mode="In" Type="Int32" />
+            <Parameter Name="patientID" Mode="In" Type="Int32" />
+            <Parameter Name="practitionerID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPFsale">
+            <Parameter Name="pracID" Mode="In" Type="Int32" />
+            <Parameter Name="batchNumID" Mode="In" Type="String" />
+            <Parameter Name="bottleQty" Mode="In" Type="Int32" />
+            <Parameter Name="saleDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateStock">
+            <Parameter Name="formulaRefNum" Mode="In" Type="String" />
+            <Parameter Name="herbBatchNum" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stp_CheckHerbStock" ReturnType="Collection(Decimal)">
+            <Parameter Name="herbRefNum" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spAllStocksIDOfHerb_Result">
+          <Property Type="Int32" Name="HerbStockID" Nullable="false" />
+          <Property Type="Decimal" Name="Quantity" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="BatchNum" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="HerbRawToGranRatio" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="spGetAdmData_Result">
+          <Property Type="Int32" Name="AdmId" Nullable="false" />
+          <Property Type="String" Name="AdmMethod" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="AdmMethodPrice" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="PerTimePeriod" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetAllPrescriptionMain_Result">
+          <Property Type="Int32" Name="FormulaID" Nullable="false" />
+          <Property Type="String" Name="FormulaRefNum" Nullable="false" />
+          <Property Type="String" Name="HerbRefNum" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="HerbQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="FormulaName" Nullable="true" />
+          <Property Type="Int32" Name="DosageDays" Nullable="true" />
+          <Property Type="Int32" Name="PatientID" Nullable="true" />
+          <Property Type="Int32" Name="PractitionerID" Nullable="true" />
+          <Property Type="Decimal" Name="HerbRawToGranRatio" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="HerbTemperature" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalHerbQuantity" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="HerbBatchNum" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HerbChineseName" Nullable="true" />
+          <Property Type="String" Name="HerbPharmName" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="GranulesQuantity" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="BuyPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="SellPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Subtotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Procentage" Nullable="true" Precision="18" Scale="1" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetDataFromPrescriptionMain_Result">
+          <Property Type="Int32" Name="FormulaID" Nullable="false" />
+          <Property Type="String" Name="FormulaRefNum" Nullable="false" />
+          <Property Type="String" Name="HerbRefNum" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="HerbQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="FormulaName" Nullable="true" />
+          <Property Type="Int32" Name="DosageDays" Nullable="true" />
+          <Property Type="Int32" Name="PatientID" Nullable="true" />
+          <Property Type="Int32" Name="PractitionerID" Nullable="true" />
+          <Property Type="Decimal" Name="HerbRawToGranRatio" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="HerbTemperature" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalHerbQuantity" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="HerbBatchNum" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HerbChineseName" Nullable="true" />
+          <Property Type="String" Name="HerbPharmName" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="GranulesQuantity" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="BuyPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="SellPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Subtotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Procentage" Nullable="true" Precision="18" Scale="1" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetDataOfPF_Result">
+          <Property Type="Int32" Name="PatentFormulaID" Nullable="false" />
+          <Property Type="String" Name="FormulaName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HerbRefNum" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="DosageProcentage" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DosageGrams" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="spGetHerbName_Result">
+          <Property Type="String" Name="RefNum" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="HerbNameChinese" Nullable="true" />
+          <Property Type="String" Name="HerbName" Nullable="false" />
+          <Property Type="String" Name="PharmaName" Nullable="true" />
+          <Property Type="String" Name="EnglishName" Nullable="true" />
+          <Property Type="String" Name="Temperature" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="spGetHerbsNameInStock_Result">
+          <Property Type="String" Name="RefNum" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="HerbName" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetHerbsNames_Result">
+          <Property Type="String" Name="RefNum" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="HerbName" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetHerbStockIdData_Result">
+          <Property Type="Int32" Name="HerbStockID" Nullable="false" />
+          <Property Type="String" Name="HerbRefNum" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="BatchNum" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="BuyPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="SellPrice" Nullable="true" Precision="21" Scale="5" />
+          <Property Type="DateTime" Name="ExpiryDate" Nullable="true" />
+          <Property Type="Decimal" Name="Quantity" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="SupplierID" Nullable="true" />
+          <Property Type="Decimal" Name="HerbRawToGranRatio" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="DateReceived" Nullable="true" />
+          <Property Type="DateTime" Name="DateToDispensery" Nullable="true" />
+          <Property Type="String" Name="HerbForm" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DateLastChanged" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetPatientName_Result">
+          <Property Type="Int32" Name="PatientID" Nullable="false" />
+          <Property Type="String" Name="PatientName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PatientSurname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PatientAddress" Nullable="true" />
+          <Property Type="String" Name="PatientTown" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PatientCounty" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PatientEirecode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PatientPhoneNum" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PatientEmail" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PatientMedication" Nullable="true" />
+          <Property Type="String" Name="PatientCountry" Nullable="true" />
+          <Property Type="String" Name="PatientMedicalCondition" Nullable="true" />
+          <Property Type="DateTime" Name="DateAdded" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetPatientPrescriptionHistory_Result">
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" />
+          <Property Type="String" Name="FormulaRefNum" Nullable="false" />
+          <Property Type="String" Name="FormulaName" Nullable="true" />
+          <Property Type="Decimal" Name="FormulaTotalCost" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="PrescriptionStatus" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetPractitonerData_Result">
+          <Property Type="Int32" Name="PractitionerID" Nullable="false" />
+          <Property Type="String" Name="PracName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PracSurname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PracAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PracEmail" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PracTellphoneNum" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetPrescriptionCostData_Result">
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" />
+          <Property Type="String" Name="FormulaRefNum" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="FormulaTotalCost" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="MethodOfAdminist" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="MethodOfAdministCOST" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DispensingFee" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="Postage" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="PostageFee" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="PrescriptionStatus" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Discount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="DiscountReason" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DispenseryModelStoreContainer" CdmEntityContainer="DispenseryEntities">
+          <EntitySetMapping Name="AdministrationMethods">
+            <EntityTypeMapping TypeName="DispenseryModel.AdministrationMethod">
+              <MappingFragment StoreEntitySet="AdministrationMethod">
+                <ScalarProperty Name="AdmId" ColumnName="AdmId" />
+                <ScalarProperty Name="AdmMethod" ColumnName="AdmMethod" />
+                <ScalarProperty Name="AdmMethodPrice" ColumnName="AdmMethodPrice" />
+                <ScalarProperty Name="PerTimePeriod" ColumnName="PerTimePeriod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllHerbs">
+            <EntityTypeMapping TypeName="DispenseryModel.AllHerb">
+              <MappingFragment StoreEntitySet="AllHerbs">
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="HerbNameChinese" ColumnName="HerbNameChinese" />
+                <ScalarProperty Name="HerbName" ColumnName="HerbName" />
+                <ScalarProperty Name="PharmaName" ColumnName="PharmaName" />
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DispensingFees">
+            <EntityTypeMapping TypeName="DispenseryModel.DispensingFee">
+              <MappingFragment StoreEntitySet="DispensingFee">
+                <ScalarProperty Name="DispFeeId" ColumnName="DispFeeId" />
+                <ScalarProperty Name="DispensingFeeName" ColumnName="DispensingFeeName" />
+                <ScalarProperty Name="DispFeePercentage" ColumnName="DispFeePercentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HerbStocks">
+            <EntityTypeMapping TypeName="DispenseryModel.HerbStock">
+              <MappingFragment StoreEntitySet="HerbStock">
+                <ScalarProperty Name="HerbStockID" ColumnName="HerbStockID" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="BatchNum" ColumnName="BatchNum" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="DateToDispensery" ColumnName="DateToDispensery" />
+                <ScalarProperty Name="HerbForm" ColumnName="HerbForm" />
+                <ScalarProperty Name="DateLastChanged" ColumnName="DateLastChanged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatentFormulaMains">
+            <EntityTypeMapping TypeName="DispenseryModel.PatentFormulaMain">
+              <MappingFragment StoreEntitySet="PatentFormulaMain">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="HerbBatchNum" ColumnName="HerbBatchNum" />
+                <ScalarProperty Name="DosageProcentage" ColumnName="DosageProcentage" />
+                <ScalarProperty Name="DosageGrams" ColumnName="DosageGrams" />
+                <ScalarProperty Name="BottleQuantity" ColumnName="BottleQuantity" />
+                <ScalarProperty Name="TotalDosageGrams" ColumnName="TotalDosageGrams" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatentFormulas">
+            <EntityTypeMapping TypeName="DispenseryModel.PatentFormula">
+              <MappingFragment StoreEntitySet="PatentFormulas">
+                <ScalarProperty Name="PatentFormulaID" ColumnName="PatentFormulaID" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="DosageProcentage" ColumnName="DosageProcentage" />
+                <ScalarProperty Name="DosageGrams" ColumnName="DosageGrams" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatentFormulaSaleHistories">
+            <EntityTypeMapping TypeName="DispenseryModel.PatentFormulaSaleHistory">
+              <MappingFragment StoreEntitySet="PatentFormulaSaleHistory">
+                <ScalarProperty Name="PFSaleId" ColumnName="PFSaleId" />
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="PFbatchNum" ColumnName="PFbatchNum" />
+                <ScalarProperty Name="BottleQuantity" ColumnName="BottleQuantity" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatentFormulaStocks">
+            <EntityTypeMapping TypeName="DispenseryModel.PatentFormulaStock">
+              <MappingFragment StoreEntitySet="PatentFormulaStock">
+                <ScalarProperty Name="PatentFormulaStockId" ColumnName="PatentFormulaStockId" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="BottleQuantity" ColumnName="BottleQuantity" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatentFormulaTemps">
+            <EntityTypeMapping TypeName="DispenseryModel.PatentFormulaTemp">
+              <MappingFragment StoreEntitySet="PatentFormulaTemp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="HerbBatchNum" ColumnName="HerbBatchNum" />
+                <ScalarProperty Name="DosageProcentage" ColumnName="DosageProcentage" />
+                <ScalarProperty Name="DosageGrams" ColumnName="DosageGrams" />
+                <ScalarProperty Name="BottleQuantity" ColumnName="BottleQuantity" />
+                <ScalarProperty Name="TotalDosageGrams" ColumnName="TotalDosageGrams" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="DispenseryModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="PatientSurname" ColumnName="PatientSurname" />
+                <ScalarProperty Name="PatientAddress" ColumnName="PatientAddress" />
+                <ScalarProperty Name="PatientTown" ColumnName="PatientTown" />
+                <ScalarProperty Name="PatientCounty" ColumnName="PatientCounty" />
+                <ScalarProperty Name="PatientEirecode" ColumnName="PatientEirecode" />
+                <ScalarProperty Name="PatientPhoneNum" ColumnName="PatientPhoneNum" />
+                <ScalarProperty Name="PatientEmail" ColumnName="PatientEmail" />
+                <ScalarProperty Name="PatientMedication" ColumnName="PatientMedication" />
+                <ScalarProperty Name="PatientCountry" ColumnName="PatientCountry" />
+                <ScalarProperty Name="PatientMedicalCondition" ColumnName="PatientMedicalCondition" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostageCosts">
+            <EntityTypeMapping TypeName="DispenseryModel.PostageCost">
+              <MappingFragment StoreEntitySet="PostageCost">
+                <ScalarProperty Name="PostageId" ColumnName="PostageId" />
+                <ScalarProperty Name="PostageMethod" ColumnName="PostageMethod" />
+                <ScalarProperty Name="PostageCost1" ColumnName="PostageCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Practitioners">
+            <EntityTypeMapping TypeName="DispenseryModel.Practitioner">
+              <MappingFragment StoreEntitySet="Practitioner">
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="PracName" ColumnName="PracName" />
+                <ScalarProperty Name="PracSurname" ColumnName="PracSurname" />
+                <ScalarProperty Name="PracAddress" ColumnName="PracAddress" />
+                <ScalarProperty Name="PracEmail" ColumnName="PracEmail" />
+                <ScalarProperty Name="PracTellphoneNum" ColumnName="PracTellphoneNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescriptionCosts">
+            <EntityTypeMapping TypeName="DispenseryModel.PrescriptionCost">
+              <MappingFragment StoreEntitySet="PrescriptionCost">
+                <ScalarProperty Name="PrescriptionID" ColumnName="PrescriptionID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="FormulaTotalCost" ColumnName="FormulaTotalCost" />
+                <ScalarProperty Name="MethodOfAdminist" ColumnName="MethodOfAdminist" />
+                <ScalarProperty Name="MethodOfAdministCOST" ColumnName="MethodOfAdministCOST" />
+                <ScalarProperty Name="DispensingFee" ColumnName="DispensingFee" />
+                <ScalarProperty Name="Postage" ColumnName="Postage" />
+                <ScalarProperty Name="PostageFee" ColumnName="PostageFee" />
+                <ScalarProperty Name="PrescriptionStatus" ColumnName="PrescriptionStatus" />
+                <ScalarProperty Name="DiscountReason" ColumnName="DiscountReason" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescriptionMains">
+            <EntityTypeMapping TypeName="DispenseryModel.PrescriptionMain">
+              <MappingFragment StoreEntitySet="PrescriptionMain">
+                <ScalarProperty Name="FormulaID" ColumnName="FormulaID" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="HerbQuantity" ColumnName="HerbQuantity" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="DosageDays" ColumnName="DosageDays" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+                <ScalarProperty Name="HerbTemperature" ColumnName="HerbTemperature" />
+                <ScalarProperty Name="TotalHerbQuantity" ColumnName="TotalHerbQuantity" />
+                <ScalarProperty Name="HerbBatchNum" ColumnName="HerbBatchNum" />
+                <ScalarProperty Name="HerbChineseName" ColumnName="HerbChineseName" />
+                <ScalarProperty Name="HerbPharmName" ColumnName="HerbPharmName" />
+                <ScalarProperty Name="GranulesQuantity" ColumnName="GranulesQuantity" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Procentage" ColumnName="Procentage" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescriptionMainTemps">
+            <EntityTypeMapping TypeName="DispenseryModel.PrescriptionMainTemp">
+              <MappingFragment StoreEntitySet="PrescriptionMainTemp">
+                <ScalarProperty Name="FormulaID" ColumnName="FormulaID" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="HerbQuantity" ColumnName="HerbQuantity" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="DosageDays" ColumnName="DosageDays" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+                <ScalarProperty Name="HerbTemperature" ColumnName="HerbTemperature" />
+                <ScalarProperty Name="TotalHerbQuantity" ColumnName="TotalHerbQuantity" />
+                <ScalarProperty Name="HerbBatchNum" ColumnName="HerbBatchNum" />
+                <ScalarProperty Name="HerbChineseName" ColumnName="HerbChineseName" />
+                <ScalarProperty Name="HerbPharmName" ColumnName="HerbPharmName" />
+                <ScalarProperty Name="GranulesQuantity" ColumnName="GranulesQuantity" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="DailyCost" ColumnName="DailyCost" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Procentage" ColumnName="Procentage" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescriptionTemps">
+            <EntityTypeMapping TypeName="DispenseryModel.PrescriptionTemp">
+              <MappingFragment StoreEntitySet="PrescriptionTemp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="HerbName" ColumnName="HerbName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PhenixPrice" ColumnName="PhenixPrice" />
+                <ScalarProperty Name="BalancePrice" ColumnName="BalancePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierTables">
+            <EntityTypeMapping TypeName="DispenseryModel.SupplierTable">
+              <MappingFragment StoreEntitySet="SupplierTable">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+                <ScalarProperty Name="TelNum" ColumnName="TelNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DispenseryModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraditionalFormulas">
+            <EntityTypeMapping TypeName="DispenseryModel.TraditionalFormula">
+              <MappingFragment StoreEntitySet="TraditionalFormulas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="HerbName" ColumnName="HerbName" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllHerbsNames" FunctionName="DispenseryModel.Store.GetAllHerbsNames" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DispenseryModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DispenseryModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DispenseryModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DispenseryModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DispenseryModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DispenseryModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DispenseryModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="spAddHerbToStock" FunctionName="DispenseryModel.Store.spAddHerbToStock" />
+          <FunctionImportMapping FunctionImportName="spAllStocksIDOfHerb" FunctionName="DispenseryModel.Store.spAllStocksIDOfHerb">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spAllStocksIDOfHerb_Result">
+                <ScalarProperty Name="HerbStockID" ColumnName="HerbStockID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BatchNum" ColumnName="BatchNum" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spClearPrescriptionTemp" FunctionName="DispenseryModel.Store.spClearPrescriptionTemp" />
+          <FunctionImportMapping FunctionImportName="spCreatePatentFormula" FunctionName="DispenseryModel.Store.spCreatePatentFormula" />
+          <FunctionImportMapping FunctionImportName="spDeleteAllPatentFormulaTemp" FunctionName="DispenseryModel.Store.spDeleteAllPatentFormulaTemp" />
+          <FunctionImportMapping FunctionImportName="spGetAdmData" FunctionName="DispenseryModel.Store.spGetAdmData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetAdmData_Result">
+                <ScalarProperty Name="AdmId" ColumnName="AdmId" />
+                <ScalarProperty Name="AdmMethod" ColumnName="AdmMethod" />
+                <ScalarProperty Name="AdmMethodPrice" ColumnName="AdmMethodPrice" />
+                <ScalarProperty Name="PerTimePeriod" ColumnName="PerTimePeriod" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetAllPrescriptionMain" FunctionName="DispenseryModel.Store.spGetAllPrescriptionMain">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetAllPrescriptionMain_Result">
+                <ScalarProperty Name="FormulaID" ColumnName="FormulaID" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="HerbQuantity" ColumnName="HerbQuantity" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="DosageDays" ColumnName="DosageDays" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+                <ScalarProperty Name="HerbTemperature" ColumnName="HerbTemperature" />
+                <ScalarProperty Name="TotalHerbQuantity" ColumnName="TotalHerbQuantity" />
+                <ScalarProperty Name="HerbBatchNum" ColumnName="HerbBatchNum" />
+                <ScalarProperty Name="HerbChineseName" ColumnName="HerbChineseName" />
+                <ScalarProperty Name="HerbPharmName" ColumnName="HerbPharmName" />
+                <ScalarProperty Name="GranulesQuantity" ColumnName="GranulesQuantity" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Procentage" ColumnName="Procentage" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetDataFromPrescriptionMain" FunctionName="DispenseryModel.Store.spGetDataFromPrescriptionMain">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetDataFromPrescriptionMain_Result">
+                <ScalarProperty Name="FormulaID" ColumnName="FormulaID" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="HerbQuantity" ColumnName="HerbQuantity" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="DosageDays" ColumnName="DosageDays" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+                <ScalarProperty Name="HerbTemperature" ColumnName="HerbTemperature" />
+                <ScalarProperty Name="TotalHerbQuantity" ColumnName="TotalHerbQuantity" />
+                <ScalarProperty Name="HerbBatchNum" ColumnName="HerbBatchNum" />
+                <ScalarProperty Name="HerbChineseName" ColumnName="HerbChineseName" />
+                <ScalarProperty Name="HerbPharmName" ColumnName="HerbPharmName" />
+                <ScalarProperty Name="GranulesQuantity" ColumnName="GranulesQuantity" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Procentage" ColumnName="Procentage" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetDataOfPF" FunctionName="DispenseryModel.Store.spGetDataOfPF">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetDataOfPF_Result">
+                <ScalarProperty Name="PatentFormulaID" ColumnName="PatentFormulaID" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="DosageProcentage" ColumnName="DosageProcentage" />
+                <ScalarProperty Name="DosageGrams" ColumnName="DosageGrams" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetHerbName" FunctionName="DispenseryModel.Store.spGetHerbName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetHerbName_Result">
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="HerbNameChinese" ColumnName="HerbNameChinese" />
+                <ScalarProperty Name="HerbName" ColumnName="HerbName" />
+                <ScalarProperty Name="PharmaName" ColumnName="PharmaName" />
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetHerbPrice" FunctionName="DispenseryModel.Store.spGetHerbPrice" />
+          <FunctionImportMapping FunctionImportName="spGetHerbRefNum" FunctionName="DispenseryModel.Store.spGetHerbRefNum" />
+          <FunctionImportMapping FunctionImportName="spGetHerbsNameInStock" FunctionName="DispenseryModel.Store.spGetHerbsNameInStock">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetHerbsNameInStock_Result">
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="HerbName" ColumnName="HerbName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetHerbsNames" FunctionName="DispenseryModel.Store.spGetHerbsNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetHerbsNames_Result">
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="HerbName" ColumnName="HerbName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetHerbStockIdData" FunctionName="DispenseryModel.Store.spGetHerbStockIdData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetHerbStockIdData_Result">
+                <ScalarProperty Name="HerbStockID" ColumnName="HerbStockID" />
+                <ScalarProperty Name="HerbRefNum" ColumnName="HerbRefNum" />
+                <ScalarProperty Name="BatchNum" ColumnName="BatchNum" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="HerbRawToGranRatio" ColumnName="HerbRawToGranRatio" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="DateToDispensery" ColumnName="DateToDispensery" />
+                <ScalarProperty Name="HerbForm" ColumnName="HerbForm" />
+                <ScalarProperty Name="DateLastChanged" ColumnName="DateLastChanged" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetPatientName" FunctionName="DispenseryModel.Store.spGetPatientName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetPatientName_Result">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="PatientSurname" ColumnName="PatientSurname" />
+                <ScalarProperty Name="PatientAddress" ColumnName="PatientAddress" />
+                <ScalarProperty Name="PatientTown" ColumnName="PatientTown" />
+                <ScalarProperty Name="PatientCounty" ColumnName="PatientCounty" />
+                <ScalarProperty Name="PatientEirecode" ColumnName="PatientEirecode" />
+                <ScalarProperty Name="PatientPhoneNum" ColumnName="PatientPhoneNum" />
+                <ScalarProperty Name="PatientEmail" ColumnName="PatientEmail" />
+                <ScalarProperty Name="PatientMedication" ColumnName="PatientMedication" />
+                <ScalarProperty Name="PatientCountry" ColumnName="PatientCountry" />
+                <ScalarProperty Name="PatientMedicalCondition" ColumnName="PatientMedicalCondition" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetPatientPrescriptionHistory" FunctionName="DispenseryModel.Store.spGetPatientPrescriptionHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetPatientPrescriptionHistory_Result">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="FormulaTotalCost" ColumnName="FormulaTotalCost" />
+                <ScalarProperty Name="PrescriptionStatus" ColumnName="PrescriptionStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetPFbottlesQty" FunctionName="DispenseryModel.Store.spGetPFbottlesQty" />
+          <FunctionImportMapping FunctionImportName="spGetPractitonerData" FunctionName="DispenseryModel.Store.spGetPractitonerData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetPractitonerData_Result">
+                <ScalarProperty Name="PractitionerID" ColumnName="PractitionerID" />
+                <ScalarProperty Name="PracName" ColumnName="PracName" />
+                <ScalarProperty Name="PracSurname" ColumnName="PracSurname" />
+                <ScalarProperty Name="PracAddress" ColumnName="PracAddress" />
+                <ScalarProperty Name="PracEmail" ColumnName="PracEmail" />
+                <ScalarProperty Name="PracTellphoneNum" ColumnName="PracTellphoneNum" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetPrescriptionCostData" FunctionName="DispenseryModel.Store.spGetPrescriptionCostData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DispenseryModel.spGetPrescriptionCostData_Result">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FormulaRefNum" ColumnName="FormulaRefNum" />
+                <ScalarProperty Name="FormulaTotalCost" ColumnName="FormulaTotalCost" />
+                <ScalarProperty Name="MethodOfAdminist" ColumnName="MethodOfAdminist" />
+                <ScalarProperty Name="MethodOfAdministCOST" ColumnName="MethodOfAdministCOST" />
+                <ScalarProperty Name="DispensingFee" ColumnName="DispensingFee" />
+                <ScalarProperty Name="Postage" ColumnName="Postage" />
+                <ScalarProperty Name="PostageFee" ColumnName="PostageFee" />
+                <ScalarProperty Name="PrescriptionStatus" ColumnName="PrescriptionStatus" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="DiscountReason" ColumnName="DiscountReason" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetTotalGranulesQuantityFromTemp" FunctionName="DispenseryModel.Store.spGetTotalGranulesQuantityFromTemp" />
+          <FunctionImportMapping FunctionImportName="spGetTotalPrice" FunctionName="DispenseryModel.Store.spGetTotalPrice" />
+          <FunctionImportMapping FunctionImportName="spGetTraditionalFormula" FunctionName="DispenseryModel.Store.spGetTraditionalFormula" />
+          <FunctionImportMapping FunctionImportName="spInsertIntoPrescriptionMainFromTemp" FunctionName="DispenseryModel.Store.spInsertIntoPrescriptionMainFromTemp" />
+          <FunctionImportMapping FunctionImportName="spInsertNewPatient" FunctionName="DispenseryModel.Store.spInsertNewPatient" />
+          <FunctionImportMapping FunctionImportName="spInsertPatentFormulaToTemp" FunctionName="DispenseryModel.Store.spInsertPatentFormulaToTemp" />
+          <FunctionImportMapping FunctionImportName="spInsertRecordTempPrescription" FunctionName="DispenseryModel.Store.spInsertRecordTempPrescription" />
+          <FunctionImportMapping FunctionImportName="spInsertTraditionalFormula" FunctionName="DispenseryModel.Store.spInsertTraditionalFormula" />
+          <FunctionImportMapping FunctionImportName="spPFsale" FunctionName="DispenseryModel.Store.spPFsale" />
+          <FunctionImportMapping FunctionImportName="spUpdateStock" FunctionName="DispenseryModel.Store.spUpdateStock" />
+          <FunctionImportMapping FunctionImportName="stp_CheckHerbStock" FunctionName="DispenseryModel.Store.stp_CheckHerbStock" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
