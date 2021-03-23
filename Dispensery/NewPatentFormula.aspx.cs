@@ -70,7 +70,7 @@ namespace Dispensery
                     }
                     else
                     {
-                        CheckBatch(herbRefNum[i], herbQty[i], herbProcentage[i]);
+                        CheckBatch(herbRefNum[i], herbQty[i], herbProcentage[i],Bquantity);
                     }
                     
                 }
@@ -96,7 +96,7 @@ namespace Dispensery
 
 
         }
-        protected void CheckBatch(string herbRefNum, decimal totalHerbQuantity, decimal herbProcentage)
+        protected void CheckBatch(string herbRefNum, decimal totalHerbQuantity, decimal herbProcentage, int bQuantity)
         {
             List<int> herbsInStockIDs = new List<int>();
             List<decimal> herbInStockQuantity = new List<decimal>();
@@ -125,7 +125,7 @@ namespace Dispensery
                       
 
 
-                    }
+                     }
                 }
                 catch (Exception ex)
                 {
@@ -139,20 +139,20 @@ namespace Dispensery
                     con.Close();
                 }
             }
-
+            decimal totalHerbQtyNeeded = totalHerbQuantity * bQuantity;
             HerbInStock resultHerbInStock;
 
             for (int i = 0; i < herbsInStockIDs.Count; i++)
             {
 
 
-                if (herbInStockQuantity[i] >= totalHerbQuantity)
+                if (herbInStockQuantity[i] >= totalHerbQtyNeeded)
                 {
 
                     resultHerbInStock = new HerbInStock();
                     resultHerbInStock.HerbStockID = herbsInStockIDs[i];
                     resultHerbInStock.BatchNum = herbInStockBatchNum[i];
-                    resultHerbInStock.Quantity = totalHerbQuantity;
+                    resultHerbInStock.Quantity = totalHerbQtyNeeded;
                     resultHerbInStock.HerbRefNum = herbRefNum;
                     resultHerbInStock.HerbProcentage = herbProcentage;
 
@@ -168,8 +168,12 @@ namespace Dispensery
                     resultHerbInStock.Quantity = herbInStockQuantity[i];
                     resultHerbInStock.HerbRefNum = herbRefNum;
                     resultHerbInStock.HerbProcentage = herbProcentage;
-                    listHerbInSock.Add(resultHerbInStock);
-                    totalHerbQuantity -= herbInStockQuantity[i];
+                    if (resultHerbInStock.Quantity > 0)
+                    {
+                        listHerbInSock.Add(resultHerbInStock);
+                        totalHerbQtyNeeded -= herbInStockQuantity[i];
+                    }
+                    
 
                 }
 

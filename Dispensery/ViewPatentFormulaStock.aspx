@@ -272,12 +272,12 @@
                                     <Columns>
                                         <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch Num" SortExpression="HerbBatchNum"></asp:BoundField>
                                         <asp:BoundField DataField="HerbName" HeaderText="Herb Name" SortExpression="HerbName"></asp:BoundField>
-                                        <asp:BoundField DataField="DosageGrams" HeaderText="Dosage (g)" SortExpression="DosageGrams"></asp:BoundField>
+                                        <asp:BoundField DataField="TotalDosageGrams" HeaderText="Dosage Per Bottle (g)" SortExpression="TotalDosageGrams" ReadOnly="True" DataFormatString="{0:F2}"></asp:BoundField>
                                         <asp:BoundField DataField="SellPrice" HeaderText="Unit Price" SortExpression="SellPrice" ReadOnly="True" DataFormatString="{0:C4}"></asp:BoundField>
-                                        <asp:BoundField DataField="DateCreated" HeaderText="DateCreated" SortExpression="DateCreated" DataFormatString="{0:dd/MM/yyyy}"></asp:BoundField>
+                                        <asp:BoundField DataField="DateCreated" HeaderText="Date Created" SortExpression="DateCreated" DataFormatString="{0:dd/MM/yy}"></asp:BoundField>
                                     </Columns>
                                 </asp:GridView>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatentFormulaMain.HerbBatchNum, AllHerbs.HerbName, PatentFormulaMain.DosageGrams, HerbStock.SellPrice, PatentFormulaMain.DateCreated FROM PatentFormulaMain INNER JOIN HerbStock ON PatentFormulaMain.HerbBatchNum = HerbStock.BatchNum INNER JOIN AllHerbs ON HerbStock.HerbRefNum = AllHerbs.RefNum WHERE (PatentFormulaMain.FormulaRefNum = @FormulaRefNum)">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatentFormulaMain.HerbBatchNum, AllHerbs.HerbName, PatentFormulaMain.TotalDosageGrams, HerbStock.SellPrice, PatentFormulaMain.DateCreated FROM PatentFormulaMain INNER JOIN HerbStock ON PatentFormulaMain.HerbBatchNum = HerbStock.BatchNum INNER JOIN AllHerbs ON HerbStock.HerbRefNum = AllHerbs.RefNum WHERE (PatentFormulaMain.FormulaRefNum = @FormulaRefNum)">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="lbpfRefNum" PropertyName="SelectedValue" Name="FormulaRefNum" Type="String" DefaultValue="0"></asp:ControlParameter>
                                     </SelectParameters>

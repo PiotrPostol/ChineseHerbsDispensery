@@ -12,7 +12,7 @@
             priceTotal += parseFloat($(value).text());
         });
 
-        $(".priceSpan").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceTotal));
+        $(".priceSpan").text(new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(priceTotal));
 
         //$.each($(".subtotalCSS"), function (index, value) {
         //    subtotal = parseFloat($(value).text())
@@ -170,38 +170,31 @@
                             <div class="table-responsive-xl">
                                 <asp:GridView ID="GridView1" CssClass="table  table-hover table-striped" ShowFooter="true" GridLines="None" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
                                     <Columns>
-                                        <asp:BoundField DataField="FormulaRefNum" Visible="false" HeaderText="Formula Ref. Num." SortExpression="FormulaRefNum"></asp:BoundField>
-                                        <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch Num." SortExpression="HerbBatchNum"></asp:BoundField>
+                                        <asp:BoundField DataField="FormulaRefNum" Visible="false" HeaderText="FormulaRefNum" SortExpression="FormulaRefNum"></asp:BoundField>
+                                        <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch Num" SortExpression="HerbBatchNum"></asp:BoundField>
                                         <asp:BoundField DataField="HerbName" HeaderText="Herb Name" SortExpression="HerbName"></asp:BoundField>
-                                        <asp:BoundField DataField="DosageGrams" HeaderText="Dosage Per Bottle (g)" SortExpression="DosageGrams"></asp:BoundField>
-                                        <asp:BoundField DataField="TotalDosageGrams" HeaderText="Total Dosage (g)" ReadOnly="True" SortExpression="TotalDosageGrams"></asp:BoundField>
-                                        <asp:BoundField DataField="HerbRefNum" Visible="false" HeaderText="Herb Ref. Num." SortExpression="HerbRefNum"></asp:BoundField>
-                                        <asp:BoundField DataField="SellPrice" HeaderText="Unit Price" ReadOnly="True" SortExpression="SellPrice" DataFormatString="{0:##.####€}"></asp:BoundField>
+                                        
+                                        <asp:BoundField DataField="GramsPerBottle" HeaderText="Per Bottle (g)" ReadOnly="True" SortExpression="GramsPerBottle" DataFormatString="{0:F2}"></asp:BoundField>
+                                        <asp:BoundField DataField="DosageGrams" HeaderText="Total Dosage (g)" SortExpression="DosageGrams"></asp:BoundField>
+                                        <asp:BoundField DataField="HerbRefNum" Visible="false" HeaderText="HerbRefNum" SortExpression="HerbRefNum"></asp:BoundField>
+                                        <asp:BoundField DataField="SellPrice" HeaderText="Unit Price" ReadOnly="True" SortExpression="SellPrice" DataFormatString="{0:C4}"></asp:BoundField>
                                         <asp:TemplateField HeaderText="Subtotal" SortExpression="Subtotal">
                                             <EditItemTemplate>
-                                                <asp:Label runat="server" Text='<%# Eval("Subtotal", "{0:##.##€}") %>' ID="Label1" CssClass="subtotalCSS"></asp:Label>
+                                                <asp:Label runat="server" Text='<%# Eval("Subtotal","{0:F2}") %>' CssClass="subtotalCSS" ID="Label1"></asp:Label>
                                             </EditItemTemplate>
                                             <ItemTemplate>
-                                                <asp:Label runat="server" Text='<%# Bind("Subtotal","{0:##.##€}") %>' ID="Label1" CssClass="priceCSS "></asp:Label>
+                                                <asp:Label runat="server" Text='<%# Bind("Subtotal","{0:F2}") %>' CssClass="priceCSS" ID="Label1"></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
                                                 <span class="priceSpan font-weight-bold"></span>
                                             </FooterTemplate>
-                                         
                                         </asp:TemplateField>
+
+
 
                                     </Columns>
                                 </asp:GridView>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT        PatentFormulaTemp.FormulaRefNum, PatentFormulaTemp.HerbBatchNum, AllHerbs.HerbName, PatentFormulaTemp.DosageGrams, PatentFormulaTemp.TotalDosageGrams, PatentFormulaTemp.HerbRefNum,
-                             (SELECT        SellPrice
-                               FROM            HerbStock
-                               WHERE        (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS SellPrice, PatentFormulaTemp.TotalDosageGrams *
-                             (SELECT        SellPrice
-                               FROM            HerbStock AS HerbStock_1
-                               WHERE        (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS Subtotal
-FROM            AllHerbs INNER JOIN
-                         PatentFormulaTemp ON AllHerbs.RefNum = PatentFormulaTemp.HerbRefNum
-WHERE        (PatentFormulaTemp.FormulaName = @PFname)">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PatentFormulaTemp.FormulaRefNum, PatentFormulaTemp.HerbBatchNum, AllHerbs.HerbName, PatentFormulaTemp.DosageGrams, PatentFormulaTemp.GramsPerBottle, PatentFormulaTemp.HerbRefNum, (SELECT SellPrice FROM HerbStock WHERE (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS SellPrice, PatentFormulaTemp.DosageGrams * (SELECT SellPrice FROM HerbStock AS HerbStock_1 WHERE (BatchNum = PatentFormulaTemp.HerbBatchNum)) AS Subtotal FROM AllHerbs INNER JOIN PatentFormulaTemp ON AllHerbs.RefNum = PatentFormulaTemp.HerbRefNum WHERE (PatentFormulaTemp.FormulaName = @PFname)">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="ddlPatentFormula" PropertyName="SelectedValue" DefaultValue="0" Name="PFname"></asp:ControlParameter>
                                     </SelectParameters>

@@ -103,12 +103,12 @@
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("BuyPrice") %>' ID="TextBox4"></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label runat="server" Text='<%# Bind("BuyPrice") %>' ID="Label5"></asp:Label>
+                                                    <asp:Label runat="server" Text='<%# Bind("BuyPrice","{0:C2}") %>' ID="Label5"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                            <asp:BoundField DataField="SellPrice" HeaderText="Sell Price" ReadOnly="True" SortExpression="SellPrice"></asp:BoundField>
-                                            <asp:TemplateField HeaderText="Supp. ID" SortExpression="SupplierID">
+                                            <asp:BoundField DataField="SellPrice" HeaderText="Sell Price" ReadOnly="True" SortExpression="SellPrice" DataFormatString="{0:C2}"></asp:BoundField>
+                                            <asp:TemplateField HeaderText="Supp. ID" SortExpression="SupplierID" Visible="false">
                                                 <EditItemTemplate>
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("SupplierID") %>' ID="TextBox5"></asp:TextBox>
                                                 </EditItemTemplate>
@@ -117,7 +117,7 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-<%--                                            <asp:BoundField DataField="SupplierName" HeaderText="Supp. Name" SortExpression="SupplierName" ReadOnly="True"></asp:BoundField>--%>
+                                            <asp:BoundField DataField="SupplierName" HeaderText="Supp. Name" SortExpression="SupplierName" ReadOnly="True"></asp:BoundField>
                                             <asp:TemplateField HeaderText="Ratio" SortExpression="HerbRawToGranRatio">
                                                 <EditItemTemplate>
                                                     <asp:TextBox runat="server" CssClass="form-control"  Text='<%# Bind("HerbRawToGranRatio") %>' ID="TextBox6"></asp:TextBox>

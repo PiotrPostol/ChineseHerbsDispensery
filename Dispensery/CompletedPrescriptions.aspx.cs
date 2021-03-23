@@ -239,6 +239,7 @@ namespace Dispensery
             GridView2.Visible = false;
             patientInvoice.Visible = true;
             GridView1.Visible = true;
+            lblDosageDays.Visible = false;
             //string message;
 
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
