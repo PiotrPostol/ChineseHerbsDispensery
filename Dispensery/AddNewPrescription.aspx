@@ -254,10 +254,10 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                            <asp:BoundField DataField="SellPrice" HeaderText=" Unit Price" ReadOnly="True" SortExpression="SellPrice"></asp:BoundField>
+                                            <asp:BoundField DataField="SellPrice" HeaderText=" Cost/g (granules)" ReadOnly="True" SortExpression="SellPrice"></asp:BoundField>
                                             <asp:BoundField DataField="DailyCost" HeaderText="Daily Cost" ReadOnly="True" SortExpression="DailyCost"></asp:BoundField>
                                             <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" ReadOnly="True" SortExpression="Subtotal"></asp:BoundField>
-                                            <asp:BoundField DataField="Procentage" HeaderText="Procentage" ReadOnly="True" SortExpression="Procentage"></asp:BoundField>
+                                            <asp:BoundField DataField="Procentage" HeaderText="Percentage" ReadOnly="True" SortExpression="Procentage"></asp:BoundField>
                                             <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
                                         </Columns>
                                     </asp:GridView>

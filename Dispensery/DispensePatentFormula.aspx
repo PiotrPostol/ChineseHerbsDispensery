@@ -99,7 +99,7 @@
                                     <div class="col-lg-6 ">
                                         <label class=" font-weight-bold " for="ddlPrescripion">Practitioner:</label>
                                         <asp:DropDownList ID="ddlPractitioner" required="true" AppendDataBoundItems="true" CssClass="form-control" runat="server" DataSourceID="SqlDataSource5" DataTextField="PractitionerName" DataValueField="PractitionerID">
-                                            <asp:ListItem Text="-- Select Patient --" Value="0.1" Selected="true"></asp:ListItem>
+                                            <asp:ListItem Text="-- Select Practitioner --" Value="0.1" Selected="true"></asp:ListItem>
                                         </asp:DropDownList>
                                         <asp:SqlDataSource runat="server" ID="SqlDataSource5" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT PractitionerID, PracName + ' ' + PracSurname AS PractitionerName FROM Practitioner"></asp:SqlDataSource>
                                     </div>

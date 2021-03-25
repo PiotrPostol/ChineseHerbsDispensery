@@ -199,7 +199,15 @@ namespace Dispensery
             hs.SupplierID = Convert.ToInt32(ddlSupplier.SelectedValue);
             hs.HerbRawToGranRatio = Convert.ToDecimal(tbxRatio.Text);
             hs.DateReceived = Convert.ToDateTime(tbxDateReceived.Text);
-            hs.DateToDispensery = Convert.ToDateTime(tbxDateToDispensery.Text);
+            if(tbxDateToDispensery.Text == null)
+            {
+                hs.DateToDispensery = null;
+            }
+            else
+            {
+                hs.DateToDispensery = Convert.ToDateTime(tbxDateToDispensery.Text);
+
+            }
             hs.HerbForm = ddlHerbForm.SelectedItem.Text;
             return hs;
         }

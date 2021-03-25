@@ -380,6 +380,9 @@ namespace Dispensery
             List<decimal> herbInStockQuantity = new List<decimal>();
             List<string> herbInStockBatchNum = new List<string>();
             List<decimal> Ratio = new List<decimal>();
+            //List<DateTime> ExpiryDate = new List<DateTime>();
+            //HerbStock hs;
+            //List<HerbStock> hsList = new List<HerbStock>();
 
             string message;
 
@@ -398,10 +401,19 @@ namespace Dispensery
 
                     while (rdr.Read())
                     {
+                        //hs = new HerbStock();
+                        //hs.HerbStockID = Convert.ToInt32(rdr["HerbStockID"].ToString());
+                        //hs.Quantity = Convert.ToDecimal(rdr["Quantity"].ToString());
+                        //hs.BatchNum = rdr["BatchNum"].ToString();
+                        //hs.HerbRawToGranRatio = Convert.ToInt32(rdr["HerbRawToGranRatio"].ToString());
+                        //hs.ExpiryDate = Convert.ToDateTime(rdr["ExpiryDate"]);
+                        //hsList.Add(hs);
+
                         herbsInStockIDs.Add(Convert.ToInt32(rdr["HerbStockID"].ToString()));
                         herbInStockQuantity.Add(Convert.ToDecimal(rdr["Quantity"].ToString()));
                         herbInStockBatchNum.Add(rdr["BatchNum"].ToString());
                         Ratio.Add(Convert.ToDecimal(rdr["HerbRawToGranRatio"].ToString()));
+                        //ExpiryDate.Add(Convert.ToDateTime(rdr["ExpiryDate"]));
                     }
                 }
                 catch (Exception ex)
@@ -431,7 +443,7 @@ namespace Dispensery
                    resultHerbInStock = new HerbInStock();
                     resultHerbInStock.HerbStockID = herbsInStockIDs[i];
                     resultHerbInStock.BatchNum = herbInStockBatchNum[i];
-                    resultHerbInStock.Quantity = totalHerbQuantity*Ratio[i]/numOfDosageDays;
+                    resultHerbInStock.Quantity = totalHerbQuantity;
 
                     listHerbInSock.Add(resultHerbInStock);
                     break;
@@ -442,9 +454,13 @@ namespace Dispensery
                     resultHerbInStock = new HerbInStock();
                     resultHerbInStock.HerbStockID = herbsInStockIDs[i];
                     resultHerbInStock.BatchNum = herbInStockBatchNum[i];
-                    resultHerbInStock.Quantity = herbInStockQuantity[i] * Ratio[i] / numOfDosageDays;
-                    listHerbInSock.Add(resultHerbInStock);
-                    totalHerbQuantity -= herbInStockQuantity[i];
+                    resultHerbInStock.Quantity = herbInStockQuantity[i];
+                    if (herbInStockQuantity[i] != 0)
+                    {
+                        listHerbInSock.Add(resultHerbInStock);
+                        totalHerbQuantity -= herbInStockQuantity[i];
+                    }
+                    
 
                 }
                
@@ -493,7 +509,7 @@ namespace Dispensery
             decimal totalHerbStock;
             int result = 0;
             string message;
-
+            int ratio = 6;
             string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(constr))
@@ -509,10 +525,14 @@ namespace Dispensery
 
                     while (rdr.Read())
                     {
+                        
                         if (!Convert.IsDBNull(rdr["TotalQuantity"]))
                         {
+                            //----herb raw to granules ratio hardcoded
+                           
+                            //-------------
                             totalHerbStock = Convert.ToDecimal(rdr["TotalQuantity"].ToString());
-                            dosageQuantity = (herbQuantity * numOfDosageDays) / 5;
+                            dosageQuantity = (herbQuantity * numOfDosageDays) / ratio;
 
                             if (totalHerbStock < dosageQuantity)
                             {
@@ -530,7 +550,7 @@ namespace Dispensery
                         else
                         {
                             totalHerbStock = 0;
-                            dosageQuantity = (herbQuantity * numOfDosageDays) / 5;
+                            dosageQuantity = (herbQuantity * numOfDosageDays) / ratio;
 
                             if (totalHerbStock < dosageQuantity)
                             {
