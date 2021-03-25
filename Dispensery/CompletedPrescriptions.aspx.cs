@@ -293,6 +293,7 @@ namespace Dispensery
             patientInvoice.Visible = false;
             practitionerInvoice.Visible = true;
             GridView2.Visible = true;
+            lblDosageDays.Visible = true;
             RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
 
             //Reference the Label and TextBox.
