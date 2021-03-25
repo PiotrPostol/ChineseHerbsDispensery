@@ -360,7 +360,7 @@ namespace Dispensery
                     formulaRefNum = hdFormulaRefNum.Value.ToString();
                     foreach (HerbInStock herbInStock in listHerbInSock)
                     {
-                        InsertRecordTempPrescription(formulaRefNum, refNum, formulaName, herbQuantity, numOfDosageDays, patientID, practitionerID,herbInStock.BatchNum);
+                        InsertRecordTempPrescription(formulaRefNum, refNum, formulaName, herbInStock.HerbRawQty, numOfDosageDays, patientID, practitionerID,herbInStock.BatchNum);
                     }
                
                         
@@ -444,6 +444,7 @@ namespace Dispensery
                     resultHerbInStock.HerbStockID = herbsInStockIDs[i];
                     resultHerbInStock.BatchNum = herbInStockBatchNum[i];
                     resultHerbInStock.Quantity = totalHerbQuantity;
+                    resultHerbInStock.HerbRawQty = (totalHerbQuantity * Ratio[i])/numOfDosageDays;
 
                     listHerbInSock.Add(resultHerbInStock);
                     break;
@@ -455,6 +456,7 @@ namespace Dispensery
                     resultHerbInStock.HerbStockID = herbsInStockIDs[i];
                     resultHerbInStock.BatchNum = herbInStockBatchNum[i];
                     resultHerbInStock.Quantity = herbInStockQuantity[i];
+                    resultHerbInStock.HerbRawQty = (herbInStockQuantity[i] * Ratio[i]) / numOfDosageDays; 
                     if (herbInStockQuantity[i] != 0)
                     {
                         listHerbInSock.Add(resultHerbInStock);

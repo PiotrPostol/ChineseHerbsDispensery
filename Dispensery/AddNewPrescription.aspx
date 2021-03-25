@@ -245,7 +245,7 @@
 
                                             <asp:BoundField DataField="HerbBatchNum" HeaderText="Batch" ReadOnly="True" SortExpression="HerbBatchNum"></asp:BoundField>
                                             <asp:BoundField DataField="HerbChineseName" HeaderText="Herb Name" ReadOnly="True" SortExpression="HerbChineseName"></asp:BoundField>
-                                            <asp:TemplateField HeaderText="Quantity" SortExpression="HerbQuantity">
+                                            <asp:TemplateField HeaderText="Quantity Raw Per Day" SortExpression="HerbQuantity">
                                                 <EditItemTemplate>
                                                     <asp:TextBox runat="server" CssClass="form-control" Text='<%# Bind("HerbQuantity") %>' ID="TextBox1"></asp:TextBox>
                                                 </EditItemTemplate>
