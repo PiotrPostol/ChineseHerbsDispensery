@@ -33,6 +33,24 @@ namespace Dispensery
         protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
+        /// divAlertSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlertSuccess;
+
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
         /// ddlPatient control.
         /// </summary>
         /// <remarks>
@@ -130,6 +148,15 @@ namespace Dispensery
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNumDays;
+
+        /// <summary>
+        /// addHerbPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel addHerbPanel;
 
         /// <summary>
         /// tbxHerb control.

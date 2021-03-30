@@ -54,9 +54,32 @@
                                     </div>
                                 </div>
                             </div>
+                        <%--                        -----------------Alert Warning----------------%>
+
+                           <div id="divAlertWarning" class="form-row" runat="server" visible="false">
+                                <div class="alert alert-warning alert-dismissible col-md-12" role="alert">
+                                    <div class="container">
+                                        <div class="form-row m-2">
+                                            <div class="col-lg-2">
+                                                <i class="fa fa-exclamation-triangle fa-4x" style="color: darkred;"></i>
+                                            </div>
+                                            <div class="col-lg-8 justify-content-start ">
+
+                                                <h4 class="font-weight-bold text-center alert-heading ">
+                                                    <asp:Label ID="lblAlertWarning" CssClass="font-weight-bold" Text="" runat="server"></asp:Label></h4>
+
+                                            </div>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                  
+                                       
+                                    </div>
+
+                                </div>
+                            </div>
                         <div class="repeatRow row justify-content-center">
                             <div class="form-row justify-content-center ">
-                                <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
+                                <asp:Repeater ID="Repeater1" OnItemDataBound="Repeater1_ItemDataBound" runat="server" DataSourceID="SqlDataSource1">
                                     <ItemTemplate>
                                         <div class="container  mb-4 ">
                                             <div class="table-responsive-xl">
@@ -98,14 +121,17 @@
                                                 </table>
                                             </div>
                                             <div class="row align-self-end  ">
-                                                <div class="col-md-4  ">
+                                                <div class="col-md-3  ">
                                                     <asp:Button ID="btnPatientView" CssClass="btn btn-outline-success btn-block" runat="server" Text="Patient Invoice" OnClick="btnPatientView_Click" />
                                                 </div>
-                                                <div class="col-md-4 ">
+                                                <div class="col-md-3 ">
                                                     <asp:Button ID="btnPractitionerView" CssClass="btn btn-outline-info btn-block" runat="server" Text="Practitioner Invoice" OnClick="btnPractitionerView_Click" />
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <asp:Button ID="btnChangeStatus" CssClass="btn btn-outline-danger " runat="server" Text="Change Status To Paid" OnClick="btnChangeStatus_Click" />
+                                                <div class="col-md-3">
+                                                    <asp:Button ID="btnChangeStatus" CssClass="btn btn-outline-warning btn-block " runat="server" Text="Change Status To Paid" OnClick="btnChangeStatus_Click" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <asp:Button ID="btnCancel" CssClass="btn btn-outline-danger btn-block" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
                                                 </div>
                                             </div>
 
@@ -113,8 +139,13 @@
                                         </div>
 
                                     </ItemTemplate>
+                                     <FooterTemplate>
+        <%-- Label used for showing Error Message --%>
+        <asp:Label ID="lblErrorMsg" runat="server" CssClass="errMsg" Text="Sorry, no pending prescription to show." Visible="false">
+        </asp:Label>
+    </FooterTemplate>
                                 </asp:Repeater>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT PrescriptionCost.PrescriptionID, PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost - PrescriptionCost.Discount AS FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Pending') ORDER BY PrescriptionCost.PrescriptionID DESC"></asp:SqlDataSource>
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT  PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost - PrescriptionCost.Discount AS FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Pending') ORDER BY PrescriptionCost.FormulaRefNum DESC"></asp:SqlDataSource>
                             </div>
 
                         </div>

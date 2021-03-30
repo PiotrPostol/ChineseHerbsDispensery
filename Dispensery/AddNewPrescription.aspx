@@ -5,8 +5,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <script>
-        $(document).ready(function () {
 
+        function EnterEvent(e) {
+            if (e.keyCode == 13) {
+                __doPostBack('<%=btnAddToTable.UniqueID%>', "");
+            }
+        }
+
+        $(document).ready(function () {
 
             $('input[type=text]').each(function () {
                 $(this).val('');
@@ -120,6 +126,23 @@
                                     </div>
                                 </div>
                             </div>
+<%--                            ---------------------alert Success--------------------------------%>
+                              <div id="divAlertSuccess" class="form-row" runat="server" visible="false">
+                                <div class="alert alert-success alert-dismissible col-md-12">
+                                    <div class="form-row m-2">
+                                        <div class="col-2">
+                                            <i class="fa fa-check-circle fa-4x" style="color: #9fc299;"></i>
+                                        </div>
+                                        <div class="col-8 justify-content-start ">
+
+                                            <h4 class="font-weight-bold text-center ">
+                                                <asp:Label ID="Label2" CssClass="font-weight-bold" Text="Stock Adjusted Successfuly" runat="server"></asp:Label></h4>
+
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="line rounded p-4 col-md-12 col-lg-9 ">
                                 <div class="form-row ">
@@ -175,25 +198,28 @@
                                 </div>
                                 <br />
                                 <hr />
+                                 <asp:Panel runat="server" ID="addHerbPanel" DefaultButton="btnAddToTable">
                                 <div class="form-row">
-                                    <div class="col-md-2  text-center">
-                                        <i class="fab fa-pagelines fa-3x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
-                                    </div>
-                                    <div class="form-group col-md-5">
-                                        <label class=" font-weight-bold " for="tbxHerb">Select Herb:</label>
-                                        <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class=" font-weight-bold " for="tbxQuantity">Quantity (g):</label>
-                                        <asp:TextBox ID="tbxQuantity" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" Title="Enter Raw Herb Quantity In Grams" AutoPostBack="false"></asp:TextBox>
-                                    </div>
-                                    <div class="form-group col-md-2 text-right mb-3  align-self-end">
-                                        <asp:Button ID="btnAddToTable" class="btn col-md-12 btn-success  " data-toggle="tooltip" title="Add New Herb" runat="server" Text="Add" OnClick="btnAddToTable_Click"></asp:Button>
-                                    </div>
-
+                                   
+                                        <div class="col-md-2  text-center">
+                                            <i class="fab fa-pagelines fa-3x align-middle" aria-hidden="true" style="color: #9fc299;"></i>
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            <label class=" font-weight-bold " for="tbxHerb">Select Herb:</label>
+                                            <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" AutoPostBack="false"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class=" font-weight-bold " for="tbxQuantity">Quantity (g):</label>
+                                            <asp:TextBox ID="tbxQuantity"  onkeypress="return EnterEvent(event)" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" Title="Enter Raw Herb Quantity In Grams"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group col-md-2 text-right mb-3  align-self-end">
+                                            <asp:Button ID="btnAddToTable" class="btn col-md-12 btn-success" runat="server" Text="Add" OnClick="btnAddToTable_Click"></asp:Button>
+                                        </div>
+                                 
 
 
                                 </div>
+                                        </asp:Panel>
                                 <asp:HiddenField ID="hdFormulaRefNum" runat="server" Value="" />
                                 <%--          ----------------------------Alert - Low Stock------------%>
                                 <div id="stockAlert" class="form-row" runat="server" visible="false">
@@ -233,7 +259,7 @@
                                         <asp:Button ID="btnSelectPrescription" CssClass="btn col-md-12 btn-success" runat="server" Text="Select" OnClick="btnSelectPrescription_Click" />
                                     </div>
                                 </div>--%>
-                           
+
                                 <hr />
                                 <div class="row  ">
                                     <span class="slideanim font-weight-bolder ">Formula:</span>
@@ -254,9 +280,9 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                            <asp:BoundField DataField="SellPrice" HeaderText=" Cost/g (granules)" ReadOnly="True" SortExpression="SellPrice"></asp:BoundField>
-                                            <asp:BoundField DataField="DailyCost" HeaderText="Daily Cost" ReadOnly="True" SortExpression="DailyCost"></asp:BoundField>
-                                            <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" ReadOnly="True" SortExpression="Subtotal"></asp:BoundField>
+                                            <asp:BoundField DataField="SellPrice" HeaderText=" Cost/g (granules)" ReadOnly="True" SortExpression="SellPrice" DataFormatString="{0:C4}"></asp:BoundField>
+                                            <asp:BoundField DataField="DailyCost" HeaderText="Daily Cost" ReadOnly="True" SortExpression="DailyCost" DataFormatString="{0:C2}"></asp:BoundField>
+                                            <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" ReadOnly="True" SortExpression="Subtotal" DataFormatString="{0:C2}"></asp:BoundField>
                                             <asp:BoundField DataField="Procentage" HeaderText="Percentage" ReadOnly="True" SortExpression="Procentage"></asp:BoundField>
                                             <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
                                         </Columns>
@@ -287,7 +313,7 @@
                                 </div>
                                 <hr />
                                 <br />
-                         
+
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-2">
@@ -392,7 +418,7 @@
                                 <br />
                                 <br />
                                 <hr />
-  <!---------------------- alert -------------------------->
+                                <!---------------------- alert -------------------------->
                                 <div id="divAlert" class="form-row" runat="server" visible="false">
                                     <div class="alert alert-danger alert-dismissible col-md-12">
                                         <div class="form-row m-2">
@@ -422,7 +448,7 @@
                                         <asp:Button ID="addPrescription" class="btn btn-lg btn-success col-md-12" runat="server" Text="Submit" OnClick="addPrescription_Click" />
                                     </div>
                                     <div class="col-md-4">
-                                         <asp:Button ID="btnCancel" class="btn btn-lg btn-danger col-md-12" runat="server" Text="Cancel" OnClick="btnCancel_Click"/>
+                                        <asp:Button ID="btnCancel" class="btn btn-lg btn-danger col-md-12" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
                                     </div>
 
                                 </div>

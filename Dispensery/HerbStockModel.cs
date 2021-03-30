@@ -7,7 +7,7 @@ namespace Dispensery
 {
     public class HerbStockModel
     {
-        public string InsertPatient(HerbStock herbStock)
+        public string InsertHerbToStock(HerbStock herbStock)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Dispensery
                 return null;
             }
         }
-        public List<HerbStock> GetAllPatients()
+        public List<HerbStock> GetAllHerbStock()
         {
             try
             {

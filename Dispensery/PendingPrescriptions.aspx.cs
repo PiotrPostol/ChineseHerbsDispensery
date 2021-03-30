@@ -395,16 +395,63 @@ namespace Dispensery
 
             string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string sqlcmm = "UPDATE PrescriptionCost SET PrescriptionStatus = 'Completed' WHERE FormulaRefNum = '" + formulaRefNum+"'";
+                SqlCommand command = new SqlCommand(sqlcmm, con);
+               
+                con.Open();
+                //SqlDataReader rdr = command.ExecuteReader();
+                try
+                {
+
+                    command.ExecuteNonQuery();
+                    divAlertSuccess.Visible = true;
+                    lblNoSelectionAlertHeader.Text = "Order status successfuly changed to -Completed-";
+                    Repeater1.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    message = "Error! " + ex;
+                    divAlertWarning.Visible = true;
+                    lblAlertWarning.Text = message;
+                    message = "";
+                }
+                finally
+                {
+
+                    con.Close();
+
+                }
+            }
+
+
+
+
+
+
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            string message;
+            RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
+            formulaRefNum = (item.FindControl("hdFormulaRefNum") as HiddenField).Value.ToString();
+
+            List<HerbStock> herbStocksInFormula = new List<HerbStock>();
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+            GridView2.DataBind();
             foreach (GridViewRow row in GridView2.Rows)
             {
                 herbBatchNums.Add(row.Cells[0].Text);
             }
             for (int i = 0; i < herbBatchNums.Count; i++)
             {
-                string herbBatchNum  = herbBatchNums[i];
+                string herbBatchNum = herbBatchNums[i];
                 using (SqlConnection con = new SqlConnection(constr))
                 {
-                    SqlCommand command = new SqlCommand("spUpdateStock", con);
+                    SqlCommand command = new SqlCommand("spCancelUpdateStock", con);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
@@ -417,12 +464,14 @@ namespace Dispensery
 
                         command.ExecuteNonQuery();
                         divAlertSuccess.Visible = true;
+                        lblNoSelectionAlertHeader.Text = "Prescription Canceled Successfuly";
                         Repeater1.DataBind();
                     }
                     catch (Exception ex)
                     {
                         message = "Error! " + ex;
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                        divAlertWarning.Visible = true;
+                        lblAlertWarning.Text = message;
                         message = "";
                     }
                     finally
@@ -436,8 +485,25 @@ namespace Dispensery
             }
 
 
+        }
 
-
+        protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Repeater Repeater1 = sender as Repeater; // Get the Repeater control object.
+   
+    // If the Repeater contains no data.
+    if (Repeater1.Items.Count < 1)
+    {
+        if (e.Item.ItemType == ListItemType.Footer)
+        {
+            // Show the Error Label (if no data is present).
+            Label lblErrorMsg = e.Item.FindControl("lblErrorMsg") as Label;
+            if (lblErrorMsg != null)
+            {
+                lblErrorMsg.Visible = true;
+            }
+        }
+    }
         }
     }   
 }

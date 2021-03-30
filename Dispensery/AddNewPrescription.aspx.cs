@@ -370,9 +370,65 @@ namespace Dispensery
                         grvShort.DataBind();
                     grvShort.UseAccessibleHeader = true;
                     grvShort.HeaderRow.TableSection = TableRowSection.TableHeader;
+                    tbxHerb.Focus();
                 }
             }
         }
+        protected void AdjustStock()
+        {
+            string message;
+            List<string> herbBatchNums = new List<string>();
+            formulaRefNum = hdFormulaRefNum.Value;
+
+            string constr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+
+            foreach (GridViewRow row in grvShort.Rows)
+            {
+                herbBatchNums.Add(row.Cells[0].Text);
+            }
+            for (int i = 0; i < herbBatchNums.Count; i++)
+            {
+                string herbBatchNum = herbBatchNums[i];
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    SqlCommand command = new SqlCommand("spUpdateStock", con);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@formulaRefNum", formulaRefNum);
+                    command.Parameters.AddWithValue("@herbBatchNum", herbBatchNum);
+
+                    con.Open();
+                    //SqlDataReader rdr = command.ExecuteReader();
+                    try
+                    {
+
+                        command.ExecuteNonQuery();
+                        divAlertSuccess.Visible = true;
+                       
+                    }
+                    catch (Exception ex)
+                    {
+                        message = "Error! " + ex;
+                        divAlertError.Visible = true;
+                        lblError.Text = message;
+                        //ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "alert('" + message + "');", true);
+                        message = "";
+                    }
+                    finally
+                    {
+
+                        con.Close();
+
+                    }
+                }
+
+            }
+
+
+
+
+        }
+
 
         protected void CheckBatch(string herbRefNum, decimal totalHerbQuantity)
         {
@@ -917,12 +973,14 @@ namespace Dispensery
                     {
 
                         con.Close();
+                        AdjustStock();
                         Response.Redirect("PendingPrescriptions.aspx");
                     }
 
                 }
 
             }
+            
 
         }
 
