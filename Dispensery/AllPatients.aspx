@@ -22,7 +22,7 @@
                             <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
                         <div class="col-md-10 d-flex">
-                            <h2 class="col-md-10 font-weight-bold   pt-md-4 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">All Patients</h2>
+                            <h2 class="col-md-10 font-weight-bold   pt-md-2 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">All Patients</h2>
                         </div>
                     </div>
                 </div>

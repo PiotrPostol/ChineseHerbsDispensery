@@ -60,9 +60,9 @@
                             <i class="fas fa-boxes fa-4x pt-md-2" aria-hidden="true" style="color: #9fc299;"></i>
                             <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
-                        <div class="col-md-10 d-flex">
-                            <h3 id="addHerbToStock" runat="server"  class=" col-md-10  pt-4 align-content-center" aria-hidden="true" style="color: #9fc299;">Add Harbs To Stock</h3>
-                            <h3 id="updateHerbStock" runat="server"  visible="false" class=" col-md-10  pt-4 align-content-center" aria-hidden="true" style="color: #9fc299;">Update Harb Stock</h3>
+                        <div class="col-md-8 d-flex">
+                            <h3 id="addHerbToStock" runat="server"  class=" col-md-8 font-weight-bold   pt-md-2 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">Add Harbs To Stock</h3>
+                            <h3 id="updateHerbStock" runat="server"  visible="false" class=" col-md-8 font-weight-bold   pt-md-2 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">Update Harb Stock</h3>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxExpiaryDate">Expiry Date:</label>
-                                            <asp:TextBox ID="tbxExpiaryDate" class="form-control" runat="server" Text="" placeholder="dd/mm/yyyy" AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxExpiaryDate" autocomplete="off" class="form-control" runat="server" Text="" placeholder="dd/mm/yyyy" AutoPostBack="false"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -154,11 +154,11 @@
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateReceived">Date Received:</label>
-                                            <asp:TextBox ID="tbxDateReceived" CssClass=" form-control" runat="server" placeholder="dd/mm/yyyy"></asp:TextBox>
+                                            <asp:TextBox ID="tbxDateReceived" autocomplete="off" CssClass=" form-control" runat="server" placeholder="dd/mm/yyyy"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateToDispensery">Date To Dispensery:</label>
-                                            <asp:TextBox ID="tbxDateToDispensery" CssClass="NumbersOnly form-control" runat="server" placeholder="dd/mm/yyyy"></asp:TextBox>
+                                            <asp:TextBox ID="tbxDateToDispensery" autocomplete="off" CssClass="NumbersOnly form-control" runat="server" placeholder="dd/mm/yyyy"></asp:TextBox>
                                         </div>
                                     </div>
                                     <hr />

@@ -17,7 +17,7 @@
                             <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
                         <div class="col-md-10 d-flex">
-                            <h2 id="headerAddPatient" runat="server" class="col-md-10  pt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">Add Patient</h2>
+                            <h2 id="headerAddPatient" runat="server" class="col-md-10 font-weight-bold   pt-md-2 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">Add Patient</h2>
                             <h2 id="headerUpdatePatient" runat="server" class="col-md-10  pt-2 align-content-center" visible="false" aria-hidden="true" style="color: #9fc299;">Update Patient</h2>
                         </div>
                     </div>

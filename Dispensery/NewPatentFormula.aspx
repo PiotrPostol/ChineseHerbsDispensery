@@ -31,10 +31,9 @@
                     <div class="row container-fluid ">
                         <div class="col-md-1">
                             <i class="fas fa-prescription-bottle-alt fa-4x p-md-2" aria-hidden="true" style="color: #9fc299;"></i>
-                            <%-- <img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
-                        <div class="col-md-11 d-flex">
-                            <h3 class=" font-weight-bold  col-md-10  pt-4 align-content-center" aria-hidden="true" style="color: #9fc299;">Make New Patent Formula</h3>
+                        <div class="col-md-8 d-flex">
+                            <h3 class=" col-md-8 font-weight-bold   pt-md-2 mt-2 align-content-center" aria-hidden="true" style="color: #9fc299;">Make New Patent Formula</h3>
                         </div>
                     </div>
                 </div>

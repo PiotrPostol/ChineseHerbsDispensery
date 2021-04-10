@@ -85,13 +85,12 @@
         <div class="container-fluid">
             <div class="card card-body bg-light p-1 shadow rounded mb-lg-4 mb-md-2 mb-sm-2 ">
                 <div class="row container-fluid ">
-                    <div class="col-lg-2 col-md-3">
+                    <div class="col-lg-2 col-md-4">
                         <img class="" src="Img/icon-specialty-granules.png" />
                     </div>
-                    <div class="col-lg-10 col-md-9">
-                        <h2 class=" title col-md-10  font-weight-bold pt-4 " aria-hidden="true">Prescription - Granules</h2>
-
-                    </div>
+                    <div class="col-md-10 d-flex">
+                            <h1 class="col-md-10 font-weight-bold   pt-md-2 mt-2 align-content-center"aria-hidden="true" style="color: #9fc299;">Create New Prescription - Granules</h1>
+                        </div>
                 </div>
             </div>
             <%--            Main Card--%>
@@ -279,23 +278,38 @@
                                                     <asp:Label runat="server" Text='<%# Bind("HerbQuantity") %>' ID="Label1"></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                            <asp:TemplateField HeaderText=" Cost/g (granules)" SortExpression="SellPrice">
+                                                <EditItemTemplate>
+                                                    <asp:Label runat="server" Text='<%# Eval("SellPrice") %>' ID="Label1"></asp:Label>
+                                                </EditItemTemplate>
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" Text='<%# Bind("SellPrice", "{0:C4}") %>' ID="Label2"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Daily Cost" SortExpression="DailyCost">
+                                                <EditItemTemplate>
+                                                    <asp:Label runat="server" Text='<%# Eval("DailyCost") %>' ID="Label2"></asp:Label>
+                                                </EditItemTemplate>
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" Text='<%# Bind("DailyCost", "{0:C2}") %>' ID="Label3"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Subtotal" SortExpression="Subtotal">
+                                                <EditItemTemplate>
+                                                    <asp:Label runat="server" Text='<%# Eval("Subtotal") %>' ID="Label3"></asp:Label>
+                                                </EditItemTemplate>
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" Text='<%# Bind("Subtotal", "{0:C2}") %>' ID="Label4"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
 
-                                            <asp:BoundField DataField="SellPrice" HeaderText=" Cost/g (granules)" ReadOnly="True" SortExpression="SellPrice" DataFormatString="{0:C4}"></asp:BoundField>
-                                            <asp:BoundField DataField="DailyCost" HeaderText="Daily Cost" ReadOnly="True" SortExpression="DailyCost" DataFormatString="{0:C2}"></asp:BoundField>
-                                            <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" ReadOnly="True" SortExpression="Subtotal" DataFormatString="{0:C2}"></asp:BoundField>
                                             <asp:BoundField DataField="Procentage" HeaderText="Percentage" ReadOnly="True" SortExpression="Procentage"></asp:BoundField>
                                             <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
                                         </Columns>
                                     </asp:GridView>
-                                    <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT HerbBatchNum, HerbChineseName, HerbTemperature, HerbQuantity, SellPrice, DailyCost, Subtotal, Procentage, FormulaID FROM PrescriptionMainTemp" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [PrescriptionMainTemp] WHERE [FormulaID] = @original_FormulaID AND (([HerbChineseName] = @original_HerbChineseName) OR ([HerbChineseName] IS NULL AND @original_HerbChineseName IS NULL)) AND (([HerbTemperature] = @original_HerbTemperature) OR ([HerbTemperature] IS NULL AND @original_HerbTemperature IS NULL)) AND [HerbQuantity] = @original_HerbQuantity AND (([SellPrice] = @original_SellPrice) OR ([SellPrice] IS NULL AND @original_SellPrice IS NULL)) AND (([Subtotal] = @original_Subtotal) OR ([Subtotal] IS NULL AND @original_Subtotal IS NULL)) AND (([Procentage] = @original_Procentage) OR ([Procentage] IS NULL AND @original_Procentage IS NULL))" InsertCommand="INSERT INTO [PrescriptionMainTemp] ([HerbChineseName], [HerbTemperature], [HerbQuantity], [SellPrice], [Subtotal], [Procentage]) VALUES (@HerbChineseName, @HerbTemperature, @HerbQuantity, @SellPrice, @Subtotal, @Procentage)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [PrescriptionMainTemp] SET  [HerbQuantity] = @HerbQuantity  WHERE [FormulaID] = @original_FormulaID">
+                                    <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT HerbBatchNum, HerbChineseName, HerbTemperature, HerbQuantity, SellPrice, DailyCost, Subtotal, Procentage, FormulaID FROM PrescriptionMainTemp" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [PrescriptionMainTemp] WHERE [FormulaID] = @original_FormulaID " InsertCommand="INSERT INTO [PrescriptionMainTemp] ([HerbChineseName], [HerbTemperature], [HerbQuantity], [SellPrice], [Subtotal], [Procentage]) VALUES (@HerbChineseName, @HerbTemperature, @HerbQuantity, @SellPrice, @Subtotal, @Procentage)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [PrescriptionMainTemp] SET  [HerbQuantity] = @HerbQuantity  WHERE [FormulaID] = @original_FormulaID">
                                         <DeleteParameters>
                                             <asp:Parameter Name="original_FormulaID" Type="Int32"></asp:Parameter>
-                                            <asp:Parameter Name="original_HerbChineseName" Type="String"></asp:Parameter>
-                                            <asp:Parameter Name="original_HerbTemperature" Type="String"></asp:Parameter>
-                                            <asp:Parameter Name="original_HerbQuantity" Type="Decimal"></asp:Parameter>
-                                            <asp:Parameter Name="original_SellPrice" Type="Decimal"></asp:Parameter>
-                                            <asp:Parameter Name="original_Subtotal" Type="Decimal"></asp:Parameter>
-                                            <asp:Parameter Name="original_Procentage" Type="Decimal"></asp:Parameter>
                                         </DeleteParameters>
                                         <InsertParameters>
                                             <asp:Parameter Name="HerbChineseName" Type="String"></asp:Parameter>

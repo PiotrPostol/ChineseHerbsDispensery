@@ -15,14 +15,14 @@
     <script src="Scripts/umd/popper.min.js"></script>
     <script src="Scripts/umd/popper-utils.min.js"></script>
     <script src="Scripts/bootstrap.js"></script>
-    
+
     <link href="Content/jquery-ui.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
-  
+
     <link href="Content/fontawesome-all.css" rel="stylesheet" />
     <link href="Content/fontawesome.css" rel="stylesheet" />
     <link href="Styless/customStyles.css" rel="stylesheet" />
- 
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -41,7 +41,6 @@
                         </div>
                     </div>
                     <asp:ContentPlaceHolder ID="UserInfo" runat="server">
-
                     </asp:ContentPlaceHolder>
                     <div class="sidebar-header">
                         <div class="user-pic">
@@ -50,7 +49,7 @@
                         </div>
                         <div class="user-info">
                             <asp:Label ID="lblPractitionerName" runat="server" Text="Lara Serviolle"></asp:Label>
-                        <%--    <span id="lbPractitionerName" class="user-name">Lara
+                            <%--    <span id="lbPractitionerName" class="user-name">Lara
            
                                 <strong>Serviolle</strong>
                             </span>--%>
@@ -117,12 +116,12 @@
                                         <li>
                                             <a href="AddHerbToStock.aspx">Add Stock</a>
                                         </li>
-                                         <li>
-                                            <a href="#">Patent Formulas</a>
-                                        </li>
                                         <li>
-                                            <a href="#">Stock History</a>
+                                            <a href="ViewPatentFormulaStock.aspx">Patent Formulas</a>
                                         </li>
+                                        <%--<li>
+                                            <a href="#">Stock History</a>
+                                        </li>--%>
                                     </ul>
                                 </div>
                             </li>
@@ -136,25 +135,25 @@
                                         <li>
                                             <a href="AddNewPrescription.aspx">New Granules Order</a>
                                         </li>
-                                         <%--<li>
+                                        <%--<li>
                                             <a href="#">New Raw Herb Order</a>
                                         </li>--%>
-                                        <li>
+                                        <%-- <li>
                                             <a href="#">Patent Formula</a>
-                                        </li>
-                                    <li>
+                                        </li>--%>
+                                        <li>
                                             <a href="PendingPrescriptions.aspx">Pending Prescriptions</a>
                                         </li>
-                                            <li>
+                                        <li>
                                             <a href="CompletedPrescriptions.aspx">Completed Prescriptions</a>
-                                       <%-- </li>
+                                            <%-- </li>
                                         <li>
                                             <a href="#">Order History</a>
                                         </li>--%>
                                     </ul>
                                 </div>
                             </li>
-                             <li class="sidebar-dropdown">
+                            <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fas fa-prescription-bottle fa-lg"></i>
                                     <span>Patent Formulas</span>
@@ -164,7 +163,7 @@
                                         <li>
                                             <a href="NewPatentFormula.aspx">Create New</a>
                                         </li>
-                                         <%--<li>
+                                        <%--<li>
                                             <a href="#">New Raw Herb Order</a>
                                         </li>--%>
                                         <li>
@@ -173,14 +172,14 @@
                                         <li>
                                             <a href="ViewPatentFormulaStock.aspx">View Stock</a>
                                         </li>
-                                    
-                                        <li>
+
+                                        <%--<li>
                                             <a href="#">Sales History</a>
-                                        </li>
+                                        </li>--%>
                                     </ul>
                                 </div>
                             </li>
-<%--                            <li class="sidebar-dropdown">
+                            <%--                            <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-chart-line fa-lg"></i>
                                     <span>Charts</span>
@@ -210,16 +209,16 @@
                                         <li>
                                             <a href="AllPatients.aspx">View Patients</a>
                                         </li>
-                                       <%-- <li>
+                                        <%-- <li>
                                             <a href="#">Edit Patient</a>
                                         </li>--%>
                                     </ul>
                                 </div>
                             </li>
-                         <%--   <li class="header-menu">
+                            <%--   <li class="header-menu">
                                 <span>Extra</span>
                             </li>--%>
-<%--                             <li class="sidebar-dropdown">
+                            <%--                             <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="fa fa-envelope fa-lg"></i>
                                     <span>Mailing Center</span>
@@ -236,7 +235,7 @@
                                     </ul>
                                 </div>
                             </li>--%>
-<%--                            <li>
+                            <%--                            <li>
                                 <a href="#">
                                     <i class="fa fa-calendar"></i>
                                     <span>Calendar</span>
@@ -272,11 +271,11 @@
                 </div>
             </nav>
             <!-- sidebar-wrapper  -->
-           
-                    <asp:ContentPlaceHolder ID="contentBody" runat="server">
-                    </asp:ContentPlaceHolder>
 
-           
+            <asp:ContentPlaceHolder ID="contentBody" runat="server">
+            </asp:ContentPlaceHolder>
+
+
             <!-- page-content" -->
         </div>
 
@@ -322,24 +321,24 @@
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
 
- ////-----------------slide up---------------
- //           $(window).scroll(function () {
- //           $(".slideanim").each(function () {
- //               var pos = $(this).offset().top;
+            ////-----------------slide up---------------
+            //           $(window).scroll(function () {
+            //           $(".slideanim").each(function () {
+            //               var pos = $(this).offset().top;
 
- //               var winTop = $(window).scrollTop();
- //               if (pos < winTop + 600) {
- //                   $(this).addClass("slide");
- //               }
- //           });
- //       });
+            //               var winTop = $(window).scrollTop();
+            //               if (pos < winTop + 600) {
+            //                   $(this).addClass("slide");
+            //               }
+            //           });
+            //       });
 
 
 
         });
 
-       
-        
+
+
 
 
     </script>

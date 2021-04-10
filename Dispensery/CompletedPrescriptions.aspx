@@ -30,9 +30,8 @@
                             <i class="fa fa-archive fa-4x m-2 pt-md-2" aria-hidden="true" style="color: #9fc299;"></i>
                             <%--<img class="" src="Img/icon-specialty-granules.png" />--%>
                         </div>
-                        <div class="col-md-10 d-flex">
-                            <h3 class="title col-md-10  pt-4 " aria-hidden="true">Prescriptions - Completed</h3>
-
+                        <div class="col-md-8 d-flex">
+                            <h1 class="col-md-8 font-weight-bold   pt-md-2 mt-2 align-content-center"aria-hidden="true" style="color: #9fc299;">Completed Prescriptions</h1>
                         </div>
                     </div>
 
