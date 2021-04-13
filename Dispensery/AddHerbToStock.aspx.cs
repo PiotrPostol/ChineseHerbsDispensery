@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using System.Data.SqlTypes;
+
+
 namespace Dispensery
 {
     public partial class AddHerbToStock : System.Web.UI.Page
@@ -53,6 +56,7 @@ namespace Dispensery
             ddlHerbForm.SelectedValue = hs.HerbForm.ToString();
             tbxRatio.Text = hs.HerbRawToGranRatio.ToString();
             tbxDateReceived.Text = String.Format("{0:dd/MM/yyyy}", hs.DateReceived);
+
             tbxDateToDispensery.Text = String.Format("{0:dd/MM/yyyy}", hs.DateToDispensery);
 
 
@@ -143,13 +147,23 @@ namespace Dispensery
                 command.Parameters.AddWithValue("@supplierID", ddlSupplier.SelectedValue);
                 command.Parameters.AddWithValue("@ratio", tbxRatio.Text);
                 command.Parameters.AddWithValue("@dateReceived", Convert.ToDateTime(tbxDateReceived.Text));
-                command.Parameters.AddWithValue("@dateToDispensery", Convert.ToDateTime(tbxDateToDispensery.Text));
+                if (tbxDateToDispensery.Text == "")
+                {
+                    command.Parameters.AddWithValue("@dateToDispensery", DBNull.Value);
+                    //cmd.Parameters["@Date"].Value = DBNull.Value;  
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@dateToDispensery", Convert.ToDateTime(tbxDateToDispensery.Text));
+                }
+               
                 command.Parameters.AddWithValue("@herbForm", ddlHerbForm.SelectedValue.ToString());
                 con.Open();
                 try
                 {
                     command.ExecuteNonQuery();
                     divAlertSuccess.Visible = true;
+                    LoopTextBoxes(this);
                 }
                 catch (Exception ex)
                 {
@@ -170,6 +184,21 @@ namespace Dispensery
 
 
         }
+
+        private void LoopTextBoxes(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                TextBox tb = c as TextBox;
+                if (tb != null)
+                {
+                    tb.Text = "";
+                }//Do something with the TextBox
+                if (c.HasControls()) LoopTextBoxes(c); 
+            } 
+        } 
+
+
 
         protected void btnUpdateHerbStock_Click(object sender, EventArgs e)
         {
@@ -199,7 +228,7 @@ namespace Dispensery
             hs.SupplierID = Convert.ToInt32(ddlSupplier.SelectedValue);
             hs.HerbRawToGranRatio = Convert.ToDecimal(tbxRatio.Text);
             hs.DateReceived = Convert.ToDateTime(tbxDateReceived.Text);
-            if(tbxDateToDispensery.Text == null)
+            if(tbxDateToDispensery.Text == "")
             {
                 hs.DateToDispensery = null;
             }

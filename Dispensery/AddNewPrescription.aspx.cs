@@ -513,7 +513,7 @@ namespace Dispensery
                     resultHerbInStock.BatchNum = herbInStockBatchNum[i];
                     resultHerbInStock.Quantity = herbInStockQuantity[i];
                     resultHerbInStock.HerbRawQty = (herbInStockQuantity[i] * Ratio[i]) / numOfDosageDays; 
-                    if (herbInStockQuantity[i] != 0)
+                    if (herbInStockQuantity[i] > 0)
                     {
                         listHerbInSock.Add(resultHerbInStock);
                         totalHerbQuantity -= herbInStockQuantity[i];
