@@ -118,9 +118,9 @@
                                                 <div class="col-md-4 ">
                                                     <asp:Button ID="btnPractitionerView" CssClass="btn btn-outline-info btn-block" runat="server" Text="Practitioner Invoice" OnClick="btnPractitionerView_Click" />
                                                 </div>
-                                                <%--<div class="col-md-4">
-                                                    <asp:Button ID="btnChangeStatus" CssClass="btn btn-outline-danger " runat="server" Text="Change Status To Paid" OnClick="btnChangeStatus_Click" />
-                                                </div>--%>
+                                                <div class="col-md-4">
+                                                    <asp:Button ID="btnPrintLable" CssClass="btn btn-outline-primary " runat="server" Text="Print Label" OnClick="btnPrintLable_Click" />
+                                                </div>
                                             </div>
 
 
@@ -128,7 +128,7 @@
 
                                     </ItemTemplate>
                                 </asp:Repeater>
-                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT  PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost - PrescriptionCost.Discount AS FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName, Patient.PatientID FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Completed') AND (Patient.PatientID = @patientID) ORDER BY PrescriptionCost.FormulaRefNum DESC">
+                                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT DISTINCT PrescriptionCost.FormulaRefNum, PrescriptionCost.FormulaTotalCost - PrescriptionCost.Discount AS FormulaTotalCost, PrescriptionCost.MethodOfAdminist, PrescriptionCost.MethodOfAdministCOST, PrescriptionCost.DispensingFee, PrescriptionCost.Postage, PrescriptionCost.PostageFee, PrescriptionCost.PrescriptionStatus, PrescriptionCost.DateCreated, Patient.PatientName + ' ' + Patient.PatientSurname AS PatientName, Patient.PatientID FROM Patient INNER JOIN PrescriptionMain ON Patient.PatientID = PrescriptionMain.PatientID INNER JOIN PrescriptionCost ON PrescriptionMain.FormulaRefNum = PrescriptionCost.FormulaRefNum WHERE (PrescriptionCost.PrescriptionStatus = N'Completed') AND (Patient.PatientID = @patientID) ORDER BY PrescriptionCost.DateCreated DESC, PrescriptionCost.FormulaRefNum DESC">
                                     <SelectParameters>
                                         <asp:ControlParameter ControlID="ddlPatient" PropertyName="SelectedValue" DefaultValue="0" Name="patientID"></asp:ControlParameter>
                                     </SelectParameters>

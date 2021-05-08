@@ -9,7 +9,7 @@
     </title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+<%--    <script src="Scripts/jquery-ui-1.12.1.js"></script>--%>
     <script src="Scripts/jquery-3.5.1.js"></script>
     <script src="Scripts/jquery-ui.js"></script>
     <script src="Scripts/umd/popper.min.js"></script>
@@ -18,9 +18,9 @@
 
     <link href="Content/jquery-ui.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
-
-    <link href="Content/fontawesome-all.css" rel="stylesheet" />
     <link href="Content/fontawesome.css" rel="stylesheet" />
+    <link href="Content/fontawesome-all.css" rel="stylesheet" />
+<%--    <link href="Content/fontawesome.css" rel="stylesheet" />--%>
     <link href="Styless/customStyles.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server">

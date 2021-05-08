@@ -15,6 +15,10 @@ namespace Dispensery
         protected void Page_Load(object sender, EventArgs e)
         {
             tbxCurrentDate.Text = DateTime.Now.ToString("d");
+            if (IsPostBack)
+            {
+                divAlertSuccess.Visible = false;
+            }
         }
         protected void btnAddNewPatient_Click(object sender, EventArgs e)
         {
