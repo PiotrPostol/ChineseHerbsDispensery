@@ -100,6 +100,7 @@
     <Content Include="AddHerbToStock.aspx" />
     <Content Include="AddNewPrescription.aspx" />
     <Content Include="AddPatient.aspx" />
+    <Content Include="AllHerbs.aspx" />
     <Content Include="AllPatients.aspx" />
     <Content Include="CompletedPrescriptions.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -208,6 +209,7 @@
     <Content Include="PendingPrescriptions.aspx" />
     <Content Include="Prescription.aspx" />
     <Content Include="PrescriptionMain.aspx" />
+    <Content Include="SalesHistory.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -393,6 +395,13 @@
     <Compile Include="AllHerb.cs">
       <DependentUpon>DispensaryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AllHerbs.aspx.cs">
+      <DependentUpon>AllHerbs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AllHerbs.aspx.designer.cs">
+      <DependentUpon>AllHerbs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AllHerbsModel.cs" />
     <Compile Include="AllPatients.aspx.cs">
       <DependentUpon>AllPatients.aspx</DependentUpon>
@@ -526,6 +535,13 @@
       <DependentUpon>DispensaryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesHistory.aspx.cs">
+      <DependentUpon>SalesHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesHistory.aspx.designer.cs">
+      <DependentUpon>SalesHistory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SiteMaster.Master.cs">
       <DependentUpon>SiteMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

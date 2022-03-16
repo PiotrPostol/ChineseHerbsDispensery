@@ -110,19 +110,19 @@
                                     <div class="form-row ">
                                         <div class="form-group col-lg-6">
                                             <label class=" font-weight-bold" for="tbxHerb">Select Herb:</label>
-                                            <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" ></asp:TextBox>
+                                            <asp:TextBox ID="tbxHerb" class="Herb form-control" runat="server" Text="" required="true"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxQuantity">Quantity (g):</label>
-                                            <asp:TextBox ID="tbxQuantity" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" Title="Enter Raw Herb Quantity In Grams" AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxQuantity" class="NumbersOnly form-control" runat="server" Text="" data-toggle="tooltip" data-placement="bottom" required="true" Title="Enter Raw Herb Quantity In Grams" AutoPostBack="false"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxBatchNumber">Batch Number:</label>
-                                            <asp:TextBox ID="tbxBatchNumber" class="form-control" runat="server" Text="" ></asp:TextBox>
+                                            <asp:TextBox ID="tbxBatchNumber" class="form-control" runat="server" Text="" required="true"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-2">
                                             <label class=" font-weight-bold" for="tbxExpiaryDate">Expiry Date:</label>
-                                            <asp:TextBox ID="tbxExpiaryDate" autocomplete="off" class="form-control" runat="server" Text="" placeholder="dd/mm/yyyy" AutoPostBack="false"></asp:TextBox>
+                                            <asp:TextBox ID="tbxExpiaryDate" autocomplete="off" class="form-control" runat="server" Text="" placeholder="dd/mm/yyyy" AutoPostBack="false" required="true"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxSupplierPrice">Supplier Price:</label>
-                                            <asp:TextBox ID="tbxSupplierPrice" CssClass="NumbersOnly form-control" runat="server" placeholder="€0.00"></asp:TextBox>
+                                            <asp:TextBox ID="tbxSupplierPrice" CssClass="NumbersOnly form-control" runat="server" placeholder="€0.00" required="true"></asp:TextBox>
                                         </div>
                                         <%--<div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxSellPrice">Sell Price:</label>
@@ -150,11 +150,11 @@
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateReceived">Ratio:</label>
-                                            <asp:TextBox ID="tbxRatio" CssClass=" form-control" runat="server" placeholder="0.0" data-toggle="tooltip" data-placement="top" Title="e.g. if 1 to 5 enter 5"></asp:TextBox>
+                                            <asp:TextBox ID="tbxRatio" CssClass=" form-control" runat="server" placeholder="0.0" data-toggle="tooltip" data-placement="top" Title="e.g. if 1 to 5 enter 5" required="true"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateReceived">Date Received:</label>
-                                            <asp:TextBox ID="tbxDateReceived" autocomplete="off" CssClass=" form-control" runat="server" placeholder="dd/mm/yyyy"></asp:TextBox>
+                                            <asp:TextBox ID="tbxDateReceived" autocomplete="off" CssClass=" form-control" runat="server" placeholder="dd/mm/yyyy" required="true"></asp:TextBox>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label class=" font-weight-bold" for="tbxDateToDispensery">Date To Dispensery:</label>

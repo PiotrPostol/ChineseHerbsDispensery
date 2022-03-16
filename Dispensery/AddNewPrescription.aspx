@@ -265,6 +265,7 @@
                                 </div>
                                 <br />
                                 <div class="form-row justify-content-center ">
+                                 <%--   --%>
                                     <asp:GridView ID="grvShort" CssClass="table  table-hover table-striped" ShowFooter="true" GridLines="None" AutoGenerateColumns="False" runat="server" DataSourceID="SqlDataSource1" DataKeyNames="FormulaID" OnRowUpdated="grvShort_RowUpdated" OnRowDeleted="grvShort_RowDeleted">
                                         <Columns>
 
@@ -304,7 +305,7 @@
                                             </asp:TemplateField>
 
                                             <asp:BoundField DataField="Procentage" HeaderText="Percentage" ReadOnly="True" SortExpression="Procentage"></asp:BoundField>
-                                            <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
+                                            <asp:CommandField ShowDeleteButton="True"></asp:CommandField>
                                         </Columns>
                                     </asp:GridView>
                                     <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:conStr %>' SelectCommand="SELECT HerbBatchNum, HerbChineseName, HerbTemperature, HerbQuantity, SellPrice, DailyCost, Subtotal, Procentage, FormulaID FROM PrescriptionMainTemp" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [PrescriptionMainTemp] WHERE [FormulaID] = @original_FormulaID " InsertCommand="INSERT INTO [PrescriptionMainTemp] ([HerbChineseName], [HerbTemperature], [HerbQuantity], [SellPrice], [Subtotal], [Procentage]) VALUES (@HerbChineseName, @HerbTemperature, @HerbQuantity, @SellPrice, @Subtotal, @Procentage)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [PrescriptionMainTemp] SET  [HerbQuantity] = @HerbQuantity  WHERE [FormulaID] = @original_FormulaID">
